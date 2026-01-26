@@ -1,0 +1,43 @@
+---
+import ButtonMain from "../Button/ButtonMain.astro";
+import HeaderLink from "../HeaderLink.astro";
+
+const { title, description, lang, button } = Astro.props;
+const aboutSlug = `/aboutus`;
+---
+
+<div id="aboutus" class="about-us py-20">
+  <div class="container mx-auto grid grid-cols-3 gap-4 py-28 ">
+    <div class="col-span-3 desktop:col-span-1">
+      <h2 class="text-44 md:text-66 pl-4 lg:p-0">{title}</h2>
+    </div>
+    <div class="col-span-3 desktop:col-span-2 p-10">
+      <div class="text-24 mb-8">
+        การค้าไร้พรมแดนทำให้การสื่อสารธุรกิจระหว่างประเทศสำคัญมากเท่าใด
+        ผู้เชี่ยวชาญด้านภาษาย่อมมีความได้เปรียบเหนือคนทั่วไป เสมอ วิทยาลัยผู้ประกอบการ
+        มหาวิทยาลัยหอการค้าไทย จึงเป็นอีกหนึ่งคณะยอดนิยม
+        ที่ผลิตบุคลากรที่มีความสามารถทางภาษา ในการสื่อสารทางธุรกิจ
+        ให้แก่องค์กรชั้นนำในระดับประเทศ โดยคณาจารย์ผู้ทรงคุณวุฒิ
+        และมีประสบการณ์เป็นที่ยอมรับ โดยมุ่งเน้นการใช้
+        ความคิดสร้างสรรค์ในการสื่อสารสามารถวิเคราะห์วิจารณ์
+        และรอบรู้ประสบการณ์ในการสื่อสารธุรกิจ
+      </div>
+
+      <a href={aboutSlug}>
+        <button
+          class="btn btn-active btn-primary rounded-full font-normal uppercase text-24 z-1"
+        >
+          {button}
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  .about-us {
+    color: white;
+    background-color: #021430;
+  }
+
+</style>

@@ -1,0 +1,66 @@
+---
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+function getPageUrl(pageNum) {
+  return pageNum === 1 ? baseUrl : `${baseUrl}/page/${pageNum}`;
+}
+
+// ✅ สร้าง visiblePages แบบสั้น (มี "..." เมื่อจำเป็น)
+const maxView = 3;
+let visiblePages = [];
+if (totalPages <= maxView + 2) {
+  visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+} else {
+  if (currentPage <= maxView) {
+    visiblePages = [...Array.from({ length: maxView }, (_, i) => i + 1), "...", totalPages];
+  } else if (currentPage >= totalPages - maxView + 1) {
+    visiblePages = [1, "...", ...Array.from({ length: maxView }, (_, i) => totalPages - maxView + i + 1)];
+  } else {
+    visiblePages = [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
+  }
+}
+---
+
+<nav class="pagination flex items-center justify-center gap-2 mb-8">
+  <!-- ✅ ปุ่ม Prev -->
+  {currentPage > 1 && (
+    <a href={getPageUrl(currentPage - 1)} class="pageNum rounded-full shadow-md p-2">
+      <ChevronLeftIcon class="h-5 w-5" />
+    </a>
+  )}
+
+  <!-- ✅ Mobile: แสดง current / total -->
+  {totalPages > 0 && (
+    <div class="flex sm:hidden items-center justify-center min-w-[60px]">
+      หน้า {currentPage}/{totalPages}
+    </div>
+  )}
+
+  <!-- ✅ Desktop: แสดงหมายเลขหน้า -->
+  <div class="hidden sm:flex items-center gap-1">
+    {visiblePages.map((p) =>
+      p === "..." ? (
+        <span class="px-2 text-gray-400 select-none">…</span>
+      ) : (
+        <a
+          href={getPageUrl(p)}
+          class={`pageNum rounded-full shadow-md px-3 py-1 ${
+            p === currentPage
+              ? "active bg-gray-900 text-white"
+              : "hover:bg-gray-200"
+          }`}
+        >
+          {p}
+        </a>
+      )
+    )}
+  </div>
+
+  <!-- ✅ ปุ่ม Next -->
+  {currentPage < totalPages && (
+    <a href={getPageUrl(currentPage + 1)} class="pageNum rounded-full shadow-md p-2">
+      <ChevronRightIcon class="h-5 w-5" />
+    </a>
+  )}
+</nav>

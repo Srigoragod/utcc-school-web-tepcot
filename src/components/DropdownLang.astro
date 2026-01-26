@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getLocalizedPathname } from "../i18n/utils";
+import { Image } from 'astro:assets';
+import  flagTh from "../../public/icon/Flag-TH.svg";
+import  flagEn from "../../public/icon/Flag-EN.svg";
+
+import LangLink from '../components/LangLink.astro'
+
+
+
+
+type Props = HTMLAttributes<"a">;
+
+const { language, class: className, ...props } = Astro.props;
+
+
+const lang = Astro.params?.lang || "th";
+const langActive = lang === 'th' ? flagTh : flagEn;
+
+const { pathname } = Astro.url;
+const href = getLocalizedPathname(pathname, language);
+---
+
+<div class="dropdown dropdown-start md:dropdown-end">
+  <div tabindex="0" role="button" class="btn glass btn-circle">
+    <Image src={langActive} alt="Flag Lang" class="w-8 " />
+  </div>
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-24">
+    <li><LangLink  language="th" /></li>
+    <li><LangLink  language="en" /></li>
+  </ul>
+</div>
+<style scoped>
+  a:hover {
+    color: var(--priprimary)
+  }
+  a.active {
+    font-weight: bolder;
+    text-decoration: none;
+  }
+</style>

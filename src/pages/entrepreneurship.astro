@@ -1,0 +1,24 @@
+---
+
+import Layout from "../layouts/Layout.astro";
+import { getLangFromUrl } from "../i18n/utils";
+
+// components
+import CourseDetailV2 from "../components/course/components/CourseDetailV2.vue";
+import PartnerSection from "../components/Partner/PartnerSection.vue";
+
+const lang = getLangFromUrl(Astro.url);
+const uri = import.meta.env.PUBLIC_API_WP_PROGRAM;
+const slug = 'entrepreneurship';
+const response = await fetch(`${uri}?acf_format=standard&_fields=id,slug,acf&slug=${slug}`, { mode: 'cors' }
+);
+
+const data = await response.json();
+const items = lang == 'th' ? data[0].acf.th : data[0].acf.en;
+
+---
+
+<Layout title={items.meta.title} description={items.meta.description} keywords={items.meta.keyword} lang={lang} isFooterOnly={true}>
+  <CourseDetailV2 client:load currency={lang} slug={slug} items={items} lang={lang} />
+  <PartnerSection client:load/>
+</Layout>

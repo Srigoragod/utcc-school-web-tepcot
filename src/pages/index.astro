@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+// components
+import HeroLayout from "../layouts/HeroLayout.astro";
+import SpecialLayoutV2 from "../components/SpecialLayoutV2.astro";
+import Course from "../components/course/index.vue";
+import AboutUs from "../components/AboutUs/AboutUs.vue";
+import FaqsFetchAPI from "../components/Faq/FaqFetchAPI.vue";
+import PartnerSection from "../components/Partner/PartnerSection.vue";
+import AlumniSection from "../components/Alumni/AlumniSection.astro";
+import ArticleSection from "../components/Blogs/ArticleSection.astro";
+import BlogSection from "../components/Blogs/BlogSection.astro";
+import SwiperPromo from "../components/SlideShow/SwiperPromo.vue";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const title = "Creative Entrepreneurship School";
+const description = "คณะการสร้างเจ้าของธุรกิจสร้างสรรค์ มหาวิทยาลัยหอการค้าไทย";
+const keywords = "ผู้ประกอบการ, การบริหารธุรกิจ, นวัตกรรม, ความคิดสร้างสรรค์, การฝึกงาน, เครือข่ายธุรกิจ, มหาวิทยาลัยหอการค้าไทย, การพัฒนาธุรกิจ";
+const slogan =
+  "Ignite your passsion, follow your dreams, and become the leader you";
+---
+
+<Layout
+  title={t("site.title")}
+  description={t("site.description")}
+  lang={lang}
+  keywords={keywords}
+  slogan={slogan}
+>
+  <HeroLayout title={title} description={description} />
+  <SpecialLayoutV2 lang={lang} />
+  <AboutUs client:idle lang={lang} button={t("aboutUs.button")} />
+  <Course client:idle />
+  <SwiperPromo  client:idle />
+  <FaqsFetchAPI client:idle lang={lang} />
+  <PartnerSection client:idle className="py-24" lang={lang} />
+  <AlumniSection className="py-24" />
+  <ArticleSection />
+  <BlogSection />
+</Layout>

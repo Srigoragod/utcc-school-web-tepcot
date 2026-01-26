@@ -1,0 +1,157 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Layout from "../layouts/Layout.astro";
+
+import { Icon } from "astro-icon/components";
+
+import MainBanner from "../components/Banner/MainBanner.astro";
+import TopicAboutUs from "../components/AboutUs/TopicAboutUs.astro";
+import PartnerSection from "../components/Partner/PartnerSection.vue";
+import Faqs from "../components/Faq/FaqFetchAPI.vue";
+import Type from "../components/Staff/Type.vue";
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
+
+const aboutSlug = `/aboutus`;
+const staffSlug = `/staff`;
+const researchSlug = `/research`;
+---
+
+<Layout
+  title={`CE ${t("aboutUs.staff")} | ${t("name")} ${t("university")}`}
+  description={`${t("aboutUs.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={t("aboutUs.title")} description={t("name")} />
+
+  <div class="pt-16 w-full relative" id="about-staff">
+    <div class="container mx-auto pb-10">
+      <TopicAboutUs title={t("aboutUs.staff")} desc={t("name")}>
+        <a href={aboutSlug}>
+          <button
+            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 px-4"
+          >
+            <Icon name="check-circle" class="hidden md:block" />
+            {t("aboutUs.history")}</button
+          >
+        </a>
+        <a href={staffSlug}>
+          <button
+            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white btn-active text-20 md:text-24"
+          >
+            <Icon name="check-circle" class="hidden md:block" />
+            {t("nav.staff")}</button
+          >
+        </a>
+      </TopicAboutUs>
+
+      <div class="container mx-auto px-4 lg:px-0">
+        <Type client:load />
+      </div>
+    </div>
+  </div>
+  <Faqs client:load lang={lang} />
+  <PartnerSection client:load />
+</Layout>
+<style scoped>
+  @import "../styles/global.css";
+
+  .spacer {
+    clear: both;
+    height: 20px;
+  }
+
+  .menu {
+    padding: 0;
+  }
+  .menu li {
+    border-radius: 0;
+    line-height: 2rem;
+    background-color: #fff2cc;
+    color: #f36a10;
+  }
+
+  .menu li:first-child {
+    border-radius: 15px 15px 0 0;
+  }
+
+  .menu li:last-child {
+    border-radius: 0 0 15px 15px;
+  }
+
+  .menu li:hover {
+    background: #f36a10de;
+    color: #fff2cc;
+    text-decoration: none;
+  }
+
+  .menu li.active {
+    background: #f36a10;
+    color: #fff2cc;
+    text-decoration: none;
+  }
+  .slides {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .slides::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  .tab {
+    color: var(--accent-dark);
+    font-size: 2.25rem;
+  }
+  .tabs-lifted > .tab {
+    min-width: 240px;
+    height: 80px;
+  }
+  .tabs-lifted > .tab:is(input:checked) {
+    background-color: var(--accent-dark);
+    border-bottom-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: white;
+  }
+  .tab-content {
+    border-color: transparent;
+    border-width: 0;
+  }
+  .tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),
+  .tabs-lifted > .tab:is(input:checked) {
+    border-width: 0;
+  }
+  .btn:hover,
+  .btn-active {
+    color: #ffffff !important;
+  }
+
+  .personnel-tabs.active,
+  .personnel-tabs:hover {
+    background: #f36a10;
+    color: #fff2cc;
+    text-decoration: none;
+  }
+
+  @media (max-width: 767px) {
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .menu {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+    }
+
+    .menu li:first-child {
+      border-radius: 15px 0 0 15px;
+    }
+
+    .menu li:last-child {
+      border-radius: 0 15px 15px 0;
+    }
+  }
+</style>

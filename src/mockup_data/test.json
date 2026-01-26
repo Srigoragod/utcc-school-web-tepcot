@@ -1,0 +1,211 @@
+[
+     {
+         "id": 1,
+         "degree": "ปริญญาตรี",
+         "title": "การจัดการโรงแรม",
+         "subtitle": "Hotel Management",
+         "description": "นวัตกรรมการท่องเที่ยวและการบริการ การออกแบบการบริการและการสร้างประสบการณ์ทางการท่องเทียว การถ่ายภาพสำหรับการท่องเที่ยว การออกแบบเนื้อหาการท่องเที่ยวในสื่อดิจิทัล การจัดการธุรกิจการท่องเที่ยวเชิงนวัตกรรม ภาษาอังกฤษสำหรับการสอบ TOEIC ภาษาต่างประเทศ",
+         "hero_layout": [
+             {
+                 "image": "https://demo2.utcc.ac.th/wp-content/uploads/2024/03/Hotel4-scaled-1.jpg",
+                 "alt": "การจัดการโรงแรม"
+            
+      }
+        
+    ],
+         "funding": "ลักษณะที่ 1",
+         "require": "ม.6/ปวช./กศน./ปวส.",
+         "programs": "ภาคปกติ", //new
+         "year_tuition": 2567, //new
+         "total_tuition_fees": 320000, //ตลอดหลักสูตร
+         "semester1_1": 27000, //งวดที่ 1 ผ่อนชำระ
+         "credit": 132, // New
+         "meta": {
+             "title": "",
+             "description": ""
+        
+    },
+         "tracking": "utcc_course_section",
+         "utm": [
+             {
+                 "url": "#",
+                 "utm_source": "",
+                 "utm_medium": "",
+                 "utm_campain": ""
+            
+      }
+        
+    ],
+         "pdf_curriculum": "",
+         "detailFee": [ //New
+             {
+                 "id": 1,
+                 "label": "ปีที่ 1",
+                 "children": [
+                     {
+                         "id": 1,
+                         "label": "งวดที่ 1",
+                         "amount": 27000
+                    
+          },
+                     {
+                         "id": 2,
+                         "label": "งวดที่ 2",
+                         "amount": 32000
+                    
+          },
+                     {
+                         "id": 3,
+                         "label": "งวดที่ 3",
+                         "amount": 32000
+                    
+          }
+                
+        ]
+            
+      },
+             {
+                 "id": 2,
+                 "label": "ปีที่ 1",
+                 "children": [
+                     {
+                         "id": 1,
+                         "label": "งวดที่ 1",
+                         "amount": 27000
+                    
+          },
+                     {
+                         "id": 2,
+                         "label": "งวดที่ 2",
+                         "amount": 32000
+                    
+          },
+                     {
+                         "id": 3,
+                         "label": "งวดที่ 3",
+                         "amount": 32000
+                    
+          }
+                
+        ]
+            
+      },
+             {
+                 "id": 3,
+                 "label": "ปีที่ 1",
+                 "children": [
+                     {
+                         "id": 1,
+                         "label": "งวดที่ 1",
+                         "amount": 27000
+                    
+          },
+                     {
+                         "id": 2,
+                         "label": "งวดที่ 2",
+                         "amount": 32000
+                    
+          },
+                     {
+                         "id": 3,
+                         "label": "งวดที่ 3",
+                         "amount": 32000
+                    
+          }
+                
+        ]
+            
+      },
+             {
+                 "id": 4,
+                 "label": "ปีที่ 4",
+                 "children": [
+                     {
+                         "id": 1,
+                         "label": "งวดที่ 1",
+                         "amount": 32000
+                    
+          }
+                
+        ]
+            
+      }
+        
+    ],
+         "detailPlan": [ //New
+             {
+                 {
+                     "id": 1,
+                     "label": "แผน ก. วิทยานิพนธ์",
+                     "amount": 332000
+                
+        },
+                 {
+                     "id": 2,
+                     "label": "แผน ข. ไม่มีวิทยานิพนธ์",
+                     "amount": 332000
+                
+        }
+            
+      }
+        
+    ],
+         "faq": [
+             {
+                 "id": 1,
+                 "q": "",
+                 "a": ""
+            
+      },
+             {
+                 "id": 2,
+                 "q": "",
+                 "a": ""
+            
+      },
+             {
+                 "id": 3,
+                 "q": "",
+                 "a": ""
+            
+      }
+        
+    ],
+         "sample_subjects": [
+             {
+                 "label": ""
+            
+      }
+        
+    ],
+         "facilities": [
+      {
+        "id": "",
+        "school_id": 1,
+        "name": "International Center",
+        "description": "ศูนย์นานาชาติที่เหล่าเด็กอินเตอร์ชอบมาทำกิจกรรมกัน ไม่ว่าจะมาติวหนังสือหรือนั่งทำงาน ข้างในมีห้องกิจกรรมมากมายหลายรูปแบบความพิเศษอยู่ที่ ใครอยากฝึกสกิลการพูดแบบอินเตอร์ต้องที่นี่เลย เนื่องจาก Staff ต่างๆ เป็นนักศึกษาต่างชาติทั้งหมด",
+        "condition": [
+          {
+            "id": 1,
+            "name": "Work Space"
+          },
+          {
+            "id": 2,
+            "name": "Computer"
+          },
+          {
+            "id": 3,
+            "name": "Charging outlets"
+          }
+        ],
+        "dateTime": {
+          "date": "Monday - Friday",
+          "time": "8.30 a.m. to 5 p.m"
+        }
+      }
+    ],
+         "job_opp_image": [],
+         "job_opportunities": []
+    
+  }
+]

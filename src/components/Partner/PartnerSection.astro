@@ -1,0 +1,148 @@
+---
+// import PartnerSwiper from "./PartnerSwiper.vue";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const reqUrl = import.meta.env.PUBLIC_API_WP_PARTNER;
+const response = await fetch(reqUrl, { mode: "cors" });
+const partnerList = await response.json();
+
+const { className } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<div id="partners" class={className}>
+  <div class="">
+    <div class="container mx-auto">
+      <div class="text-44 md:text-66 font-semibold mb-0">
+        {`${t("home.partner.title")}`}
+      </div>
+      <div class="sm:w-30 pt-0 md:pt-4">
+        <div class="text-24 md:text-30">
+          {`${t("home.partner.description")}`}
+        </div>
+      </div>
+    </div>
+    <div class="partner-section pt-4 md:pt-16">
+      <div class="our-partner flex w-full relative">
+        <div class="partner-group">
+          <div class="partner-list justify-end">
+            {
+              partnerList.map((item) => (
+                <div
+                  class={
+                    pathname === "/"
+                      ? "partner-list-item transition-all rounded-md md:rounded-lg"
+                      : "partner-list-item grayscale hover:grayscale-0 transition-all rounded-md md:rounded-lg"
+                  }
+                >
+                  <img src={item.logo} alt={item.title} loading="lazy" />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="partner-group is-mobile">
+          <div class="partner-list">
+            {
+              partnerList.map((item) => (
+                <div
+                  class={
+                    pathname === "/"
+                      ? "partner-list-item transition-all rounded-md md:rounded-lg"
+                      : "partner-list-item grayscale hover:grayscale-0 transition-all rounded-md md:rounded-lg"
+                  }
+                >
+                  <img src={item.logo} alt={item.title} loading="lazy" />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style scoped>
+    @import "../../styles/global.css";
+    @import "../../styles/base.scss";
+
+    .our-partner {
+      position: relative;
+    }
+
+    .partner-section {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .partner-group {
+      animation: slideSide 60s linear infinite;
+    }
+
+    .partner-list {
+      display: flex;
+      padding: 15px 0;
+    }
+
+    .partner-list .partner-list-item {
+      display: block;
+      height: 120px;
+      width: auto;
+      min-width: 250px;
+      margin: 0 15px;
+    }
+
+    .partner-list-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 1023px) {
+      .partner-group {
+        animation: none;
+      }
+
+      .partner-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .partner-list .partner-list-item {
+        display: inline-block;
+        height: 100%;
+        margin: 2.5px;
+        width: 31%;
+        min-width: auto;
+      }
+
+      .partner-list-item img {
+        max-width: initial;
+        width: 100%;
+        height: auto;
+        max-height: 85px;
+      }
+
+      .is-mobile {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .partner-list .partner-list-item {
+        width: 30%;
+        min-width: initial;
+      }
+      .partner-list-item img {
+        max-height: 40px;
+      }
+    }
+  </style>
+</div>

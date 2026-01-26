@@ -1,0 +1,225 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Layout from "../layouts/Layout.astro";
+
+// components
+// import WhyUsSection from "../components/WhyUs/WhyUsSection.vue";
+import MainBanner from "../components/Banner/MainBanner.astro";
+import TopicAboutUs from "../components/AboutUs/TopicAboutUs.astro";
+import FacilitiesSection from "../components/Facilities/FacilitiesSection.vue";
+import PartnerSection from "../components/Partner/PartnerSection.vue";
+import Faqs from "../components/Faq/FaqFetchAPI.vue";
+import AboutUsDetail from "../components/AboutUs/AboutUsDetail.vue";
+// import CourseList from "../components/course/CourseList.vue";
+
+import { Icon } from "astro-icon/components";
+
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
+
+const aboutSlug = `/aboutus`;
+const staffSlug = `/staff`;
+const researchSlug = `/research`;
+
+---
+
+<Layout
+  title={`CE ${t("aboutUs.title")} | ${t("name")} ${t("university")}`}
+  description={`${t("aboutUs.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={t("aboutUs.title")} description={t("name")} />
+
+  <div class="pt-16 w-full" id="history">
+    <!-- This Content  -->
+    <AboutUsDetail client:visible lang={lang}>
+      <TopicAboutUs title={t("aboutUs.history")} desc={t("name")}>
+        <a href={aboutSlug}>
+          <button
+            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 btn-active px-4 text-center md:text-left mr-2"
+          >
+            <Icon name="check-circle" class="hidden md:block" />
+            {t("aboutUs.history")}</button
+          >
+        </a>
+        <a href={staffSlug}>
+          <button
+            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24  text-center md:text-left"
+          >
+            <Icon name="check-circle" class="hidden md:block" />
+            {t("nav.staff")}</button
+          >
+        </a>
+
+      </TopicAboutUs>
+    </AboutUsDetail>
+
+    <Faqs client:load lang={lang} />
+    <PartnerSection client:load />
+    <!-- <CourseList client:load lang={lang} class:list={'bg-a-yellow-CFECFF'} /> -->
+    <FacilitiesSection slug={""} title={""} lang={lang} client:load />
+  </div>
+
+</Layout>
+<style scoped>
+  @import "../styles/global.css";
+  .menu li a {
+    color: var(--primary);
+    padding: 4px 12px;
+    align-items: center;
+    border-radius: 22px;
+    /* border: 1px solid var(--blue-light3); */
+    margin: 0 0.25rem;
+  }
+  /* .menu li a:hover {
+ background-color: var(--blue-light3);
+} */
+  .slides {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .slides::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  .tab {
+    color: var(--accent-dark);
+    font-size: 2.25rem;
+  }
+  .tabs-lifted > .tab {
+    min-width: 240px;
+    height: 80px;
+  }
+  .tabs-lifted > .tab:is(input:checked) {
+    background-color: var(--accent-dark);
+    border-bottom-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: white;
+  }
+  .tab-content {
+    border-color: transparent;
+    border-width: 0;
+  }
+  .tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),
+  .tabs-lifted > .tab:is(input:checked) {
+    border-width: 0;
+  }
+
+  ol.decimal {
+    list-style: decimal;
+  }
+  .btn:hover,
+  .btn-active {
+    color: #ffffff !important;
+  }
+  @media only screen and (max-width: 767px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+import moment from "moment";
+const { article } = Astro.props;
+import { Image } from "astro:assets";
+import NoImage from "../assets/image/no-image.jpg";
+---
+
+<a
+  href={`/articles/${article.slug}/`}
+  class="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all"
+>
+  <div class="card-top">
+    {
+      article.acf.cover_image ? (
+        <img src={article.acf.cover_image} alt={article.title.rendered} />
+      ) : (
+        <Image src={NoImage} alt={article.title.rendered} />
+      )
+    }
+  </div>
+  <div class="card-body p-4">
+    <h3 class="card-title text-24 desktop:text-36 text-2-line" set:html={article.title.rendered}></h3>
+    <div
+      class="card-content text-20 desktop:text-24 text-1-line desktop:text-2-line "
+      set:html={article.excerpt.rendered}
+    />
+    <div class="card-actions justify-between text-sm ">
+      <span class="text-light">
+        By {article._embedded["author"]["0"].name}
+      </span>
+      <span class="text-light">
+        {moment(article.date).format("DD/MM/YYYY")}
+      </span>
+    </div>
+  </div>
+</a>
+
+<style scoped>
+  @import "../styles/global.css";
+
+  .card {
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  .card .card-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .card .card-top img {
+    object-fit: cover;
+    height: 300px;
+    width: 100%;
+  }
+
+  .card .card-top:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: linear-gradient(0deg, #0B0B0B 0%, rgba(11, 11, 11, 0) 30%);
+    opacity: 1;
+    transition: ease-in-out 0.3s;
+  }
+
+  .card:hover .card-top:before {
+    opacity: 0;
+  }
+
+  .card .card-title {
+    line-height: 2.5rem;
+  }
+
+  .card:hover .card-title {
+    color: var(--black);
+  }
+
+  .card-content p {
+    line-height: 1.2;
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 1023px) {
+    .card .card-top img {
+      height: 150px;
+    }
+  }
+</style>

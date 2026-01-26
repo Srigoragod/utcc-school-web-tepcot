@@ -1,0 +1,42 @@
+---
+const uri = import.meta.env.PUBLIC_API_WP_TOPBANNER;
+const data = await fetch(uri);
+const allBanner = await data.json();
+---
+
+<div class="topBanner bg-black relative">
+  <div class="container mx-auto">
+  {
+    allBanner.map((banner) => (
+      banner.link && banner.link !== "" ? (
+      <a href={banner.link} target="_blank" rel="noopener noreferrer">
+        <img
+        src={banner.desktop}
+        alt={banner.text || 'Top Banner'}
+        class="w-auto h-[90px] mx-auto sm:hidden"
+        />
+        <img
+        src={banner.mobile}
+        alt={banner.text || 'Top Banner'}
+        class="w-full h-auto mx-auto block lg:hidden"
+        />
+      </a>
+      ) : (
+      <img
+        src={banner.desktop}
+        alt={banner.text || 'Top Banner'}
+        class="w-auto h-[90px] mx-auto hidden lg:block"
+      />
+      <img
+        src={banner.mobile}
+        alt={banner.text || 'Top Banner'}
+        class="w-full h-auto mx-auto block lg:hidden"
+      />
+      )
+    ))
+  }
+  </div>
+</div>
+<style scoped>
+  
+</style>

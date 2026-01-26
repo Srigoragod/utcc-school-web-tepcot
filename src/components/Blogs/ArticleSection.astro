@@ -1,0 +1,82 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { Icon } from "astro-icon/components";
+import MostRecent from "./MostRecent.astro";
+import ArticleWidget from "./ArticleWidget.astro";
+import { HOMEPAGE_ARTICLE_LIMIT } from "../../consts";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const uri = import.meta.env.PUBLIC_API_WP_NEWS;
+
+const response = await fetch(
+  `${uri}` + "?per_page=8&_embed&acf_format=standard"
+);
+const articles = await response.json();
+
+const mostRecent = articles[0];
+const otherArticles = articles.slice(1);
+
+const articleSlug = `/articles`;
+---
+
+{
+  articles.length >= 1 ? (
+    <div class="py-24 bg-a-red-FFEEEE text-a-black-0B0B0B" id="news">
+      <div class="px-4 sm:px-16">
+        <div class="container mx-auto">
+          <div class="text-44 md:text-66 font-semibold mb-0">
+            {`${t("home.news.title")}`}
+          </div>
+          <div class="sm:w-30 pt-0 md:pt-4">
+            <div class="text-30">{`${t("home.news.description")}`}</div>
+          </div>
+          <div class="news py-16">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-6">
+              <div class="col-span-3">
+                <div class="blog-item-actions flex md:hidden justify-between border-b-2 border-b-blue-900 pb-4 mb-6">
+                  <span class="text-24">ข่าวและกิจกรรมอื่นๆ</span>
+                  <a href={articleSlug}>
+                    <span
+                      class="flex flex-row text-a-gray-696F6F text-24 hover:text-a-black-0B0B0B hover:underline text-light"
+                    >
+                      {t("button.showMore")}&nbsp;
+                      <Icon name="arrow-left" />
+                    </span>
+                  </a>
+                </div>
+                <MostRecent article={mostRecent} />
+              </div>
+              <div class="col-span-2">
+                <div class="blog-item-actions hidden md:flex justify-between border-b-2 border-b-blue-900 pb-4">
+                  <span class="text-24">ข่าวและกิจกรรมอื่นๆ</span>
+                  <a href={articleSlug}>
+                    <span
+                      class="flex flex-row text-a-gray-696F6F text-24 hover:text-a-black-0B0B0B hover:underline text-light"
+                    >
+                      {t("button.showMore")}&nbsp;
+                      <Icon name="arrow-left" />
+                    </span>
+                  </a>
+                </div>
+                {otherArticles
+                  .slice(0, HOMEPAGE_ARTICLE_LIMIT)
+                  .map((articles) => (
+                    <ArticleWidget article={articles} />
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    ""
+  )
+}
+
+<style scoped>
+  .load-button {
+    padding: 0.5rem 3rem;
+  }
+
+</style>

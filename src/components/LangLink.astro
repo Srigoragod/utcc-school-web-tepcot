@@ -1,0 +1,29 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getLocalizedPathname } from "../i18n/utils";
+
+type Props = HTMLAttributes<"a">;
+
+const { language, class: className, ...props } = Astro.props;
+const { pathname } = Astro.url;
+
+const lang = Astro.params?.lang || "th";
+const isActive = language === lang;
+
+const href = getLocalizedPathname(pathname, language);
+---
+
+<a href={href} class:list={[className, { active: isActive }]} {...props}>
+  {language == 'th' ? 'ไทย': 'English'}
+</a>
+<style scoped>
+  a {
+    display: inline-block;
+    text-decoration: none;
+    color: #0B0B0B;
+  }
+  a.active {
+    font-weight: bolder;
+    text-decoration: none !important;
+  }
+</style>

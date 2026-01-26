@@ -1,0 +1,93 @@
+---
+import Swiper from "../components/SlideShow/Swiper.vue";
+import Image from "astro/components/Image.astro";
+import logo from "/public/image/logo-TEPCoT.svg";
+import standText from "../../public/image/CE-min.svg";
+
+const { title, description } = Astro.props;
+---
+
+<div id="herolayout-tepcot" class="hero-layout relative">
+  <Swiper client:idle />
+  <div class="custom-bg">
+    <div
+      class="flex justify-between gap-4 py-4 container mx-auto items-center topic-school relative is-desktop"
+    >
+      <div class="pb-4">
+        <Image
+          src={logo}
+          class="w-[400px] md:w-[650px]"
+          alt="TEPCOT by UTCC — Executive Program มหาวิทยาลัยหอการค้าไทย"
+        />
+      </div>
+      <div class="relative hidden lg:block">
+        <!-- <Image src={standText} class="custom-img" alt="ce" /> -->
+      </div>
+    </div>
+    <div class="image-container relative is-mobile">
+      <div class="p-4">
+        <Image
+          src={logo}
+          class="w-[450px]"
+          alt="TEPCoT by UTCC — Executive Program Thailand University of the Chamber of Commerce"
+        />
+      </div>
+    </div>
+  </div>
+
+  <style scoped>
+    #herolayout-tepcot {
+      background-image: url(/image/bg-luxury-blue-tepcot.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .image-container {
+      display: inline-block; /* Ensures the container wraps around the image */
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 0; /* Adjust as needed */
+      left: 0; /* Adjust as needed */
+    }
+
+    @media only screen and (max-width: 767px) {
+      .overlay-text {
+        width: 100%;
+      }
+      .custom-img {
+        width: 66%;
+        position: absolute;
+        bottom: -4rem;
+        right: 0;
+      }
+      .is-desktop {
+        display: none;
+      }
+
+      .hero-layout {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        /* padding-top: 2rem; */
+      }
+      .swiper {
+        min-height: 390px !important;
+      }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1023px) {
+      .is-mobile {
+        display: none;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .is-mobile {
+        display: none;
+      }
+    }
+  </style>
+</div>

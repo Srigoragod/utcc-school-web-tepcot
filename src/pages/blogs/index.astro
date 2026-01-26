@@ -1,0 +1,17 @@
+---
+import BlogListPage from "../../components/Blogs/BlogListPage.astro";
+import { BLOG_PER_PAGE } from "../../consts";
+
+const uri = import.meta.env.PUBLIC_API_WP_BLOG;
+const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+const allBlogs = await data.json();
+
+const currentPage = 1;
+---
+
+<BlogListPage 
+  allBlogs={allBlogs} 
+  currentPage={currentPage}  
+  perPage={BLOG_PER_PAGE} 
+  baseUrl="/blogs" 
+/>

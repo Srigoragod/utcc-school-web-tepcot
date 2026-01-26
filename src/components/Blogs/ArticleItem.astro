@@ -1,0 +1,38 @@
+---
+import moment from "moment";
+const { article } = Astro.props;
+---
+
+<div class="article-item w-full bg-base-100 hover:bg-gray-100 px-0 py-4 lg:p-4">
+  <a href={`/articles/${article.slug}/`}>
+    <h3 class="article-item-title text-20 desktop:text-24 text-2-line" set:html={article.title.rendered}></h3>
+    <div class="article-item-actions justify-between text-sm">
+      <span class="text-light">
+        {moment(article.date).format("DD/MM/YYYY")}
+      </span>
+    </div>
+  </a>
+</div>
+
+<style scoped>
+  @import "../../styles/global.css";
+
+  .article-item {
+    border-bottom: solid 1px #22099e1a;
+  }
+
+  .article-item a {
+    color: var(--black);
+  }
+
+  .article-item:hover .article-item-title,
+  .article-item:hover .article-item-actions {
+    color: var(--black);
+  }
+
+  @media (max-width: 767px) {
+    .article-item:first-child {
+      border-top: solid 1px #22099e1a;
+    }
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import BlogCard from "../../../../components/Blogs/BlogCard.astro";
+import Pagination from "../../../../components/Pagination.astro";
+import { BLOG_PER_PAGE } from "../../../../consts";
+import MainBanner from "../../../../components/Banner/MainBanner.astro";
+import { getLangFromUrl, useTranslations } from "../../../../i18n/utils";
+import UniqueType from "../../../../components/Blogs/uniqueType.astro";
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const blogApi = import.meta.env.PUBLIC_API_WP_BLOG;
+  const cateApi = import.meta.env.PUBLIC_API_WP_BLOG_TYPE;
+
+  // ✅ fetch all categories first
+  const cateRes = await fetch(`${cateApi}?per_page=100`);
+  const categories = await cateRes.json();
+
+  // ✅ fetch all blogs once
+  const blogRes = await fetch(
+    `${blogApi}?per_page=100&_embed&acf_format=standard`
+  );
+  const blogs = await blogRes.json();
+
+  // ✅ build paths by category slug
+  const paths = categories.map((cat) => ({
+    params: { category: cat.slug },
+    props: {
+      blogs,
+      category: cat.slug,
+      categoryName: cat.name,
+    },
+  }));
+
+  // ensure there's always an 'others' page
+  paths.push({
+    params: { category: 'others' },
+    props: {
+      blogs,
+      category: 'others',
+      categoryName: 'อื่นๆ',
+    },
+  });
+
+  return paths;
+}
+
+const props = Astro.props as any;
+const blogs: any[] = props.blogs ?? [];
+const category: string = props.category;
+const categoryName: string = props.categoryName;
+const perPage = BLOG_PER_PAGE;
+const currentPage = 1;
+
+// ✅ filter blogs by category slug from acf (adjust depending on your structure)
+let categoryBlogs: any[] = [];
+if (category === 'others') {
+  // posts that do NOT have a category slug
+  categoryBlogs = blogs.filter((b) => !b.acf?.category?.slug);
+} else {
+  categoryBlogs = blogs.filter((b) => b.acf?.category?.slug === category);
+}
+
+const totalPages = Math.ceil(categoryBlogs.length / perPage);
+const paginatedBlogs = categoryBlogs.slice(0, perPage);
+const homeSlug = `/`;
+const blogSlug = `/blogs`;
+---
+
+<Layout
+  title={`${t("blog.title")} | ${t("name")} ${t("university")}`}
+  description={`${t("blog.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={`${categoryName}`} description={`${t("blog.title")}`} />
+  <div class="bg-a-red-FFEEEE text-a-black-0B0B0B">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "บทความ", href: blogSlug },
+            { label: categoryName },
+          ]}
+        />
+        <div class="blog pb-8">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
+            <div class="col-span-4 lg:col-span-4 mb-0">
+              {
+                paginatedBlogs.length >= 1 ? (
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+                    {paginatedBlogs.map((blog) => (
+                      <BlogCard blog={blog} />
+                    ))}
+                  </div>
+                ) : (
+                  <div class="text-center text-a-gray-696F6F py-16">
+                    <p>ยังไม่มีบทความในหมวด {categoryName}</p>
+                  </div>
+                )
+              }
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                baseUrl={`/blogs/category/${category}`}
+              />
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <UniqueType type="blog" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

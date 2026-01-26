@@ -1,0 +1,38 @@
+---
+const { items = [] } = Astro.props;
+
+// ✅ สร้าง breadcrumbList สำหรับ JSON-LD (structured data)
+const breadcrumbList = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    item: item.href ? new URL(item.href, Astro.site).href : undefined,
+  })),
+};
+---
+
+<nav class="breadcrumbs text-2-line pt-10 mb-8">
+  <ul class="flex flex-wrap items-center text-24 md:text-30">
+    {items.map((item, index) => (
+      <li class="flex items-center">
+        {item.href ? (
+          <a href={item.href} class="hover:underline text-gray-700">
+            {item.label}
+          </a>
+        ) : (
+          <span class="text-gray-500">{item.label}</span>
+        )}
+
+       
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<!-- ✅ เพิ่ม JSON-LD ให้ search engine เข้าใจโครงสร้าง -->
+<script type="application/ld+json">
+  {JSON.stringify(breadcrumbList, null, 2)}
+</script>

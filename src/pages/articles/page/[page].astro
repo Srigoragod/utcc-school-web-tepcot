@@ -1,0 +1,35 @@
+---
+import ArticleListPage from "../../../components/Blogs/ArticleListPage.astro";
+import { ARTICLE_PER_PAGE } from "../../../consts";
+
+const { page } = Astro.params;
+const currentPage = Number(page);
+
+// ✅ generate static paths
+export async function getStaticPaths() {
+  const uri = import.meta.env.PUBLIC_API_WP_NEWS;
+  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+  const allArticle = await data.json();
+
+  const perPage = ARTICLE_PER_PAGE;
+  const totalPages = Math.ceil(allArticle.length / perPage);
+
+  return Array.from({ length: totalPages }).map((_, i) => ({
+    params: { page: String(i + 1) },
+    props: { allArticle },
+  }));
+}
+
+const allArticle = Astro.props.allArticle;
+
+if (currentPage < 1 || currentPage > Math.ceil(allArticle.length / ARTICLE_PER_PAGE)) {
+  throw new Error("Page not found");
+}
+---
+
+<ArticleListPage 
+  allArticle={allArticle} 
+  currentPage={currentPage} 
+  perPage={ARTICLE_PER_PAGE} 
+  baseUrl="/articles"
+/>

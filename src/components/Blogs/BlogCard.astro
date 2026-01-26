@@ -1,0 +1,118 @@
+---
+import moment from "moment";
+const { blog } = Astro.props;
+import { Image } from "astro:assets";
+import NoImage from "../../../public/image/ce.jpg";
+import TagList from "./TagList.astro";
+---
+
+<a
+  href={`/blogs/${blog.slug}/`}
+  class="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all"
+>
+  <div class="card-top is-desktop">
+    {
+      blog.acf.cover_image ? (
+        <img src={blog.acf.cover_image} alt={blog.title.rendered} />
+      ) : blog.acf.cover_mobile_image ? (
+        <img src={blog.acf.cover_mobile_image} alt={blog.title.rendered} />
+      ) : (
+        <Image src={NoImage} alt={blog.title.rendered} />
+      )
+    }
+  </div>
+  <div class="card-top is-mobile">
+    {
+      blog.acf.cover_mobile_image ? (
+        <img src={blog.acf.cover_mobile_image} alt={blog.title.rendered} />
+      ) : blog.acf.cover_image ? (
+        <img src={blog.acf.cover_image} alt={blog.title.rendered} />
+      ) : (
+        <Image src={NoImage} alt={blog.title.rendered} />
+      )
+    }
+  </div>
+  <div class="card-body p-4">
+    <h3
+      class="card-title text-24 lg:text-30 text-2-line"
+      set:html={blog.title.rendered}
+    />
+    <div
+      class="card-content text-20 lg:text-24 text-1-line lg:text-2-line"
+      set:html={blog.excerpt.rendered}
+    />
+    <div class="card-actions justify-between text-sm">
+      <TagList tags={blog.acf?.category} badge="" />
+      <span class="text-light">
+        {moment(blog.date).format("DD/MM/YYYY")}
+      </span>
+    </div>
+  </div>
+</a>
+
+<style scoped>
+  @import "../../styles/global.css";
+
+  .card {
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  .card .card-top {
+    /* position: relative; */
+    overflow: hidden;
+  }
+  .card .card-top img {
+    object-fit: contain;
+    /* height: 300px; */
+    width: 100%;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+  }
+
+  .card:hover .card-top img {
+    transform: scale(1.2);
+    transition: transform 0.5s ease;
+  }
+
+  .card .card-title {
+    line-height: 2.5rem;
+  }
+
+  .card:hover .card-title,
+  .card:hover {
+    color: var(--black);
+  }
+
+  .card-content p {
+    line-height: 1.2;
+    margin-bottom: 0 !important;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .is-desktop {
+      display: none;
+    }
+    .card {
+      border-radius: 7.5px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .card .card-title {
+      line-height: normal;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .is-mobile {
+      display: none;
+    }
+  }
+</style>

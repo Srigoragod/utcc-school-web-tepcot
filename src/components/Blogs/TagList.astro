@@ -1,0 +1,20 @@
+---
+const { tags, badge } = Astro.props;
+const tagSlug = Array.isArray(tags)
+  ? `articles/` + tags[0]?.slug || tags[0]
+  : tags?.slug || tags;
+---
+
+<div class="flex gap-1">
+  {
+    Array.isArray(tags) ? (
+      tags.map((tag, idx) => (
+        <span class={`badge ` + badge} >{tag.name || tag}</span>
+      ))
+    ) : tags ? (
+      <span class={`badge ` + badge}>{tags.name || tags}</span>
+    ) : (
+      <span class={`badge ` + badge}>ไม่มีหมวดหมู่</span>
+    )
+  }
+</div>

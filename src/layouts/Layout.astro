@@ -1,0 +1,53 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import SideMenuRight from "../components/SideMenu/SideMenuRight.vue";
+import Footer from "../components/Footer.astro";
+import ScrollToTopButton from "../components/Button/ScrollToTopButton.astro";
+import MenuMobile from "../components/MenuMobile.astro";
+import ButtonMain from "../components/Button/ButtonMain.astro";
+import TopBanner from "./TopBanner.astro";
+import Schema from "../components/Schema.astro";
+
+import { useTranslations, type UiType } from "../i18n/utils";
+const { title, description, lang, isFooterOnly, keywords, image } = Astro.props;
+const t = useTranslations(lang as UiType);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead
+      lang={lang}
+      title={title}
+      description={description}
+      keywords={keywords}
+      image={image}
+    />
+    <Schema />
+  </head>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-WWLZQ87"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe></noscript
+  >
+  <!-- End Google Tag Manager (noscript) -->
+  <div class="relative">
+    <Header title={t("site.title")} lang={lang} />
+    <SideMenuRight client:visible
+      ><ButtonMain>สมัครเรียน</ButtonMain></SideMenuRight
+    >
+  </div>
+  <ScrollToTopButton />
+  <slot />
+  <MenuMobile />
+  <Footer lang={lang} />
+
+  <script src="../scripts/local.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  ></script>
+</html>

@@ -1,0 +1,97 @@
+---
+import moment from "moment";
+const { article } = Astro.props;
+import { Image } from "astro:assets";
+import NoImage from "/public/image/ce.jpg";
+---
+
+<div class="w-full hover:bg-slate-100 px-0 py-4 lg:p-4">
+  <a href={`/articles/${article.slug}/`}>
+    <div
+      class="article-otherItem cursor-pointer grid grid-cols-1 md:grid-cols-3 md:gap-4 items-center"
+    >
+      <div class="col-span-1">
+        <div class="article-otherItem-image mb-4 md:mb-0">
+          <div class="relative">
+            <div
+              class="card-blur-image absolute top-0 left-0 z-0 w-full h-full
+           bg-no-repeat bg-center bg-cover
+           opacity-70
+           blur-[10px] scale-[1.1]"
+              style=`background-image: url(${article.acf.cover_image});`
+            >
+            </div>
+            {
+              article.acf.cover_image ? (
+                <img
+                  src={article.acf.cover_image}
+                  alt={article.title.rendered}
+                  class="w-full mx-auto"
+                />
+              ) : (
+                <Image src={NoImage} alt={article.title.rendered} class="" />
+              )
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <div class="article-otherItem-content">
+          <h5
+            class="text-20 md:text-24"
+            set:html={article.title.rendered}
+          />
+          <div
+            class="card-content text-20 text-a-gray-696F6F text-1-line"
+            set:html={article.excerpt.rendered}
+          />
+          <div class="flex gap-2 items-center text-20 mt-2 md:mt-4">
+            <h3 class="rounded-full text-gray-500">ข่าวสาร •</h3>
+            <div class="flex flex-col gap-2">
+              <h3 class="text-gray-400">
+                {moment(article.date).format("DD/MM/YYYY")}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+<style scoped>
+  @import "../../styles/global.css";
+
+  .article-otherItem a {
+    color: var(--black);
+  }
+
+  .article-otherItem:hover .article-otherItem-title,
+  .article-otherItem:hover .article-otherItem-actions {
+    color: var(--black);
+  }
+
+  .article-otherItem-image {
+    overflow: hidden;
+  }
+
+  .article-otherItem-image img {
+    object-fit: contain;
+    max-height: 145px;
+    width: 100%;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+  }
+
+  .article-otherItem:hover .article-otherItem-image img {
+    transform: scale(1.2);
+    transition: transform 0.5s ease;
+  }
+
+  @media (max-width: 767px) {
+    .article-otherItem-image img {
+      max-height: 250px;
+      width: 100%;
+    }
+  }
+</style>

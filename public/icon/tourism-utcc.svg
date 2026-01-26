@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbaf20;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-family: DBHeavent-Bold, 'DB Heavent';
+        font-size: 47.98px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="50" height="50" rx="9.65" ry="9.65"/>
+  <rect class="cls-1" x="37.92" y="37.92" width="12.08" height="12.08"/>
+  <text class="cls-2" transform="translate(5.65 36.42)"><tspan x="0" y="0">TS</tspan></text>
+</svg>

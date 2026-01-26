@@ -1,0 +1,52 @@
+---
+import { Icon } from "astro-icon/components";
+import ArticleCard from "./ArticleCard.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const uri = import.meta.env.PUBLIC_API_WP_NEWS;
+
+// const reqUrl = `?per_page=8&_embed&acf_format=standard`;
+// console.log("uri test", uri);
+const response = await fetch(
+  `${uri}` + "?per_page=8&_embed&acf_format=standard"
+);
+const articles = await response.json();
+---
+
+<div class="py-24 bg-a-red-FFEEEE text-a-black-1F2937" id="news">
+  <div class="px-4 sm:px-16">
+    <div class="container mx-auto">
+      <div class="text-44 md:text-66 font-semibold mb-0">
+        {`${t("home.news.title")}`}
+      </div>
+      <div class="sm:w-30 pt-0 md:pt-4">
+        <div class="text-30">{`${t("home.news.description")}`}</div>
+      </div>
+      <div class="news py-16">
+        <div
+          class="grid grid-cols-2 tablet:grid-cols-3 desktop:grid-cols-4 gap-4 desktop:gap-8"
+        >
+          {articles.map((article) => <ArticleCard article={article} />)}
+        </div>
+        <div class="text-center pt-16">
+          <a href="articles">
+            <button
+              class="btn btn-active btn-primary rounded-full font-medium uppercase text-24 hover:underline cursor-pointer"
+              lang={lang}
+            >
+              {t("button.showMore")}
+              <Icon name="arrow-left" />
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  .load-button {
+    padding: 0.5rem 3rem;
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const reqUrl = `https://demo2.utcc.ac.th/wp-json/wp/v1/myacf/options/faqs/th_question`;
+const response = await fetch(reqUrl, { mode: "cors" });
+const fqs = await response.json();
+---
+
+<div id="faq" class="py-24 bg-a-blue-E9F0FF">
+  <div class="px-4 sm:px-16">
+    <div class="container mx-auto">
+      <div class="text-44 md:text-66 font-semibold mb-0">{`${t("home.faq.title")}`}</div>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-3 desktop:col-span-1 text-30">
+          {`${t("home.faq.description")}`}
+        </div>
+        <div class="col-span-3 desktop:col-span-2">
+          {
+            fqs.map((fq) => (
+              <div class="collapse collapse-plus border-b rounded-none border-black drop-shadow-xl transition-all">
+                <input type="radio" name="my-accordion-3" checked="checked" />
+                <div class="collapse-title font-semibold text-36">
+                  {fq.question}
+                </div>
+                <div class="collapse-content text-24">
+                  <p set:html={fq.answer} />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped></style>

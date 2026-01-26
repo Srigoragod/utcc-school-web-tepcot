@@ -1,0 +1,39 @@
+{
+  "name": "utcc-school-web",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "cross-env NODE_EXTRA_CA_CERTS=../certs/ca-bundle.pem astro dev",
+    "start": "astro dev",
+    "build": "cross-env NODE_EXTRA_CA_CERTS=../certs/ca-bundle.pem astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "host": "npm run dev -- --host"
+  },
+  "dependencies": {
+    "@astrojs/markdoc": "^0.12.5",
+    "@astrojs/node": "^9.0.0",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/vue": "^5.0.4",
+    "@heroicons/vue": "^2.1.5",
+    "astro": "^5.1.5",
+    "astro-icon": "^1.1.0",
+    "axios": "^1.7.7",
+    "cross-env": "^10.0.0",
+    "flag-icons": "^7.2.3",
+    "moment": "^2.30.1",
+    "sass": "^1.71.1",
+    "ssl-root-cas": "^1.3.1",
+    "sweetalert2": "^11.6.13",
+    "swiper": "^11.0.7",
+    "tailwindcss": "^3.4.1",
+    "vue": "^3.4.20"
+  },
+  "devDependencies": {
+    "daisyui": "^4.7.2",
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
+  }
+}

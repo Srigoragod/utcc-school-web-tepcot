@@ -1,0 +1,53 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+
+const { pathname } = Astro.url;
+---
+
+<a
+  href={href}
+  class="cool-link mx-2"
+  class:list={[className, pathname === href ? "active" : ""]}
+  {...props}
+>
+  <slot />
+</a>
+<style scoped>
+  a {
+    color: #7c4c00;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a.active {
+    font-weight: bolder;
+  }
+  .cool-link {
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .cool-link::after {
+    position: absolute;
+    bottom: 0;
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: whitesmoke;
+    transition: width 0.3s;
+    right: 0;
+    left: initial;
+  }
+
+  .cool-link:hover::after {
+    width: 100%;
+    right: initial;
+    left: 0;
+    transition: width 0.3s;
+  }
+</style>

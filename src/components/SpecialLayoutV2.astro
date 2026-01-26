@@ -1,0 +1,84 @@
+---
+import { useTranslations } from "../i18n/utils";
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div id="sp-div" class="isometric">
+  <div class="special-div bg-fixed relative">
+    <div class="overlay bg-overlay">
+      <div
+        class="container mx-auto py-20 md:py-24 px-4 md:px-0 flex flex-col justify-center"
+      >
+        <img
+          src="/image/2-CE-UTCC-3-min.png"
+          class="mx-auto mb-4 max-w-48"
+          alt="คณะการสร้างเจ้าของธุรกิจสร้างสรรค์ มหาวิทยาลัยหอการค้าไทย"
+        />
+        <h2 class="text-44 md:text-64 text-white text-center">
+          อย่ากลัวที่จะ <span class="text-[#ffba00]">ฝันใหญ่</span>
+        </h2>
+        <div class="desc">
+          <h1
+            class="w-full text-24 md:text-30 text-left md:text-center text-white font-light"
+          >
+            ไม่ว่าความฝันของคุณจะเป็นเช่นไร คณะการสร้างเจ้าของธุรกิจสร้างสรรค์
+            เราพร้อมต้อนรับทุกคนที่ฝันอยากจะเริ่มต้นธุรกิจ ต่อยอดกิจการครอบครัว <br
+              class="hidden md:block"
+            />ด้วยหลักสูตรที่ออกแบบโดยเจ้าของธุรกิจ สอนโดยเจ้าของธุรกิจ
+            มาทำความฝันของคุณให้เป็นจริง ที่คณะการสร้างเจ้าของธุรกิจสร้างสรรค์
+            มหาวิทยาลัยหอการค้าไทย
+          </h1>
+          <div class="flex gap-4 py-4 justify-center">
+            <a href="#course">
+              <button
+                class="btn btn-outline hover:bg-a-blue-021430 hover:border-a-blue-021430 text-white font-light rounded-full text-20 md:text-24"
+              >
+                ดูรายละเอียดหลักสูตร
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  /* @import "../styles/global.css"; */
+  #sp-div {
+    min-height: 500px;
+  }
+
+  .special-div {
+    background-image: url(/image/ambitions-concept-with-businessman-walking-from-alley-modern-city-night-scene-min.jpg);
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    min-height: 500px;
+  }
+  .bg-overlay {
+    text-shadow: 4px 4px 9px rgba(0, 0, 0, 0.55);
+    background: rgba(4, 17, 52, 0.7);
+    min-height: 500px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .container-sp-div {
+      min-height: 300px;
+    }
+    .is-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .is-mobile {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,259 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MainBanner from "../../components/Banner/MainBanner.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import moment from "moment";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import NoImage from "/public/image/ce.jpg";
+import BlogWidgets from "../../components/Blogs/BlogWidgets.astro";
+import ButtonShare from "../../components/Button/ButtonShare.vue";
+import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
+// import CourseList from "../../components/course/CourseList.vue";
+import { cleanText } from "../../scripts/cleanText";
+import PrevNext from "../../components/Blogs/PrevNext.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import TagList from "../../components/Blogs/TagList.astro";
+
+const uri = import.meta.env.PUBLIC_API_WP_BLOG;
+const { slug } = Astro.params;
+const reqUrl = `?per_page=20&_embed&acf_format=standard`;
+const res = await fetch(uri + `${reqUrl}&slug=${slug}`, { mode: "cors" });
+const [post] = await res.json();
+const imgMain = post.acf.gallery;
+const cleanTitle = cleanText(post.title.rendered);
+const cleanExcerpt = cleanText(post.acf.meta);
+
+// The getStaticPaths() is required for static Astro sites.
+// If using SSR, you will not need this function.
+export async function getStaticPaths() {
+  const uri = import.meta.env.PUBLIC_API_WP_BLOG;
+  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+  const posts = await data.json();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post, posts },
+  }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { posts } = Astro.props;
+const homeSlug = `/`;
+const blogSlug = `/blogs`;
+const site = Astro.site;
+const urlBlog = `${site}blogs/${post.slug}`;
+---
+
+<script
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
+></script>
+
+<Layout
+  title={`${cleanTitle} | ${t("name")} ${t("university")}`}
+  description={`${cleanExcerpt}`}
+  lang={lang}
+  isMenu={true}
+  keywords={`${post.acf.meta}` ||
+    `${cleanTitle}, ${t("name")}, ${t("university")}`}
+  image={post.acf.cover_image}
+>
+  <MainBanner description={`${t("blog.title")}`} title={post.title.rendered} />
+  <div class="text-a-black-0B0B0B">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+         <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "บทความ", href: blogSlug },
+            { label: "" },
+          ]}
+        />
+
+        <article class="">
+          <div class="flex flex-col lg:flex-row gap-8 pb-4 md:pb-8">
+            <div class="content w-full lg:w-2/3 order-1">
+              <h2
+                class="text-30 md:text-44 font-bold"
+                set:html={post.title.rendered}
+              />
+              <div
+                class="flex flex-row justify-between items-center py-6 lg:py-0"
+              >
+                <div class="py-0 text-20">
+                  <p class="py-0 md:py-5" style="margin-bottom: 0;">
+                    Student {post.type} —{" "}
+                    {moment(post.date).format("DD/MM/YYYY")}
+                  </p>
+                </div>
+                <TagList tags={post.acf?.category} badge={`border-none bg-slate-100 hover:bg-slate-200 uppercase`} />
+              </div>
+              <div class="main-image w-full pb-5">
+                {
+                  post.acf.cover_image ? (
+                    <img
+                      src={post.acf.cover_image}
+                      alt={post.title.rendered}
+                      class="w-full mx-auto shadow-md"
+                    />
+                  ) : (
+                    <Image
+                      src={NoImage}
+                      alt={post.title.rendered}
+                      class="w-50 mx-auto shadow-md"
+                    />
+                  )
+                }
+              </div>
+              <span class="text-light"></span>
+              <div class="content-text py-4">
+                <div set:html={post.acf.description} />
+              </div>
+
+              {
+                imgMain === false ? (
+                  ""
+                ) : imgMain.length === 1 ? (
+                  <img
+                    src={imgMain}
+                    alt={post.acf.meta}
+                    class="mx-auto shadow-md my-8"
+                  />
+                ) : (
+                  <>
+                    <swiper-container
+                      style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                      class="slugSwiper"
+                      thumbs-swiper=".slugThumbsSwiper"
+                      space-between="10"
+                      navigation="true"
+                    >
+                      {imgMain.map((item, index) => (
+                        <swiper-slide key={index}>
+                          <div
+                            class="swiper-img"
+                            style={{
+                              backgroundImage: `url(${item})`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition: "center center",
+                              backgroundSize: "auto 100%",
+                            }}
+                          />
+                        </swiper-slide>
+                      ))}
+                    </swiper-container>
+                    <swiper-container
+                      class="slugThumbsSwiper"
+                      space-between="10"
+                      slides-per-view="4"
+                      free-mode="true"
+                      watch-slides-progress="true"
+                    >
+                      {imgMain.map((xx, index) => (
+                        <swiper-slide key={index}>
+                          <div
+                            class="swiper-img"
+                            style={{
+                              backgroundImage: `url(${xx})`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundPosition: "center center",
+                              backgroundSize: "cover",
+                            }}
+                          />
+                        </swiper-slide>
+                      ))}
+                    </swiper-container>
+                  </>
+                )
+              }
+              <div class="flex justify-between items-center">
+                <PrevNext items={posts} currentSlug={slug} basePath="/blogs" />
+                <ButtonShare client:idle url={urlBlog} />
+              </div>
+            </div>
+            <div
+              class="widgets w-full lg:w-1/3 order-2 lg:sticky top-24 self-start"
+            >
+              <div class="flex flex-row justify-between items-center pb-5">
+                <h3 class="font-bold text-24 md:text-30">บทความอื่นๆ</h3>
+                <a href={blogSlug}>
+                  <span
+                    class="flex flex-row text-a-gray-696F6F text-20 md:text-24 hover:text-a-black-0B0B0B hover:underline cursor-pointer"
+                    lang={lang}
+                    >{t("button.showMore")}
+                    <Icon name="arrow-left" />
+                  </span>
+                </a>
+              </div>
+              <BlogWidgets />
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+  <SwiperPromo client:load customClass={"bg-slate-50"} />
+  <!-- <CourseList client:load customClass={'bg-slate-50'} lang={lang}  /> -->
+  <style lang="scss" scoped>
+    @import "../../styles/global.css";
+
+    .content-text {
+      font-family: "Sarabun", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      word-break: break-word;
+    }
+
+    .content-text img {
+      display: inline-block !important;
+    }
+
+    .slugSwiper {
+      position: relative;
+      height: 450px;
+      margin-bottom: 2rem;
+    }
+
+    .slugThumbsSwiper {
+      height: 5rem;
+    }
+
+    .swiper-img {
+      height: 100%;
+      width: 100%;
+    }
+
+    swiper-container {
+      &::part(button-next),
+      &::part(button-prev) {
+        filter: drop-shadow(1px 3px 2px rgba(0, 0, 0, 0.3));
+      }
+      &:hover {
+        &::part(button-next),
+        &::part(button-prev) {
+          filter: drop-shadow(1px 3px 2px rgba(0, 0, 0, 0.5));
+        }
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .content-text {
+        font-size: 1rem;
+        // text-align: justify;
+        // text-indent: 2rem;
+      }
+
+      .slugSwiper {
+        height: 300px;
+        margin-bottom: 1rem;
+      }
+
+      .slugThumbsSwiper {
+        height: 4rem;
+        min-width: 3rem;
+      }
+    }
+  </style>
+</Layout>

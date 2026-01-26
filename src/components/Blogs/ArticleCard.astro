@@ -1,0 +1,124 @@
+---
+import moment from "moment";
+const { article } = Astro.props;
+import { Image, getImage } from "astro:assets";
+import NoImage from "../../../public/image/ce.jpg";
+const bgImage = await getImage({ src: NoImage });
+import TagList from "./TagList.astro";
+---
+
+<a
+  href={`/articles/${article.slug}/`}
+  class="card w-full bg-base-100 shadow-md hover:shadow-lg transition-all"
+>
+  <div class="card-top">
+    <div class="relative">
+      {
+        article.acf.cover_image ? (
+        <div class="card-blur-image absolute top-0 left-0 z-0 w-full h-full
+         bg-no-repeat bg-center bg-cover
+         opacity-70
+         blur-[10px] scale-[1.1]" style=`background-image: url(${article.acf.cover_image});`></div>
+          <img src={article.acf.cover_image} alt={article.title.rendered} class="shadow-md mx-auto" />
+        ) : (
+          <div class="card-blur-image absolute top-0 left-0 z-0 w-full h-full
+         bg-no-repeat bg-center bg-cover
+         opacity-70
+         blur-[10px] scale-[1.1]" style=`background-image: url(${bgImage.src});`></div>
+          <Image src={NoImage} alt={article.title.rendered} class="shadow-md mx-auto" />
+        )
+      }
+    </div>
+  </div>
+  <div class="card-body p-2 md:p-4">
+    <TagList tags={article.acf?.tag} badge={`border-none bg-slate-100 hover:bg-slate-200`} />
+    <h3
+      class="card-title md:text-24 text-2-line"
+      set:html={article.title.rendered}
+    />
+    <div
+      class="card-content text-18 md:text-20 text-1-line lg:text-2-line"
+      set:html={article.excerpt.rendered}
+    />
+    <div class="card-actions justify-between text-sm">
+      <span></span>  
+       <span class="text-light">
+        {moment(article.date).format("DD/MM/YYYY")}
+      </span>
+    </div>
+  </div>
+</a>
+
+<style scoped>
+  @import "../../styles/global.css";
+
+  .card {
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  .card .card-top {
+    /* position: relative; */
+    overflow: hidden;
+  }
+  .card .card-top img {
+    object-fit: contain;
+    height: 200px;
+    width: 100%;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+  }
+
+  .card:hover .card-top img {
+    transform: scale(1.2);
+    transition: transform 0.5s ease;
+  }
+
+  .card .card-title {
+    /* line-height: 2.5rem; */
+  }
+
+  .card:hover .card-title,
+  .card:hover {
+    color: var(--black);
+  }
+
+  .card-content p {
+    line-height: 1.2;
+    margin-bottom: 0 !important;
+  }
+
+  @media (max-width: 1023px) {
+    .card .card-top img {
+    object-fit: contain;
+    height: 160px;
+    width: 100%;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    .is-desktop {
+      display: none;
+    }
+    .card {
+      border-radius: 7.5px;
+    }
+    .card .card-top img {
+      height: 145px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    .is-mobile {
+      display: none;
+    }
+  }
+</style>

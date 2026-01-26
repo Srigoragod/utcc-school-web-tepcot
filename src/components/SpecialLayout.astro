@@ -1,0 +1,195 @@
+---
+// Components
+import ButtonMain from "./Button/ButtonMain.astro";
+
+import { getImage, Image } from "astro:assets";
+// Image
+import myReward from "../../public/image/reward-special-1.png"
+import myBackground from "../../public/image/bg-special-1.png"
+
+const optimizedBackground = await getImage({src: myBackground, format: 'webp'})
+
+import { useTranslations } from '../i18n/utils';
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<!-- desktop -->
+<div class="special-layout grid grid-cols-2 gap-8 items-center -mt-[2px] is-desktop">
+    <div class="showcase py-10" style={`background-image: url(${optimizedBackground.src}); background-repeat: no-repeat;
+    background-size: cover;   background-position: center;`}>
+        <div class="overlay">
+          <Image class="ted-qual" src={myReward} alt="UNWTO.TedQual UTCC" loading="lazy"  />
+        </div>
+    </div>
+    <div class="showinfo p-10 text-left leading-none is-desktop">
+        <h4 class="text-36">
+            วิทยาลัยผู้ประกอบการ<br/>
+            มหาวิทยาลัยหอการค้าไทย
+        </h4>
+        <div class="toppic-focus my-4">
+          <h6 class="text-32 md:text-24 lg:text-24 text-a-green-0DECC5 -mb-2">
+            ได้รับการรับรองมาตรฐานการศึกษา
+        </h6>
+        <h2 class="text-gradient-blue text-80 text-a-green-0DECC5 font-semibold">
+            UNWTO.TedQual
+        </h2>
+        <h6 class="text-32 md:text-24 lg:text-24 text-a-green-0DECC5 -mt-2">จากองค์กรการท่องเที่ยวโลกแห่งสหประชาชาติ</h6>
+        </div>
+       
+        <p class="text-24 md:text-20 lg:text-24 text-a-gray-696F6F">
+            เราภูมิใจที่เป็นมหาวิทยาลัยเอกชนแห่งแรกและแห่งเดียว
+ในประเทศไทยที่ได้รับการรับรอง
+        </p>
+
+        <ButtonMain lang={lang} >{t("button.admission")}</ButtonMain>
+
+    </div>
+
+</div>
+<!-- / desktop -->
+<!-- mobile -->
+<div class="special-layout-mobile grid gap-8 items-center -mt-[2px] is-mobile">
+  <div class="showcase-mobile py-20" style={`background-image: url(${optimizedBackground.src}); background-repeat: no-repeat;
+  background-size: cover;   background-position: center;`}>
+      <div class="overlay">
+        <Image class="ted-qual" src={myReward} alt="UNWTO.TedQual UTCC" loading="lazy" class:list={'w-[160px] h-[160px]'}  />
+        <div class="showinfo p-10 text-left leading-none ">
+          <h4 class="text-36">
+              วิทยาลัยผู้ประกอบการ<br/>
+              มหาวิทยาลัยหอการค้าไทย
+          </h4>
+          <div class="toppic-focus my-4">
+            <h6 class="text-32 md:text-24 lg:text-24  -mb-2">
+              ได้รับการรับรองมาตรฐานการศึกษา
+          </h6>
+          <h2 class="font-semibold">
+              UNWTO.TedQual
+          </h2>
+          <h6 class="text-32 md:text-24 lg:text-24 -mt-2">จากองค์กรการท่องเที่ยวโลกแห่งสหประชาชาติ</h6>
+          </div>
+         
+          <p class="text-24 md:text-20 lg:text-24">
+              เราภูมิใจที่เป็นมหาวิทยาลัยเอกชนแห่งแรกและแห่งเดียว
+    ในประเทศไทยที่ได้รับการรับรอง
+          </p>
+    
+          <ButtonMain lang={lang} class:list={'btn-primary text-white'}>
+            <span class="text-white"> {t("button.admission")}</span>
+          </ButtonMain>
+    
+      </div>
+      </div>
+  </div>
+</div>
+<!-- / mobile -->
+<style scoped>
+  @import "../styles/global.css";
+.showcase {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  color: white;
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.showcase img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index:2
+}
+
+.showcase .overlay {
+  width: 100%;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:1;
+}
+
+.showcase h2 {
+  margin-top: 170px;
+  font-size: 3em;
+}
+
+.showcase p {
+  margin-top: 8px;
+  font-size: 1.2em;
+}
+.special-layout{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.overlay img.ted-qual {
+  width: 330px;
+  height: 330px;
+}
+
+.special-layout-mobile .showinfo {
+    padding:  1rem;
+    color: #fff;
+
+   }
+.special-layout-mobile .showinfo h4 {
+    font-size: 25px;
+    font-weight: 100;
+   }
+.special-layout-mobile  .toppic-focus h6 {
+  font-size:  27px;
+  color: var(--accent-dark);
+}
+.special-layout-mobile  .toppic-focus h2 {
+  font-size: 59px;
+  line-height: 80%; /* 47.2px */
+  letter-spacing: 1.18px;
+  color: var(--accent-dark);
+  padding: .75rem 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .is-desktop {
+	display: none;
+   }
+  .is-desktop {
+    display: none;
+  }
+  .overlay img.ted-qual {
+    width: 160px;
+    height: 160px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .overlay img.ted-qual {
+    width: 255px;
+    height: 255px;
+  }
+	.is-desktop {
+	display: none;
+   }
+.special-layout-mobile .showinfo {
+    padding:  1rem;
+   }
+.special-layout-mobile .showinfo h4 {
+    font-size: 36px;
+    font-weight: 100;
+   }
+.special-layout-mobile  .toppic-focus  h6 {
+  font-size:  32px;
+}
+.special-layout-mobile  .toppic-focus h2 {
+  font-size: 90px;
+  line-height: 80%; /* 47.2px */
+  letter-spacing: 1.18px;
+  padding: .75rem 0;
+}
+
+}
+@media only screen and (min-width: 1024px) {
+.is-mobile {
+	display: none;
+ }
+}
+</style>

@@ -1,0 +1,43 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = HTMLAttributes<"a">;
+
+const { isHidden, class: className, ...props } = Astro.props;
+const { pathname } = Astro.url;
+
+const lang = Astro.params?.lang || "th";
+
+const href = "https://admissions.utcc.ac.th/loginUTCC";
+---
+
+<a href={href} target="_blank">
+  <button
+    id="custom-btn"
+    class="btn btn-neutral rounded-full font-normal uppercase text-[#030E62]"
+    class:list={[className]}
+    {...props}
+  >
+    <slot />
+    <Icon
+      name="arrow-left"
+      class:list={[className, { hidden: isHidden }]}
+      {...props}
+    />
+  </button>
+</a>
+<style scoped>
+  #custom-btn {
+    background: #ffc50f;
+    background: linear-gradient(270deg, #ffc50f 0%, #fbec4f 100%);
+    border-color: #ffc50f;
+  }
+  button {
+    font-size: 1.5rem;
+  }
+  button:hover button,
+  button:hover svg {
+    color: #030e62;
+  }
+</style>

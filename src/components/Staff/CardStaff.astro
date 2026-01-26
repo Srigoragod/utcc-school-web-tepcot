@@ -1,0 +1,118 @@
+---
+import Image from "astro/components/Image.astro";
+import image from "../../../public/staff/AJ04.png";
+import Facebook from "../../../public/icon/sc-facebook.svg";
+import Instagram from "../../../public/icon/sc-instagram.svg";
+import X from "../../../public/icon/sc-x-twitter.svg";
+import LinkedIn from "../../../public/icon/sc-linkedIn.svg";
+
+const { img, fb, ig, x, lki } = Astro.props;
+---
+
+<div class="card w-80 bg-base-100 shadow-xl relative mx-auto">
+  <figure class="bg-cover bg-center h-[300px] bg-a-blue-0033A1">
+    <div class="filter filter--css">
+      <Image src={image} alt="" />
+    </div>
+  </figure>
+  <div class="p-4 px-8 bg-white text-center leading-none rounded-b-2xl">
+    <div class="name-staff pb-4 border-b border-a-gray-BEC1C1">
+      <slot />
+    </div>
+    <div class="card-actions py-4 justify-center gap-4">
+      <a href={fb} target="_blank">
+        <Image src={Facebook} alt="Icon Facebook" />
+      </a>
+      <a href={ig} target="_blank">
+        <Image src={Instagram} alt="Icon Instagram" />
+      </a>
+      <a href={x} target="_blank">
+        <Image src={X} alt="Icon X" />
+      </a>
+      <a href={lki} target="_blank">
+        <Image src={LinkedIn} class="h-8" alt="Icon LinkedIn" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  @import "../../styles/global.css";
+  .filter--css {
+    position: relative;
+    display: inline-block;
+  }
+
+  .filter--css img {
+    -webkit-filter: contrast(110%) saturate(0%) sepia(0%) hue-rotate(180deg);
+    filter: contrast(110%) saturate(0%) sepia(0%) hue-rotate(180deg);
+  }
+
+  .filter--css::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    background: var(--accent-dark);
+    z-index: 2;
+  }
+
+  .card:hover .filter--css img {
+    -webkit-filter: unset;
+    filter: unset;
+  }
+
+  .card:hover .filter--css::before {
+    background: transparent;
+  }
+
+  .filter--cloudinary::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.5;
+    background: var(--accent-dark);
+    z-index: 2;
+  }
+
+  .gallery {
+    display: flex;
+  }
+
+  .gallery .original,
+  .gallery .filter {
+    position: relative;
+  }
+
+  .gallery .original::after,
+  .gallery .filter::after {
+    content: "original";
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    opacity: 0.5;
+    z-index: 3;
+  }
+
+  .gallery .filter::after {
+    content: "filter";
+  }
+
+  .gallery .original > img,
+  .gallery .filter > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

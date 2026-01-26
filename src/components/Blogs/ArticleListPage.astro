@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MainBanner from "../../components/Banner/MainBanner.astro";
+import ArticleCard from "./ArticleCard.astro";
+import Pagination from "../Pagination.astro";
+import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
+import CourseList from "../../components/course/CourseList.vue";
+import UniqueType from "../../components/Blogs/uniqueType.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { allArticle, currentPage, perPage, baseUrl } = Astro.props;
+
+const start = (currentPage - 1) * perPage;
+const end = start + perPage;
+const paginatedArticle = allArticle.slice(start, end);
+
+const totalPages = Math.ceil(allArticle.length / perPage);
+const homeSlug = `/`;
+const newsSlug = `/articles`;
+---
+
+<Layout
+  title={`${t("news.title")} | ${t("name")} ${t("university")}`}
+  description={`${t("news.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={t("news.title")} description={t("name")} />
+  <div class="bg-a-yellow-FFF4DF">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "ข่าวและกิจกรรม", href: newsSlug },
+            { label: "" },
+          ]}
+        />
+        <div class="blog pb-8">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
+            <div class="col-span-4 lg:col-span-4 mb-0">
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+                {paginatedArticle.map((article) => <ArticleCard article={article} />)}
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                baseUrl={`/articles`}
+              />
+            </div>
+            <div class="col-span-2 md:col-span-1 lg:col-span-1">
+              <UniqueType type="news" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <SwiperPromo client:load customClass={"bg-slate-50"} />
+  <CourseList client:load customClass={"bg-slate-50"} lang={lang} />
+</Layout>

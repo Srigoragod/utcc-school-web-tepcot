@@ -1,0 +1,131 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import ArticleCard from "../../../../components/Blogs/ArticleCard.astro";
+import Pagination from "../../../../components/Pagination.astro";
+import { BLOG_PER_PAGE } from "../../../../consts";
+import MainBanner from "../../../../components/Banner/MainBanner.astro";
+import { getLangFromUrl, useTranslations } from "../../../../i18n/utils";
+import UniqueType from "../../../../components/Blogs/uniqueType.astro";
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const newsApi = import.meta.env.PUBLIC_API_WP_NEWS;
+  const cateApi = import.meta.env.PUBLIC_API_WP_NEWS_TYPE;
+
+  // ✅ fetch all categories first
+  const cateRes = await fetch(`${cateApi}?per_page=100`);
+  const categories = await cateRes.json();
+
+  // ✅ fetch all news once
+  const newsRes = await fetch(
+    `${newsApi}?per_page=100&_embed&acf_format=standard`
+  );
+  const news = await newsRes.json();
+
+  // ✅ build paths by tag slug (route param is [tag])
+  const paths = categories.map((cat) => ({
+    params: { tag: cat.slug },
+    props: {
+      news,
+      tag: cat.slug,
+      tagName: cat.name,
+    },
+  }));
+
+  // เพิ่ม path สำหรับ 'others' เสมอ
+  paths.push({
+    params: { tag: "others" },
+    props: {
+      news,
+      tag: "others",
+      tagName: "อื่นๆ",
+    },
+  });
+  return paths;
+}
+
+const props = Astro.props as any;
+const news: any[] = props.news ?? [];
+const tag: string = props.tag;
+const tagName: string = props.tagName;
+const perPage = BLOG_PER_PAGE;
+const currentPage = 1;
+
+// ✅ filter news by category/tag
+let categoryNews: any[] = [];
+if (tag === "others") {
+  // กรองโพสต์ที่ไม่มีหมวดหมู่ หรือไม่มี tag ในระบบ
+  categoryNews = news.filter((b) => {
+    // ต้องมี b.acf แต่ต้องไม่มี b.acf.tag (หรือมีแต่เป็น array ว่าง)
+    if (!b.acf) return false;
+    const tags = b.acf.tag;
+    return !tags || (Array.isArray(tags) && tags.length === 0);
+  });
+} else {
+  categoryNews = news.filter((b) => {
+    const tags = b.acf?.tag;
+    if (!tags) return false;
+    if (Array.isArray(tags)) return tags.some((tt) => tt?.slug === tag);
+    // fallback if tag is single object
+    return tags?.slug === tag;
+  });
+}
+
+const totalPages = Math.ceil(categoryNews.length / perPage);
+const paginatedNews = categoryNews.slice(0, perPage);
+const homeSlug = `/`;
+const newsSlug = `/articles`;
+---
+
+<Layout
+  title={`${t("news.title")} | ${t("name")} ${t("university")}`}
+  description={`${t("news.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={`${tagName}`} description={`${t("news.title")}`} />
+  <div class="bg-a-yellow-FFF4DF">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "ข่าวและกิจกรรม", href: newsSlug },
+            { label: tagName },
+          ]}
+        />
+        <div class="article pb-8">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
+            <div class="col-span-4 lg:col-span-4 mb-0">
+              {
+                paginatedNews.length >= 1 ? (
+                  <>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+                      {paginatedNews.map((news) => (
+                        <ArticleCard article={news} />
+                      ))}
+                    </div>
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      baseUrl={`/articles/tag/${tag}`}
+                    />
+                  </>
+                ) : (
+                  <div class="text-center text-a-gray-696F6F py-16">
+                    <p>ยังไม่มีข่าวและกิจกรรมในหมวด {tagName}</p>
+                  </div>
+                )
+              }
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <UniqueType type="news" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

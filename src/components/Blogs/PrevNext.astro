@@ -1,0 +1,44 @@
+---
+/**
+ * Component PrevNext
+ *
+ * Props:
+ * - items: Array ของบทความทั้งหมด
+ * - currentSlug: slug ของบทความปัจจุบัน
+ * - basePath: path หลัก (เช่น "/blogs" หรือ "/articles")
+ */
+const { items, currentSlug, basePath = "/blogs" } = Astro.props;
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
+
+// หา index ของบทความปัจจุบัน
+const index = items.findIndex((item) => item.slug === currentSlug);
+
+const prevItem = index > 0 ? items[index - 1] : null;
+const nextItem = index < items.length - 1 ? items[index + 1] : null;
+---
+
+<nav class="nav-article">
+  {
+    prevItem ? (
+      <a href={`${basePath}/${prevItem.slug}`} class="buttonNews shadow-md">
+        <ChevronLeftIcon class="h-5 w-5" />
+      </a>
+    ) : (
+      <div class="buttonNews shadow-md disable" aria-disabled="true">
+        <ChevronLeftIcon class="h-5 w-5" />
+      </div>
+    )
+  }
+
+  {
+    nextItem ? (
+      <a href={`${basePath}/${nextItem.slug}`} class="buttonNews shadow-md">
+        <ChevronRightIcon class="h-5 w-5" />
+      </a>
+    ) : (
+      <div class="buttonNews shadow-md disable" aria-disabled="true">
+        <ChevronRightIcon class="h-5 w-5" />
+      </div>
+    )
+  }
+</nav>

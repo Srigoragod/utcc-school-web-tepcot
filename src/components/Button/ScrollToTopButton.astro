@@ -1,0 +1,54 @@
+---
+
+---
+  <button class="btn-go-top hidden" id="backToTopBtn">
+    <div class="flex">
+      <!-- <span class="uppercase">Scroll&nbsp;&nbsp;&nbsp;Up&nbsp;&nbsp;<Icon name="arrow-left" /></span> -->
+      <img src="../../../icon/btn-scrollup.svg" alt="" />
+    </div>
+  </button>
+  <a href="https://m.me/CEUTCC" target="_blank">
+    <button class="btn-messeger">
+      <img src="../../../icon/btn-messeger.svg" alt=""/>
+    </button>
+  </a>
+
+<style scoped>
+ button {
+  position: fixed;
+  bottom: 110px;
+  right: 20px;
+  height: 3em;
+  width: 3em;
+  cursor: pointer;
+  z-index: 90;
+ }
+  button.btn-messeger {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  height: 3em;
+  width: 3em;
+  cursor: pointer;
+
+  }
+ button span {
+  transform: rotate(-90deg);
+    transform-origin: left top 0;
+    display: flex;
+    align-items: center;
+    letter-spacing: 1px;
+
+ }
+ 
+ @media only screen and (max-width: 767px) {
+ .btn-go-top {
+   display: none !important;
+ }
+ button.btn-messeger {
+  bottom: 160px;
+  right: 10px;
+ }
+}
+
+</style>

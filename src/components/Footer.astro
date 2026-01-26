@@ -1,0 +1,318 @@
+---
+import Image from "astro/components/Image.astro";
+import Logo from "../../public/image/3-CE-UTCC-2-min.png";
+import LogoWhite from "../../public/image/2-CE-UTCC-2-min.png";
+import Facebook from "/public/icon/sc-facebook.svg";
+import Instagram from "/public/icon/sc-instagram.svg";
+// import Line from "/public/icon/sc-line.svg";
+// import Youtube from "/public/icon/sc-youtube.svg";
+import X from "/public/icon/sc-x-twitter.svg";
+import Tiktok from "/public/icon/sc-tiktok.svg";
+
+import { Icon } from "astro-icon/components";
+
+import HeaderLink from "./HeaderLink.astro";
+import FooterList from "./FooterList.vue";
+import ButtonMain from "./Button/ButtonMain.astro";
+const today = new Date();
+
+import { useTranslations } from "../i18n/utils";
+import { CalendarDateRangeIcon } from "@heroicons/vue/24/solid";
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const homeSlug = `/`;
+const courSection = `/#course`;
+const faqSection = `/#faq`;
+const aboutSection = `/aboutus`;
+const partnerSection = "/#partners";
+const alumniSection = "/#alumni";
+const newsSection = `/#news`;
+const version = import.meta.env.PUBLIC_APP_VERSION;
+
+const currentYear = new Date().getFullYear();
+const yearBE = currentYear + 544;
+const shortYearBE = yearBE.toString().slice(-2);
+---
+
+<footer>
+  <div class="footer-body-top px-4">
+    <div class="container mx-auto">
+      <div class="content-footer grid grid-cols-4 gap-4">
+        <FooterList lang={lang} client:load />
+        <div class="item text-left pb-8">
+          <h6>{t("contactUs.title")}</h6>
+          <div class="contect-info">
+            <ul>
+              <li>{t("name")} {t("university")}</li>
+              <li class="mb-8 mr-2 md:mr-0">{t("contactUs.address")}</li>
+              <li>{t("contactUs.phone")}</li>
+              <li class="flex items-center mb-2">
+                <Icon name="phone" class="mr-2 h-5" /><a href="tel:+6626976152"
+                  >02-697-6152</a
+                >
+              </li>
+              <li>{t("contactUs.serviceTime")}</li>
+              <li class="flex items-center">
+                <CalendarDateRangeIcon class="w-5 h-5 mx-2" />
+                {t("contactUs.date")}
+              </li>
+              <li class="flex items-center">
+                <Icon name="clock" class="mx-2" />{t("contactUs.time")}
+              </li>
+            </ul>
+          </div>
+          <div class="social-media-groud flex items-center my-6 gap-4">
+            <a href="https://www.facebook.com/ceutcc" target="_blank"
+              ><Image
+                src={Facebook}
+                alt="Icon Facebook"
+                class:list={"text-a-blue-0B0B0B"}
+              /></a
+            >
+            <a
+              href="https://www.instagram.com/ceutcc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"><Image src={Instagram} alt="Icon Instagram" /></a
+            >
+            <a
+              href="https://www.tiktok.com/@ce.utcc?is_from_webapp=1&sender_device=pc"
+              target="_blank"><Image src={Tiktok} alt="Icon Tiktok" /></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="nav-logo flex justify-between items-center">
+        <div class="item">
+          <HeaderLink href={homeSlug}>
+            <Image src={Logo} alt="Logo UTCC" class={"-ml-4 w-[220px]"} />
+          </HeaderLink>
+        </div>
+        <div class="item">
+          <div class="internal-links flex justify-end gap-2 lg:gap-8">
+            <HeaderLink href={aboutSection} class:list={"text-a-blue-0033A1"}
+              >{t("nav.about")}</HeaderLink
+            >
+            <HeaderLink href={courSection}>{t("nav.course")}</HeaderLink>
+            <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
+            <HeaderLink href={partnerSection}>{t("nav.partner")}</HeaderLink>
+            <HeaderLink href={alumniSection}>{t("nav.alumni")}</HeaderLink>
+            <HeaderLink href={newsSection}>{t("nav.news")}</HeaderLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="footer-body-bottom">
+  <div class="detail container mx-auto flex justify-between items-center">
+    <Image
+      src={LogoWhite}
+      alt="Logo TEPCOT by UTCC — Executive Learning & Leadership Network in Commerce and Tradeีร"
+      class={" w-[240px] block md:hidden"}
+    />
+    <div class="text-center md:text-left">
+      Copyright &copy; {today.getFullYear()}
+      <br class="block sm:hidden" /> The University of the Thai Chamber of Commerce.
+      <br class="block sm:hidden" /> All rights reserved.
+      <br />
+      <span class="font-light">Version: {version}</span>
+    </div>
+    <div class="text-policy">
+      <a
+        href="https://www.utcc.ac.th/privacy-policy/"
+        target="_blank"
+        class="text-a-blue-030e62">{t("footer.policy")}</a
+      >
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  @import "../styles/global.css";
+  footer {
+    background: linear-gradient(var(--gray-gradient)) no-repeat;
+    text-align: center;
+    font-size: 24px;
+  }
+  footer ul li {
+    font-weight: 300;
+    text-align: left;
+    line-height: none;
+    color: #0b0b0b;
+  }
+  footer ul li a {
+    color: #0b0b0b;
+  }
+  footer ul li a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+  .internal-links a {
+    color: #0b0b0b;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 30px */
+  }
+  .content-footer {
+    padding-top: 100px;
+  }
+  .footer-body-top {
+    color: #0b0b0b;
+    background-color: #e9e9e9;
+  }
+  .contect-info {
+    line-height: normal;
+    text-align: left;
+  }
+  .footer-body-top h6 {
+    font-size: 36px;
+    font-weight: 500;
+    text-align: left;
+  }
+  .footer-body-top .nav-logo {
+    padding: 2rem 0;
+  }
+  .footer-body-bottom {
+    background-color: #2e3192;
+    padding: 40px 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+  }
+  .footer-body-bottom a {
+    color: #030e62;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+  .social-links a {
+    text-decoration: none;
+    color: rgb(var(--gray));
+  }
+  .social-links a:hover {
+    color: rgb(var(--gray-dark));
+  }
+
+  @media only screen and (max-width: 767px) {
+    .pb-14 {
+      padding: 0;
+    }
+    .footer-body-top {
+      padding: 2rem 1rem;
+      font-size: 20px;
+    }
+    .footer-body-top h6 {
+      font-size: 30px;
+    }
+    .content-footer {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 0 !important;
+    }
+
+    .nav-logo {
+      display: none;
+    }
+    .footer-body-bottom {
+      font-size: 1rem;
+      padding-bottom: 10rem;
+    }
+    .footer-body-bottom .detail {
+      flex-direction: column;
+      padding: 0 4rem;
+      opacity: 0.7;
+    }
+    .content-footer {
+      flex-direction: column-reverse;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+    .footer-body-top {
+      /* padding: 0 1rem; */
+      font-size: 24px;
+    }
+    .footer-body-top h6 {
+      font-size: 30px;
+    }
+    .footer-body-top .nav-logo {
+      padding: 1rem 0;
+    }
+    .content-footer {
+      /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
+    }
+    .item:nth-child(1) {
+      grid-row: span 2 / span 2;
+    }
+    .item:nth-child(3) {
+      padding-bottom: 0 !important;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+    }
+    div.nav-logo.items-center > div:nth-child(1) {
+      justify-items: center;
+      text-align: center;
+      display: contents;
+      margin-bottom: 1rem;
+    }
+    .internal-links {
+      padding: 1rem 0;
+    }
+    .content-footer {
+      padding: 2rem 0 1rem 0;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .footer-body-bottom {
+      padding-bottom: 12rem;
+    }
+    .footer-body-bottom .detail {
+      flex-direction: column;
+      padding: 0 2rem;
+      opacity: 0.7;
+    }
+  }
+
+  /* Landscape */
+  @media only screen and (min-width: 1366px) and (orientation: landscape) {
+    .nav-logo {
+      background-color: transparent;
+    }
+    .internal-links {
+      padding: 1rem 0;
+    }
+  }
+  /*Portrait*/
+  @media only screen and (min-width: 1024px) and (orientation: portrait) {
+    .is-desktop {
+      display: none;
+    }
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+    }
+    .internal-links {
+      justify-content: center;
+    }
+    .internal-links {
+      padding: 1rem 0 0 0;
+    }
+    .footer-body-bottom {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      opacity: 0.7;
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .footer-body-top {
+      padding: 0 1rem;
+    }
+  }
+</style>

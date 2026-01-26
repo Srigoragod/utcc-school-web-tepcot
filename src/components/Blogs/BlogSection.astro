@@ -1,0 +1,120 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { Icon } from "astro-icon/components";
+import BlogCard from "./BlogCard.astro";
+import { HOMEPAGE_BLOG_LIMIT } from "../../consts";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const uri = import.meta.env.PUBLIC_API_WP_BLOG;
+const reqUrl = `?per_page=8&_embed&acf_format=standard`;
+const response = await fetch(uri + reqUrl, { mode: "cors" });
+const blogList = await response.json();
+
+const recentBlog = blogList.slice(0, HOMEPAGE_BLOG_LIMIT);
+const recentAcf = recentBlog[0].acf;
+
+// console.log("..? recentAcf", recentAcf);
+
+---
+
+<div class="py-24 bg-a-gray-F8FAFC" id="blogs">
+  <div class="px-4 sm:px-16">
+    <div class="container mx-auto">
+      <div class="text-44 md:text-66 font-semibold mb-0">
+        {`${t("home.blog.title")}`}
+      </div>
+      <div class="sm:w-30 pt-0 md:pt-4">
+        <div class="text-24 md:text-30">
+          {`${t("home.blog.description")}`}
+        </div>
+      </div>
+      <div class="py-16">
+        <div class="grid grid-cols-2 tablet:grid-cols-3 gap-4 desktop:gap-8">
+          {recentBlog.map((post) => <BlogCard blog={post} />)}
+        </div>
+        {
+          blogList.length > HOMEPAGE_BLOG_LIMIT ? (
+            <div class="text-center pt-16">
+              <a href="blogs">
+                <button
+                  class="btn btn-active btn-primary text-white rounded-full font-medium uppercase text-24 hover:underline cursor-pointer"
+                  lang={lang}
+                >
+                  {t("button.showMore")}
+                  <Icon name="arrow-left" />
+                </button>
+              </a>
+            </div>
+          ) : (
+            ""
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<style scoped>
+  @import "../../styles/global.css";
+
+  .news .card {
+    color: var(--black);
+    overflow: hidden;
+  }
+
+  .news .card .card-top {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .news .card .card-top img {
+    object-fit: cover;
+    height: 300px;
+    width: 100%;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+  }
+
+  .news .card:hover .card-top img {
+    transform: scale(1.2);
+    transition: transform 0.5s ease;
+  }
+
+  .news .card .card-top:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    background: linear-gradient(0deg, rgb(248 175 35 / 45%), #000b5100 29%);
+    opacity: 1;
+    transition: ease-in-out 0.3s;
+  }
+
+  .news .card:hover .card-top:before {
+    opacity: 0;
+  }
+
+  .news .card .card-title {
+    line-height: 2.5rem;
+  }
+
+  .news .card:hover .card-title {
+    color: var(--blue-light2);
+  }
+
+  .news .card-content p {
+    line-height: 1.2;
+    margin-bottom: 0 !important;
+  }
+
+  .load-button {
+    padding: 0.5rem 3rem;
+  }
+
+  @media (max-width: 1023px) {
+    .news .card .card-top img {
+      height: 125px;
+    }
+  }
+</style>
