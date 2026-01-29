@@ -138,11 +138,11 @@ footer ul li {
   font-weight: 300;
   text-align: left;
   line-height: none;
-  color: #0b0b0b;
+  color: #f7f7f7;
 }
 
 footer ul li a {
-  color: #0b0b0b;
+  color: #f7f7f7;
   opacity: 0.7;
 }
 

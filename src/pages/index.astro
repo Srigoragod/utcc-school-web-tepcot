@@ -5,21 +5,25 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 // components
 import HeroLayout from "../layouts/HeroLayout.astro";
-import SpecialLayoutV2 from "../components/SpecialLayoutV2.astro";
+// import SpecialLayoutV2 from "../components/SpecialLayoutV2.astro";
 import Course from "../components/course/index.vue";
-import AboutUs from "../components/AboutUs/AboutUs.vue";
+// import AboutUs from "../components/AboutUs/AboutUs.vue";
 import FaqsFetchAPI from "../components/Faq/FaqFetchAPI.vue";
 import PartnerSection from "../components/Partner/PartnerSection.vue";
 import AlumniSection from "../components/Alumni/AlumniSection.astro";
 import ArticleSection from "../components/Blogs/ArticleSection.astro";
 import BlogSection from "../components/Blogs/BlogSection.astro";
 import SwiperPromo from "../components/SlideShow/SwiperPromo.vue";
+import Overview from "../components/AboutUs/OverView.vue";
+// import DownloadBanner from "../components/Shared/DownloadBanner.vue";
+import TargetAudience from "../components/AboutUs/TargetAudience.vue";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const title = "Creative Entrepreneurship School";
 const description = "คณะการสร้างเจ้าของธุรกิจสร้างสรรค์ มหาวิทยาลัยหอการค้าไทย";
-const keywords = "ผู้ประกอบการ, การบริหารธุรกิจ, นวัตกรรม, ความคิดสร้างสรรค์, การฝึกงาน, เครือข่ายธุรกิจ, มหาวิทยาลัยหอการค้าไทย, การพัฒนาธุรกิจ";
+const keywords =
+  "ผู้ประกอบการ, การบริหารธุรกิจ, นวัตกรรม, ความคิดสร้างสรรค์, การฝึกงาน, เครือข่ายธุรกิจ, มหาวิทยาลัยหอการค้าไทย, การพัฒนาธุรกิจ";
 const slogan =
   "Ignite your passsion, follow your dreams, and become the leader you";
 ---
@@ -32,13 +36,27 @@ const slogan =
   slogan={slogan}
 >
   <HeroLayout title={title} description={description} />
-  <SpecialLayoutV2 lang={lang} />
-  <AboutUs client:idle lang={lang} button={t("aboutUs.button")} />
-  <Course client:idle />
-  <SwiperPromo  client:idle />
-  <FaqsFetchAPI client:idle lang={lang} />
+  <!-- <div class="container mx-auto my-8">
+      <DownloadBanner lang={lang} client:idle />
+    </div> -->
   <PartnerSection client:idle className="py-24" lang={lang} />
-  <AlumniSection className="py-24" />
-  <ArticleSection />
-  <BlogSection />
+  <section>
+    <div class="max-w-7xl mx-auto">
+      <Overview client:idle lang={lang} />
+    </div>
+  </section>
+  <section class="bg-slate-50">
+    <div class="max-w-7xl mx-auto">
+      <TargetAudience client:idle lang={lang} />
+      </div>
+    </div>
+    <!-- <AboutUs client:idle lang={lang} button={t("aboutUs.button")} /> -->
+    <Course client:idle />
+    <SwiperPromo client:idle />
+    <FaqsFetchAPI client:idle lang={lang} />
+    <AlumniSection className="py-24" />
+    <ArticleSection />
+    <BlogSection />
+    <TargetAudience client:idle lang={lang} />
+  </section>
 </Layout>

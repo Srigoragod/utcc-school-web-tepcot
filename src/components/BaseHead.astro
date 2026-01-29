@@ -20,7 +20,13 @@ const canonicalPathname = pathNameIsInLanguage(Astro.url.pathname, DEFAULT_LANG)
   : getLocalizedPathname(Astro.url.pathname, DEFAULT_LANG);
 const canonicalURL = new URL(canonicalPathname, Astro.site);
 
-const { lang, title, description, image = "/image/ce.jpg", keywords } = Astro.props;
+const {
+  lang,
+  title,
+  description,
+  image = "/image/ce.jpg",
+  keywords,
+} = Astro.props;
 
 const alternateLang = Object.keys(LANGUAGES);
 const alternateLinks = alternateLang.map((_lang: UiType) => {
@@ -34,7 +40,7 @@ const alternateLinks = alternateLang.map((_lang: UiType) => {
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="../../icon/utcc-favicon.png" />
+<link rel="icon" type="image/svg+xml" href="../../icon/utcc-icon.svg" />
 <!-- <meta http-equiv="refresh" content="0;url=/en/" /> -->
 <meta name="generator" content={Astro.generator} />
 <meta
@@ -69,7 +75,7 @@ const alternateLinks = alternateLang.map((_lang: UiType) => {
 }
 
 <!-- Primary Meta Tags -->
-<title set:html={title}></title>
+<title set:html={title} />
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta name="keywords" content={keywords} />

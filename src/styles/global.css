@@ -12,7 +12,7 @@
 	--gray-dark: 34, 41, 57;
 	--blue-light1: #3E7ADB;
 	--blue-light2: #0E4D8F;
-	--blue-light3: #18ffff;
+	--blue-light3: #aad6ec;
 	--orange: #FF7900;
 	--orange-drak: #A84E00;
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
@@ -72,7 +72,7 @@ body {
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: #0B0B0B;
+	color: #000035;
 	font-size: 20px;
 	line-height: normal;
 }
@@ -265,7 +265,7 @@ hr {
 
 
 html {
-	scrollbar-color: #9C7F32 #ffffff;
+	scrollbar-color: #030E62 #f7f7f7;
 	scrollbar-width: thin;
 }
 

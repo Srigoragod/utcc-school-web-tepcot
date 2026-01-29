@@ -11,9 +11,11 @@ export default {
       colors: {
         //Primary Color
         "a-blue-030e62": "#030e62",
+        "a-blue-1c1c84": "#1c1c84",
+        "a-blue-265EF7": "#265EF7",
         "a-glod-D4B769": "#D4B769",
         "a-orage-F36A10": "#F36A10",
-        "a-blue-18ffff": "#18ffff",
+        "a-blue-aad6ec": "#aad6ec",
         "a-blue-0033A1": "#0033A1",
         "a-blue-021430": "#021430",
         "a-blue-e7f4ff": "#e7f4ff",
@@ -70,11 +72,11 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#fbec4f",
-          secondary: "#332E23",
-          info: "#45b2ef",
-          accent: "#0d60ac",
-          neutral: "#0f0f33",
+          primary: "#ffd300",
+          secondary: "#A0E077",
+          info: "#0f0f33",
+          accent: "#1c1c84",
+          neutral: "#45b2ef",
         },
       },
     ],

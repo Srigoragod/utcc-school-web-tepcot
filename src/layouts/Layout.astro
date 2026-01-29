@@ -35,7 +35,11 @@ const t = useTranslations(lang as UiType);
       style="display:none;visibility:hidden"></iframe></noscript
   >
   <!-- End Google Tag Manager (noscript) -->
-  <div class="relative">
+  <div class="absolute top-0 left-0 w-full z-50">
+    <div
+      class="absolute z-20 inset-0 bg-gradient-to-b from-[#000035]/100 via-[#000035]/50 to-transparent h-full pointer-events-none"
+    >
+    </div>
     <Header title={t("site.title")} lang={lang} />
     <SideMenuRight client:visible
       ><ButtonMain>สมัครเรียน</ButtonMain></SideMenuRight

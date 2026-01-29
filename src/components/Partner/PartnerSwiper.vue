@@ -1,20 +1,14 @@
 <template>
-  <div class="our-partner flex w-full relative">
+  <div class="our-partner">
 
-    <div class="partner-group">
-      <div class="partner-list">
+    <div class="partner-group w-full">
+      <div class=" grid grid-cols-2 md:grid-cols-5 partner-list gap-4 md:gap-8 items-center justify-center">
         <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all rounded-md md:rounded-lg">
-          <img :src="item.image" :alt="item.title" loading="lazy" />
+          <img :src="item.image" :alt="item.title" loading="lazy" class=" mx-auto" />
         </div>
       </div>
     </div>
-    <div class="partner-group is-mobile">
-      <div class="partner-list">
-        <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all rounded-md md:rounded-lg">
-          <img :src="item.image" :alt="item.title" loading="lazy" />
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -65,9 +59,9 @@ export default {
   position: relative;
 }
 
-.partner-group {
-  animation: slideSide 200s linear infinite;
-}
+/* .partner-group {
+  animation: slideSide 8s linear infinite;
+} */
 
 .partner-list {
   display: flex;

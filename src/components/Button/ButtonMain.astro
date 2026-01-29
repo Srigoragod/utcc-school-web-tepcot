@@ -12,7 +12,7 @@ const lang = Astro.params?.lang || "th";
 const href = "https://admissions.utcc.ac.th/loginUTCC";
 ---
 
-<a href={href} target="_blank">
+<a href={href} target="_blank" class=" inline-block">
   <button
     id="custom-btn"
     class="btn btn-neutral rounded-full font-normal uppercase text-[#030E62]"
@@ -26,12 +26,13 @@ const href = "https://admissions.utcc.ac.th/loginUTCC";
       {...props}
     />
   </button>
+  <!-- <p class="text-base text-white/70 mx-auto flex justify-center py-1">รับสมัครจำนวนจำกัด</p> -->
 </a>
 <style scoped>
   #custom-btn {
-    background: #ffc50f;
-    background: linear-gradient(270deg, #ffc50f 0%, #fbec4f 100%);
-    border-color: #ffc50f;
+    background: #ffea00;
+    background: linear-gradient(270deg, #ffea00 0%, #f0e893 100%);
+    border-color: #ffea00;
   }
   button {
     font-size: 1.5rem;

@@ -1,18 +1,8 @@
 <template>
 
-  <div id="partners" class="py-10 md:py-20" :class="customClass">
-    <div class="">
-      <div class="container mx-auto px-4 md:px-0">
-        <div class="text-44 md:text-66 font-semibold mb-0">
-          {{ titleName }}
-        </div>
-        <div class="sm:w-30 pt-0 md:pt-4">
-          <div class="text-24 md:text-30 font-light">
-            {{ desc }}
-          </div>
-        </div>
-      </div>
-      <div class="partner-section pt-4 md:pt-16">
+  <div id="partners" class="py-10" :class="customClass">
+    <div class=" container mx-auto max-w-6xl">
+      <div class="partner-section">
         <PartnerSwiper client:visible />
       </div>
     </div>

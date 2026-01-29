@@ -24,10 +24,7 @@ const blogSection = `/#blogs`;
 ---
 
 <header>
-  <div
-    id="header"
-    class="w-full relative z-20 pb-2 items-center bg-a-blue-030e62 shadow-md"
-  >
+  <div  id="header" class="w-full relative z-20 pb-2 items-center container mx-auto rounded-xl md:mt-4 md:px-0">
     <script type="module">
       (function () {
         const header = document.getElementById("header");
@@ -54,7 +51,7 @@ const blogSection = `/#blogs`;
   > -->
     <div class="navbar container mx-auto items-center">
       <div class="navbar-start">
-        <a href={homeSlug} class="logo">
+        <a href={homeSlug} class="logo px-0">
           <Image src={Logo} alt="Logo UTCC" class={'w-[70%]'} alt={'หลักสูตร TEPCoT'} />
         </a>
       </div>
@@ -73,7 +70,7 @@ const blogSection = `/#blogs`;
         <span class="hidden lg:flex">
           <!-- <DropdownLang language={lang} /> -->
         </span>
-        <div class="admission-btn hidden lg:flex ml-4">
+        <div class="admission-btn hidden lg:flex mr-4">
           <ButtonMain lang={lang}>{t("button.admission")}</ButtonMain>
         </div>
         <div
@@ -122,7 +119,7 @@ const blogSection = `/#blogs`;
       color: white;
       border-bottom: 3px solid transparent;
       text-decoration: none;
-      padding: 0 0.5rem;
+      /* padding: 0 0.5rem; */
     }
     .navbar a.active {
       text-decoration: none;

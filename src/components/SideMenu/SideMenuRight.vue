@@ -1,6 +1,5 @@
 <template>
-    <div id="sidemenu"
-        class="hidden z-30 fixed z-index-fixed top-0 right-0 overflow-hidden duration-1000 ease-in-out h-screen">
+    <div id="sidemenu" class="hidden z-30 fixed z-index-fixed top-0 right-0 overflow-hidden duration-1000 ease-in-out h-screen">
         <transition @click="closeMenu" name="fade">
             <div class="bg-black bg-opacity-70 w-full h-screen fixed top-0 right-0">
             </div>
