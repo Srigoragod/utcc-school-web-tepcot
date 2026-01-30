@@ -1,5 +1,5 @@
 <template>
-  <h6 class="text-20 font-light  capitalize text-a-blue-265EF7 max-w-fit  group-hover:bg-blue-950">{{ textShow }} </h6>
+  <h6 class="text-20 font-light uppercase text-a-blue-265EF7 max-w-fit group-hover:bg-blue-950 rounded-[20px_0_20px_0] px-4">{{ textShow }} </h6>
 </template>
 <script >
 export default {

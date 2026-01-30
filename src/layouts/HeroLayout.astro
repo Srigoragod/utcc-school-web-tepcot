@@ -15,31 +15,16 @@ const { title, description } = Astro.props;
   <Swiper client:idle />
   <div class="custom-bg">
     <div
-      class="flex justify-between py-4 container mx-auto items-center topic-school relative is-desktop px-4"
+      class="grid grid-cols-1 md:grid-cols-2 py-4 container mx-auto items-center topic-school relative px-4"
     >
       <!-- lg:block -->
       <div class="relative max-w-5xl">
-        <h1  class="leading-none font-bold pt-4 topic-h2 text-center md:text-left text-white text-44  lg:text-54">
-          หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์
-        </h1>
-        <h2 class="text-blue-100/70 text-36 md:text-44 font-light">
-          Top Executive Program in Commerce and Trade
-        </h2>
-      </div>
+
       <div class="py-4">
         <Image
           src={logo}
-          class="w-[400px] md:w-[400px]"
+          class="w-[400px] md:w-[499px] mr-auto "
           alt="TEPCOT by UTCC — Executive Program มหาวิทยาลัยหอการค้าไทย"
-        />
-      </div>
-    </div>
-    <div class="image-container relative is-mobile">
-      <div class="p-4">
-        <Image
-          src={logo}
-          class="w-[450px]"
-          alt="TEPCoT by UTCC — Executive Program Thailand University of the Chamber of Commerce"
         />
       </div>
     </div>
@@ -50,7 +35,7 @@ const { title, description } = Astro.props;
       background-image: url(/image/blue-bg-tepcot.png);
       position: relative;
       overflow: hidden;
-      min-height: 100vh;
+      /* min-height: 100vh; */
       width: 100%;
     }
 

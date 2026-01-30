@@ -1,5 +1,4 @@
 <template>
-
   <div id="partners" class="py-10" :class="customClass">
     <div class=" container mx-auto max-w-6xl">
       <div class="partner-section">
@@ -7,7 +6,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 
@@ -63,7 +61,7 @@ export default defineComponent({
 
 })
 </script>
-<!-- <style scoped>
+<style scoped>
 @import "../../styles/global.css";
 @import "../../styles/base.scss";
 
@@ -143,9 +141,6 @@ export default defineComponent({
     max-height: 40px;
   }
 }
-</style> -->
-
-<style scoped>
 .our-partner {
   position: relative;
 }

@@ -1,5 +1,5 @@
 <template>
-<div class="container mx-auto md:px-0 tepcot-overlap relative pb-20">
+<div class="container mx-auto px-4 md:px-0 tepcot-overlap relative pb-20">
   <div class="px-4 md:px-0">
     <div class="relative grid items-start gap-8 lg:grid-cols-12">
       <!-- Left: Yellow text panel -->
@@ -7,14 +7,14 @@
         <div class="relative">
           <!-- content -->
            <!--  -->
-          <div class="p-4 py-8 rounded-2xl bg-slate-50 shadow-sm hover:ring-1 hover:ring-blue-300/30">
+          <div class="p-4 py-8 rounded-2xl  hover:shadow-sm ring-1 ring-blue-300/30">
             <Eyebrow class="bg-blue-900 text-white px-2 mb-2" :text="'Overview Executive Education'" />
             <!-- <h2 class=" font-bold text-44 md:text-60  text-blue-700">หลักสูตรผู้บริหารระดับสูง</h2> -->
-            <h3 class="tracking-tight text-a-blue-030e62 text-36 sm:text-44">
+            <h3 class=" text-gradient-blue text-36 sm:text-44 font-semibold">
               {{ title }}
             </h3>
 
-            <div class="mt-6 space-y-5 leading-relaxed text-slate-700/90 text-20 md:text-24 font-light" v-html="description"></div>
+            <div class="mt-6 space-y-5 text-slate-700/90 text-20 md:text-24 font-light" v-html="description"></div>
           </div>
           <div>
 

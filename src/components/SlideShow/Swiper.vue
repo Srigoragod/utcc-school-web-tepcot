@@ -10,7 +10,7 @@
         '--swiper-navigation-color': '#fff',
         '--swiper-pagination-color': '#fff',
       }" :autoplay="{
-        delay: 5000,
+        delay: 3000,
         disableOnInteraction: false
       }" :pagination="{
           clickable: true,
@@ -19,17 +19,17 @@
           <div class="bg-image mx-auto is-desktop  rounded-lg  relative px-4"
             :style="{ backgroundImage: `url(${item.image_lg})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundSize: 'cover' }"
             loading="lazy">
-            <div  class="absolute z-4 bottom-0 inset-0 bg-gradient-to-t from-[#FFFFFF]/50 via-[#030e62]/40 to-transparent h-full mx-auto rounded-b-lg pointer-events-none"></div>
+            <div  class="absolute z-4 bottom-0 inset-0 bg-gradient-to-t from-[#77acdc]/50 via-[#030e62]/40 to-transparent h-full mx-auto rounded-b-lg pointer-events-none"></div>
             <div class="hero-content absolute inset-0 flex items-center justify-center text-center px-6 z-10 mx-auto pt-20">
               <div class="w-full max-w-5xl mx-auto pt-10">
               <Eyebrow class="bg-black/50 text-white px-2 mx-auto" :text="item.eyebrow ? item.eyebrow : eyebrowText" />
               <h2 class="text-44 md:text-54 font-bold ">{{ item.title ? item.title : defaultTitle }} </h2>
               <p  class="text-24 md:text-30 mb-6 max-w-4xl mx-auto">{{ item.description ? item.description : defaultDescription }}</p>
               <div class="flex max-w-2xl mx-auto gap-4 flex-col sm:flex-row justify-center">
-              <button class="inline-block px-6 py-3 btn btn-accent text-white rounded-full text-24" @click="clickSlide(item.button1.link)"> 
+              <button class="inline-block px-6 py-3 btn btn-accent text-white rounded-full text-24 font-light" @click="clickSlide(item.button1.link)"> 
                  {{ item.button1.title ? item.button1.title : 'ดูรายละเอียดเพิ่มเติม' }}
               </button>
-              <button  class="inline-block px-6 py-3 btn btn-neutral rounded-full text-white text-24" @click="clickSlide(item.button2.link)">
+              <button  class="inline-block px-6 py-3 btn btn-neutral rounded-full text-white text-24 font-light" @click="clickSlide(item.button2.link)">
                   {{ item.button2.title ? item.button2.title : 'ติดต่อเจ้าหน้าที่' }}
               </button>
               </div>
