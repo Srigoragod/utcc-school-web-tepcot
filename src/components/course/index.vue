@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto py-10 md:py-40 bg-white" id="course">
+  <div class="container mx-auto py-10 md:py-40" id="course">
     <!-- header -->
     <div class="custom-grid items-center mb-0 md:mb-4">
       <div class="leading-none pl-4 md:pl-0">
-        <h2 class="text-44 md:text-66 font-semibold">หลักสูตร</h2>
+        <h2 class="text-44 md:text-66 font-semibold">หลักสูตรพิเศษ</h2>
         <!-- <h4 class="text-height text-30 text-a-gray-696F6F my-2 text-1-line">
           <span v-if=" degreeSelect == 'master' ||  degreeSelect == 'doctoral'"> x บัณฑิตวิทยาลัย</span>
         </h4> -->
@@ -22,35 +22,73 @@
     <div v-else>
       <span class="is-desktop">
         <div v-if="degreeSelect == 'all' || degreeSelect == 'bachelor'">
-          <!-- <h4 class="text-24 md:text-36  mt-2 text-1-line">
-            ปริญญาตรี
-          </h4> -->
           <div class="grid grid-cols-1 gap-4">
-            <div class="box-course-items py-2" v-for="(item, index) in allProgram.bachelor" :key="index">
-              <CourseHoverItem :isEvenNumber="handleIsEvenNumber(index)" :item="item" :lang="lang"></CourseHoverItem>
-            </div>
+            <CourseHoverItem  :item="programs" :lang="lang"></CourseHoverItem>
           </div>
         </div>
-
-        <TermsAndConditions class="is-desktop" :isLoan="degreeSelect == 'all' || degreeSelect == 'bachelor'" />
       </span>
 
       <span class="is-mobile">
         <div v-if="isLoading" class="grid justify-items-center h-[305px] items-center rounded-2xl ">
           <span class="loading loading-ring loading-lg text-gray-600"></span>
         </div>
-        <div class="grid grid-cols-1 gap-4 px-4" v-if="degreeSelect == 'all' || degreeSelect == 'bachelor'">
-          <h4 class="text-30  mt-2 text-1-line ">ปริญญาตรี </h4>
-          <CourseMobile class="mb-4" v-for="(item, index) in allProgram.bachelor" :key="index"
-            :isEvenNumber="handleIsEvenNumber(index)" :item="item"></CourseMobile>
-        </div>
       </span>
 
     </div>
 
-
     <!-- / content -->
-    <TermsAndConditions class="is-mobile" :isLoan="degreeSelect == 'all' || degreeSelect == 'bachelor'" />
+    <div class="px-4 py-10 text-a-gray-696F6F font-light">
+    <div class="grid grid-cols-1 md:grid-cols-3  gap-8">
+      <div class="item  gap-4 col-span-2 hidden">
+        <h4 class="text-20 md:text-24 text-a-blue-030e62 font-normal"> รูปแบบการเรียนการสอน </h4>
+        <ul class="custom-list text-slate-600 mb-4" style="padding-left: 1.5rem; margin-bottom: 2rem; list-style: disc;">
+          <li v-for="(met, index) in programs?.teaching_methods" :key="index">
+            {{ met.method }} : {{ met.desc }}
+          </li>
+        </ul>
+      </div>
+      <div class="item">
+        <div class="gap-4">
+          <h4 class="text-20 md:text-24 text-a-blue-030e62 font-normal"> ตารางเวลาและระยะเวลา </h4>
+          <ul class="list-disc text-slate-600 mb-4" style="padding-left: 1.5rem; margin-bottom: 2rem; list-style: disc;">
+            <li class="mt-1" v-for="(dur, index) in programs.duration" :key="index">
+              <span class="ml-2 text-20 md:text-24 text-a-blue-1c1c84/80">
+                {{ dur.name }} : {{ dur.desc }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="item">
+        <div class="gap-4">
+          <h4 class="text-20 md:text-24 text-a-blue-030e62 font-normal"> {{ `กำหนดการ ${programs.schedule?.remark}`  }} </h4>
+          <ul class="list-disc text-slate-600 mb-4 " style="padding-left: 1.5rem; margin-bottom: 2rem; list-style: disc;">
+            <li class="mt-1" v-for="(sch, index) in programs.schedule?.items" :key="index">
+              <span class="ml-2 text-20 md:text-24 text-a-blue-1c1c84/80">
+                {{ sch.name }} : {{ sch.desc }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="item flex justify-end">
+        <button
+          class="btn btn-outline btn-accent text-a-blue-1c1c84 text-20 md:text-24 font-light"
+        >
+          <ArrowDownTrayIcon class="h-6 w-6 mx-2"></ArrowDownTrayIcon>
+          Download Brochure
+        </button> 
+        <button
+          class="btn btn-accent  text-20 md:text-24 font-light ml-4"
+
+        >
+          ดูรายละเอียดการสมัคร
+          <ArrowRightIcon class="h-6 w-6 ml-2"></ArrowRightIcon>
+        </button>
+
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -62,6 +100,7 @@ import CourseHoverItem from "./components/CourseHoverItem.vue";
 import CourseHoverMini from "./components/CourseHoverMini.vue";
 import CourseMobile from "./components/CourseMobile.vue";
 import TermsAndConditions from "./components/TermsAndConditions.vue";
+import { ArrowRightIcon, ArrowDownTrayIcon } from '@heroicons/vue/24/solid'
 
 export default defineComponent({
   name: "CourseIndex",
@@ -71,56 +110,51 @@ export default defineComponent({
     CourseHoverMini,
     CourseMobile,
     TermsAndConditions,
+    ArrowRightIcon,
+    ArrowDownTrayIcon
   },
   props: {
     lang: { type: String, default: "th" },
   },
   setup() {
-    const data1 = ref(null);
     const degreeSelect = ref("all");
-    const lang = ref("th");
     const courseList = ref(null);
     const isLoading = ref(false);
 
-    const uri = import.meta.env.PUBLIC_API_WP_PROGRAM;
-    const allProgram = ref([]);
+    const uri = import.meta.env.PUBLIC_API_WP_CURRICULUM;
+    const programs = ref([]);
 
-    const fetchCoureData = async () => {
-      // console.log("fetchCoureData ...");
-
-      await fetch(`${uri}?acf_format=standard&_fields=id,slug,acf`, {
-        mode: "cors",
-      })
+    const fetchData = () => {
+      fetch(uri)
         .then((response) => response.json())
-        .then((data) => {
-          data1.value = data;
-          initialData();
-        })
+        .then((data) => ( initialData(data)))
         .catch((error) => {
-          console.error("Error fetching data:", error);
+          console.error("Error fetching curriculum data:", error);
         });
     };
 
-    const initialData = () => {
-      const newArray = data1.value.map(function (element) {
-        return element.acf.th;
-      });
+    const initialData = (data) => {
+        let preparedData = {
+          isDetail: true,
+          isRecommended: true,
+          imageUrl: data.imageUrl || '',
+          fullname: data.fullname || '',
+          title: data.title || '',
+          subtitle: data.subtitle || '',
+          description: data.description || '',
+          highlights: data.highlights || [],
+          teaching_methods: data.teaching_methods || [],
+          schedule: data.schedule || [],
+          duration: data.duration || [],
+        };
 
-      const filteredArray = newArray.filter((element) => element !== undefined);
-      courseList.value = filteredArray;
+        programs.value =  preparedData
+        // Process curriculumData if needed
+        console.log('initialData ....', JSON.stringify(preparedData,null,4));
 
+    }
 
-      allProgram.value = filteredArray.reduce((el, program) => {
-        if (!el[program.degree.value]) {
-          el[program.degree.value] = [];
-        }
-        el[program.degree.value].push(program);
-        return el;
-      }, {});
-
-    };
-
-    fetchCoureData();
+    fetchData();
     const handleIsEvenNumber = (index) => {
       if (index) {
         return index % 2 == 1;
@@ -140,7 +174,7 @@ export default defineComponent({
       clickDegree,
       degreeSelect,
       isLoading,
-      allProgram,
+      programs,
     };
   },
 });
@@ -153,22 +187,6 @@ export default defineComponent({
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-ul.custom-list {
-  list-style-type: "-";
-  list-style-position: outside;
-}
-
-.custom-list li {
-  line-height: normal;
-  font-weight: 300;
-  font-size: 22px;
-  padding: 0.25rem 1.5rem 0.25rem 0.5rem;
-}
-
-li {
-  display: flex;
-  font-size: 22px;
-}
 
 @media only screen and (max-width: 767px) {
   .is-desktop {

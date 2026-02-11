@@ -4,10 +4,9 @@ window.addEventListener("scroll", function () {
     header.classList.add(
       "active",
       "bg-a-blue-030e62/90",
-      "border", "border-blue-800", "shadow-md",
     );
   } else {
-    header.classList.remove("active", "bg-a-blue-030e62/90", "border", "border-blue-800", "shadow-md");
+    header.classList.remove("active", "bg-a-blue-030e62/90");
   }
 
   var backToTopBtn = document.querySelector("#backToTopBtn");

@@ -91,8 +91,8 @@ export default defineComponent({
     const t = useTranslations(props.lang);
 
     const schooId = ref('ac');
-    const uri = import.meta.env.PUBLIC_API_WP_PROGRAM;
-    
+    const uri = import.meta.env.PUBLIC_API_WP_CURRICULUM;
+
     const fetchData = async () => {
       textButton.value = t("button.showMore")
       await fetch(uri + "?acf_format=standard&_fields=id,slug,acf", { mode: "cors" }

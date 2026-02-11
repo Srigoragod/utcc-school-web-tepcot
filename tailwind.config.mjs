@@ -12,8 +12,8 @@ export default {
         //Primary Color
         "a-blue-030e62": "#030e62",
         "a-blue-1c1c84": "#1c1c84",
-        "a-blue-265EF7": "#265EF7",
-        "a-glod-D4B769": "#D4B769",
+        "a-blue-2B7FFF": "#2B7FFF",
+        "a-glod-F0C571": "#F0C571",
         "a-orage-F36A10": "#F36A10",
         "a-blue-aad6ec": "#aad6ec",
         "a-blue-0033A1": "#0033A1",
@@ -23,7 +23,6 @@ export default {
         "a-yellow-f9f4e8": "#f9f4e8",
         "a-blue-ffdead": "#ffdead",
         "a-blue-F2DC98": "#F2DC98",
-        "a-blue-D4B769": "#D4B769",
         "a-blue-F2C667": "#F2C667",
         "a-blue-E3F2FD": "#E3F2FD",
         "a-brown-5F360D": "#5F360D",
@@ -42,6 +41,7 @@ export default {
         "a-gray-F8FAFC": "#F8FAFC",
       },
       fontSize: {
+        96: "6rem",
         80: "5rem",
         66: "4.125rem",
         64: "4rem",
@@ -74,9 +74,9 @@ export default {
         mytheme: {
           primary: "#ffd300",
           secondary: "#A0E077",
-          info: "#0f0f33",
+          info: "#F0C571",
           accent: "#1c1c84",
-          neutral: "#45b2ef",
+          neutral: "#0E0B80",
         },
       },
     ],

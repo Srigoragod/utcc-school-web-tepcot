@@ -1,7 +1,7 @@
 <template>
   <!-- container -->
   <div class="item-course relative">
-    <ArrowRightIcon class="absolute z-10 right-4 top-4 text-a-black-0B0B0B w-6 h-6" />
+    <ArrowRightIcon class="absolute z-10 right-4 top-4 text-a-glod-F0C571 w-6 h-6" />
     <div v-if="isLoading" class="show-on-hover-none course-container grid gap-4 ">
       <div class="skeleton rounded-2xl bg-gray-200" :class="{ 'custom-order-div-even-number': isEvenNumber }">
 
@@ -10,87 +10,52 @@
 
       </div>
     </div>
-    <div v-else class="show-on-hover course-container grid gap-4 " @click="clickShow(item, item.isDetail)">
+    <div v-else class="show-on-hover course-container grid gap-4">
       <div :class="{ 'custom-order-div-even-number': isEvenNumber }"
-        class="rounded-2xl leading-none hover:shadow relative">
+        class="rounded-2xl leading-none shadow relative group-hover:shadow-2xl ">
         <!-- <div class="badge badge-info  text-20 absolute top-8 left-8">{{ item.degree.label }}</div> -->
-        <div v-if="item.isRecommend" class="badge badge-neutral text-20 font-light bg-a-black-1F2937 uppercase absolute top-4 right-4 ">{{ item.isRecommend }}</div>
-        <span class="title_course">
-          <h2 class="text-44 md:text-36 lg:text-44 leading-none text-2-line">
+        <div  class="badge badge-info text-20 font-light  capitalize absolute top-4 left-4 "> Executive Education</div>
+        <span class="title_course text-a-glod-F0C571">
+          <h2 class="text-44 md:text-54 lg:text-66 leading-none line-clamp-1 font-bold">
             {{ item.title }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light">{{ item.subtitle }}</h4>
+          <h4 class="text-24 md:text-30 font-light" v-html="item.subtitle"></h4>
         </span>
 
         <span  class="description_course relative">
-          <h2 class="text-36  mt-[9px]">
-            {{ item.title }}
+          <h2 class="text-30 md:text-36 mt-4 text-a-glod-F0C571">
+            {{ item.fullname }}
           </h2>
-          <p class="text-24 pt-4 font-light line-clamp-3"  v-html="item.description ">
+          <p class="text-20 md:text-24 font-light line-clamp-4 pt-2"  v-html="item.description ">
           </p>
-          <div class="not-show border-t border-white/30 mt-40px pt-8">
-            <div class="grid grid-cols-4 gap-4"  v-if="item.isDetail" >
-              <div>
-              <h4 class="text-24 font-light opacity-70">{{ t("course.graduates") }}</h4>
-              <h2 class="text-30">{{ item.graduates.value }}</h2>
-            </div>
-            <div>
-              <h4 class="text-24 font-light opacity-70">{{ t("course.course") }}</h4>
-              <h2 class="text-30">{{ item.course.value }}</h2>
-            </div>
-            <div v-if="item.entry.value">
-              <h4 class="text-24 font-light opacity-70">{{ item.entry.label ? item.entry.label : t("course.entry") }}</h4>
-              <h2 class="text-30" v-html="item.entry.value"></h2>
-            </div>
-            <div>
-              <h4 class="text-24 font-light opacity-70">{{ item.total_tuition.label ? item.total_tuition.label : t("course.tuitionFees") }}</h4>
-              <h2 class="text-30">
-                {{ item.total_tuition.total }}
-              </h2>
-            </div>
-            <div class="pt-6 absolute right-0" v-if="item.fund">
-              <TypeIcon :fund="item.fund" :isShowAll="false" :isMobile="true" />
-            </div>
-            </div>
-            <div v-else class="grid grid-cols-4 gap-4" >
-              <div>
-                <h4 class="text-24 font-light ">{{ t("course.graduates") }}</h4>
-                <h2 class="text-30">{{ item.graduates.value }}</h2>
+          <div class="not-show border-t border-white/30 mt-40px pt-8 grid grid-cols-4 gap-4">
+            <div  v-for="(hl, index) in item.highlights" :key="index">
+              <div class="col-span-1 text-44 md:text-66 font-semibold text-a-glod-F0C571">
+                {{  hl?.value }}
               </div>
-              <div>
-              <h4 class="text-24 font-light ">{{ t("course.course") }}</h4>
-              <h2 class="text-30">{{ item.course.value }}</h2>
+              <div class="col-span-3">
+                <p class="text-20 md:text-24 font-light" v-html="hl?.description"></p>
               </div>
-              <div>
-                <h4 class="text-24 font-light ">{{ item.total_tuition.label ? item.total_tuition.label : t("course.tuitionFees") }}</h4>
-                <h2 class="text-30">
-                  {{ item.total_tuition.total }}
-                </h2>
-              </div>
-              <div v-if="item.entry.value">
-                <h4 class="text-24 font-light ">{{ item.entry.label ? item.entry.label : t("course.entry") }}</h4>
-                <h2 class="text-30" v-html="item.entry.value"></h2>
-              </div>
-              <!-- <a :href="item.url" target="_blank">
-                <button class="btn btn-active btn-primary rounded-full font-normal uppercase text-24 load-button">
-                  อ่านคลิก
-                </button>
-              </a> -->
             </div>
           </div>
         </span>
       </div>
-      <div class="rounded-2xl h-[400px] hover:shadow" :style="{
-      backgroundImage: `url(${handleImage(item.hero_layout[0].image, item.cover_ac)})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      backgroundSize: 'cover',
-    }" loading="lazy">
-        <div class="overlay bg-overlay">
-          <h2 class="text-44 md:text-36 lg:text-44 text-2-line">
-            {{ item.title }}
+      <div
+        class="rounded-2xl h-[400px] shadow hover:shadow-xl group-hover:shadow-blue-300/40 bg-center bg-cover isometric relative"
+        :style="item?.imageUrl ? {
+          backgroundImage: `url('${item.imageUrl}')`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover',
+        } : {}"
+      >
+        <div class="overlay bg-overlay ">
+          <h2 class="text-44 md:text-54 lg:text-66 text-2-line text-a-glod-F0C571">
+            {{ item?.title ?? '' }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light">{{ item.subtitle }}</h4>
+          <h4 class="text-24 md:text-30 font-light text-a-glod-F0C571">
+            {{ item?.subtitle ?? '' }}
+          </h4>
         </div>
       </div>
     </div>
@@ -119,27 +84,11 @@ export default defineComponent({
   },
   setup(props) {
     const showModal = ref(false)
-    const txtCurrency = ref("บาท")
     const lang = ref(props.lang)
     const isLoading = ref(true)
     const t = useTranslations(props.lang)
 
-    const formatCurrencyThai = (val) => {
-      lang.value = location.pathname.split("/")[1];
-      txtCurrency.value = lang.value == "th" ? "บาท" : lang.value == 'en' ? "THB" : "บาท";
 
-      let price = parseInt(val)
-      if (typeof price === "number") {
-        const formatter = new Intl.NumberFormat("th-TH", {
-          style: "currency",
-          currency: "THB",
-          maximumFractionDigits: 0,
-        });
-        return formatter.format(val).replace(/฿/g, "");
-      } else {
-        return null;
-      }
-    };
 
     const clickShow = (item, disable) => {
       if(disable) {
@@ -164,11 +113,9 @@ export default defineComponent({
     };
     initialData()
     return {
-      formatCurrencyThai,
       showModal,
       clikeClose,
       clickShow,
-      txtCurrency,
       isLoading,
       handleImage,
       t
@@ -181,7 +128,7 @@ export default defineComponent({
 @import "../../../styles/global.css";
 
 .isometric {
-  background-image:  linear-gradient(30deg, #444CF7 12%, transparent 12.5%, transparent 87%, #444CF7 87.5%, #444CF7), linear-gradient(150deg, #444CF7 12%, transparent 12.5%, transparent 87%, #444CF7 87.5%, #444CF7), linear-gradient(30deg, #444CF7 12%, transparent 12.5%, transparent 87%, #444CF7 87.5%, #444CF7), linear-gradient(150deg, #444CF7 12%, transparent 12.5%, transparent 87%, #444CF7 87.5%, #444CF7), linear-gradient(60deg, #444CF777 25%, transparent 25.5%, transparent 75%, #444CF777 75%, #444CF777), linear-gradient(60deg, #444CF777 25%, transparent 25.5%, transparent 75%, #444CF777 75%, #444CF777);
+  background-image:  linear-gradient(30deg, #0E0B80 12%, transparent 12.5%, transparent 87%, #0E0B80 87.5%, #0E0B80), linear-gradient(150deg, #0E0B80 12%, transparent 12.5%, transparent 87%, #0E0B80 87.5%, #0E0B80), linear-gradient(30deg, #0E0B80 12%, transparent 12.5%, transparent 87%, #0E0B80 87.5%, #0E0B80), linear-gradient(150deg, #0E0B80 12%, transparent 12.5%, transparent 87%, #0E0B80 87.5%, #0E0B80), linear-gradient(60deg, #131057 25%, transparent 25.5%, transparent 75%, #131057 75%, #131057), linear-gradient(60deg, #131057 25%, transparent 25.5%, transparent 75%, #131057 75%, #131057);
   background-size: 36px 63px;
   background-position: 0 0, 0 0, 18px 32px, 18px 32px, 0 0, 18px 32px;
 }
@@ -214,15 +161,15 @@ ul {
 }
 
 .show-on-hover>div:nth-child(1) {
-  background-color: #2e3192;
-  color: #fff;
+  background-color: #0E0B80;
+  color: #FAFAFF;
   height: 400px;
   font-weight: 700;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 30px;
+  padding: 24px;
   grid-column: span 1 / span 1;
   -o-transition: 0.5s;
   -ms-transition: 0.5s;
@@ -239,7 +186,7 @@ ul {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 30px 0 30px 30px;
+  padding: 8px 24px;
   grid-column: span 1 / span 1;
   -o-transition: 0.5s;
   -ms-transition: 0.5s;
@@ -250,7 +197,7 @@ ul {
 }
 
 .show-on-hover:hover>div:nth-child(1) {
-  background: linear-gradient(180deg,#2e3192 0%, #000c3a 100%);
+  background: linear-gradient(180deg,#0E0B80 0%, #131057 100%);
   grid-column: span 2 / span 2;
 }
 

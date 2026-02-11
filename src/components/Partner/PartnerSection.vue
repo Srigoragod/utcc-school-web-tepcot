@@ -1,6 +1,6 @@
 <template>
   <div id="partners" class="py-10" :class="customClass">
-    <div class=" container mx-auto max-w-6xl">
+    <div class=" container mx-auto">
       <div class="partner-section">
         <PartnerSwiper client:visible />
       </div>

@@ -12,10 +12,10 @@ const lang = Astro.params?.lang || "th";
 const href = "https://admissions.utcc.ac.th/loginUTCC";
 ---
 
-<a href={href} target="_blank" class=" inline-block">
+<a href={href} target="_blank" class="inline-block">
   <button
     id="custom-btn"
-    class="btn btn-neutral rounded-full font-normal uppercase text-[#030E62]"
+    class="btn btn-neutral rounded-full font-normal uppercase text-[#030e62]"
     class:list={[className]}
     {...props}
   >
@@ -30,9 +30,9 @@ const href = "https://admissions.utcc.ac.th/loginUTCC";
 </a>
 <style scoped>
   #custom-btn {
-    background: #ffea00;
-    background: linear-gradient(270deg, #ffea00 0%, #f0e893 100%);
-    border-color: #ffea00;
+    background: #ffd500;
+    background: linear-gradient(270deg, #ffd500 0%, #fdc500 100%);
+    border-color: #ffd500;
   }
   button {
     font-size: 1.5rem;

@@ -25,13 +25,8 @@
 
           <!-- Highlights -->
           <div v-if="highlights.length" class="grid grid-cols-1 gap-4">
-            <div
-              v-for="(h, i) in highlights"
-              :key="i"
-              class="rounded-xl border border-slate-200 bg-white p-5
-                     transition duration-300 hover:shadow-lg hover:shadow-black/5"
-            >
-              <h3 class="text-24 md:text-30 font-semibold  text-a-blue-1c1c84">
+            <div  v-for="(h, i) in highlights" :key="i" class="border-l-4 border-blue-950 rounded-r-lg  bg-white p-5 transition duration-300 shadow-lg hover:shadow-xl shadow-blue-500/5 hover:shadow-blue-500/5">
+              <h3 class="text-24 md:text-30 font-bold text-blue-900">
                 {{ h.title }}
               </h3>
               <p class="mt-2 text-20 md:text-24  text-slate-600">
@@ -42,10 +37,9 @@
         </div>
 
         <!-- Right: Sticky Panel -->
-        <aside class="lg:col-span-4">
+        <aside class="lg:col-span-4 relative">
           <div
-            class="lg:sticky lg:top-24 rounded-[28px] overflow-hidden
-                   bg-[#071F52] text-white shadow-xl shadow-black/10"
+            class="lg:sticky lg:top-24 rounded-[28px] overflow-hidden  bg-[#071F52] text-white shadow-xl shadow-black/10"
           >
             <!-- Panel header -->
             <div class="relative px-6 py-6">
@@ -112,12 +106,17 @@ import { ArrowDownTrayIcon } from "@heroicons/vue/24/solid";
 import Eyebrow from "../AboutUs/Eyebrow.vue";
 
 export default defineComponent({
-  name: "OverView",
+  name: "CurriculumSection",
   components: {
     Eyebrow,
     ArrowDownTrayIcon
   },
   setup() {
+    const itemData = ref(null);
+
+    const uri_curriculum = import.meta.env.PUBLIC_API_WP_CURRICULUM;
+    const curriculumData = ref(null);
+
     const title = "รายละเอียดหลักสูตร TEPCoT by UTCC";
     const subtitle = "หลักสูตรผู้บริหารระดับสูง เพื่อขับเคลื่อนขีดความสามารถการแข่งขันของเศรษฐกิจไทย";
     const paragraphs = [
@@ -142,6 +141,22 @@ export default defineComponent({
       { label: "ดาวน์โหลดโบรชัวร์", href: "/brochure.pdf", targetBlank: true, variant: "secondary" }
     ];
 
+    const fetchData = () => {
+      fetch(uri_curriculum)
+        .then((response) => response.json())
+        .then((data) => (itemData.value = data, initialData()))
+        .catch((error) => {
+          console.error("Error fetching overview data:", error);
+        });
+    };
+    const initialData = () => {
+     
+      title.value = curriculumData.value.title || '';
+      description.value = curriculumData.value.subtitle || '';
+
+    }
+    fetchData();
+
     return {
       title,
       subtitle,
@@ -157,7 +172,7 @@ export default defineComponent({
 <style scoped>
 #curriculum {
   background-image: url('/image/bg-white-resize.jpg');
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: right;
 }

@@ -7,7 +7,7 @@ import ScrollToTopButton from "../components/Button/ScrollToTopButton.astro";
 import MenuMobile from "../components/MenuMobile.astro";
 import ButtonMain from "../components/Button/ButtonMain.astro";
 import TopBanner from "./TopBanner.astro";
-import Schema from "../components/Schema.astro";
+// import Schema from "../components/Schema.astro";
 
 import { useTranslations, type UiType } from "../i18n/utils";
 const { title, description, lang, isFooterOnly, keywords, image } = Astro.props;
@@ -24,7 +24,70 @@ const t = useTranslations(lang as UiType);
       keywords={keywords}
       image={image}
     />
-    <Schema />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "TEPCoT by UTCC",
+        "url": "https://tepcot.utcc.ac.th/",
+        "logo": "https://wpuat-tepcot.utcc.ac.th/wp-content/uploads/2026/01/Icon-Tepcot-logo_Logo4.png",
+        "sameAs": ["https://www.facebook.com/utcctoday"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "126/1 ซอยวิภาวดีรังสิต 2 แขวงรัชดาภิเษก เขตดินแดง",
+          "addressLocality": "กรุงเทพมหานคร",
+          "postalCode": "10400",
+          "addressCountry": "TH"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+66-2-697-6600",
+          "contactType": "Customer Service"
+        },
+        "description": "TEPCoT by UTCC หลักสูตรผู้บริหารระดับสูง เพื่อยกระดับความสามารถการแข่งขันของเศรษฐกิจไทย ครอบคลุม 3 โมดูล 21 หัวข้อ พร้อมกิจกรรมเชิงปฏิบัติการและเวิร์กช็อปเพื่อสร้างแผนยุทธศาสตร์ที่นำไปใช้ได้จริง"
+      }
+    </script>
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "TEPCoT เหมาะกับใคร?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "เหมาะสำหรับผู้บริหารระดับสูง ผู้บริหารองค์กรภาครัฐ/เอกชน และผู้ประกอบการที่ต้องการยกระดับมุมมองเชิงกลยุทธ์ วิเคราะห์สภาพแวดล้อมธุรกิจ และพัฒนาขีดความสามารถการแข่งขันขององค์กรในระยะยาว"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "โครงสร้างหลักสูตรมีอะไรบ้าง?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "หลักสูตรครอบคลุม 3 Core Modules รวม 21 Knowledge Topics พร้อมกิจกรรมการเรียนรู้เชิงปฏิบัติการ (Workshop) เพื่อจัดทำแผนยุทธศาสตร์/แนวทางการขับเคลื่อนองค์กรให้สอดคล้องกับบริบทเศรษฐกิจและการค้าใหม่"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "สมัครเรียนต้องใช้อะไรบ้าง?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "โดยทั่วไปใช้ข้อมูลส่วนตัวสำหรับลงทะเบียน/สมัคร (ชื่อ-นามสกุล, อีเมล, เบอร์โทร, องค์กร/ตำแหน่ง) และเอกสารประกอบตามที่โครงการกำหนดในแต่ละรุ่น หากต้องการรายการเอกสารล่าสุด กรุณาตรวจสอบที่หน้ารับสมัครของ TEPCoT หรือช่องทางติดต่อโครงการ"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ติดต่อโครงการ TEPCoT ได้ที่ไหน?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "สามารถติดต่อผ่านเบอร์โทร +66-2-697-6600 หรือช่องทางโซเชียลของมหาวิทยาลัย/โครงการ (Facebook, Instagram, LinkedIn) ตามที่ระบุบนเว็บไซต์"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <!-- Google Tag Manager (noscript) -->
   <noscript

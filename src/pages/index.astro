@@ -5,124 +5,25 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 // components
 import HeroLayout from "../layouts/HeroLayout.astro";
-// import SpecialLayoutV2 from "../components/SpecialLayoutV2.astro";
-// import Course from "../components/course/index.vue";
-// import AboutUs from "../components/AboutUs/AboutUs.vue";
 import FaqsFetchAPI from "../components/Faq/FaqFetchAPI.vue";
 import PartnerSection from "../components/Partner/PartnerSection.vue";
 import AlumniSection from "../components/Alumni/AlumniSection.astro";
 import ArticleSection from "../components/Blogs/ArticleSection.astro";
 import BlogSection from "../components/Blogs/BlogSection.astro";
-// import SwiperPromo from "../components/SlideShow/SwiperPromo.vue";
-import Overview from "../components/AboutUs/OverView.vue";
+import Course from "../components/course/index.vue";
+import OverViewSection from "../components/AboutUs/OverViewSection.vue";
 // import DownloadBanner from "../components/Shared/DownloadBanner.vue";
 import TargetAudience from "../components/AboutUs/TargetAudience.vue";
 import CurriculumSection from "../components/course/CurriculumSection.vue";
+import FullPageSnap from "../components/motion/FullPageSnap.vue";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const title = "Creative Entrepreneurship School";
-const description = "คณะการสร้างเจ้าของธุรกิจสร้างสรรค์ มหาวิทยาลัยหอการค้าไทย";
+const title = "TEPCoT หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์";
+const description = "Top Executive Program in Commerce and Trade";
 const keywords =
-  "ผู้ประกอบการ, การบริหารธุรกิจ, นวัตกรรม, ความคิดสร้างสรรค์, การฝึกงาน, เครือข่ายธุรกิจ, มหาวิทยาลัยหอการค้าไทย, การพัฒนาธุรกิจ";
-const slogan =
-  "Ignite your passsion, follow your dreams, and become the leader you";
-
-const curriculumProps = {
-  locale: "th",
-  heading: { th: "โครงสร้างโปรแกรมและหลักสูตร", en: "Program & Curriculum" },
-  intro: {
-    th: "TEPCOT ประกอบด้วยหลักสูตรที่ครอบคลุมมิติของการบริหารธุรกิจสมัยใหม่ แบ่งออกเป็น 6 โมดูลหลัก โดยแต่ละโมดูลออกแบบมาเพื่อพัฒนาทักษะเฉพาะด้านที่จำเป็นสำหรับผู้บริหารระดับสูง",
-    en: "TEPCOT consists of 6 modules designed to build the essential capabilities of today’s executives.",
-  },
-  modules: [
-    {
-      title: { th: "Strategic Leadership & Vision" },
-      desc: {
-        th: "การพัฒนาวิสัยทัศน์เชิงกลยุทธ์และภาวะผู้นำระดับสูง การกำหนดทิศทางองค์กร และการสื่อสารวิสัยทัศน์",
-      },
-    },
-    {
-      title: { th: "Digital Transformation & Innovation" },
-      desc: {
-        th: "การขับเคลื่อนการเปลี่ยนแปลงดิจิทัล นวัตกรรมทางธุรกิจ และเทคโนโลยีที่เปลี่ยนแปลงอุตสาหกรรม",
-      },
-    },
-    {
-      title: { th: "Financial Strategy & Performance" },
-      desc: {
-        th: "การวิเคราะห์ทางการเงินเชิงกลยุทธ์ การจัดการความเสี่ยง และการสร้างมูลค่าให้กับองค์กร",
-      },
-    },
-    {
-      title: { th: "Marketing & Customer Excellence" },
-      desc: {
-        th: "กลยุทธ์การตลาดสมัยใหม่ การสร้างประสบการณ์ลูกค้า และการพัฒนาแบรนด์องค์กร",
-      },
-    },
-    {
-      title: { th: "Operations & Supply Chain" },
-      desc: {
-        th: "การบริหารจัดการปฏิบัติการที่มีประสิทธิภาพ ห่วงโซ่อุปทานสมัยใหม่ และการเพิ่มผลผลิต",
-      },
-    },
-    {
-      title: { th: "People & Organizational Development" },
-      desc: {
-        th: "การพัฒนาองค์กรและบุคลากร การสร้างวัฒนธรรมองค์กร และการบริหารทีมในยุคใหม่",
-      },
-    },
-  ],
-  learningTitle: { th: "รูปแบบการเรียนการสอน", en: "Learning Formats" },
-  learningItems: [
-    {
-      label: { th: "Executive Lectures" },
-      value: { th: "บรรยายโดยผู้เชี่ยวชาญและผู้บริหารชั้นนำ" },
-    },
-    {
-      label: { th: "Case Studies" },
-      value: { th: "วิเคราะห์กรณีศึกษาจากองค์กรชั้นนำ" },
-    },
-    {
-      label: { th: "Workshop & Simulation" },
-      value: { th: "ฝึกปฏิบัติจริงผ่านเวิร์กชอปและสถานการณ์จำลอง" },
-    },
-    { label: { th: "Company Visit" }, value: { th: "ศึกษาดูงานองค์กรชั้นนำ" } },
-    {
-      label: { th: "Capstone Project" },
-      value: { th: "โปรเจคจบหลักสูตรที่ประยุกต์ใช้กับองค์กรจริง" },
-    },
-    {
-      label: { th: "Executive Networking" },
-      value: { th: "กิจกรรมสร้างเครือข่ายผู้บริหาร" },
-    },
-  ],
-  scheduleTitle: { th: "ตารางเวลาและระยะเวลา", en: "Schedule & Duration" },
-  scheduleItems: [
-    { label: { th: "ระยะเวลา" }, value: { th: "6 เดือน (24 สัปดาห์)" } },
-    { label: { th: "วันเรียน" }, value: { th: "ศุกร์–เสาร์: 09:00–17:00 น." } },
-    {
-      label: { th: "ความถี่" },
-      value: { th: "2 ครั้งต่อเดือน (รวม 12 ครั้ง)" },
-    },
-    { label: { th: "รวมชั่วโมงเรียน" }, value: { th: "144 ชั่วโมง" } },
-    { label: { th: "Company Visit" }, value: { th: "2 ครั้งระหว่างหลักสูตร" } },
-    {
-      label: { th: "Capstone Presentation" },
-      value: { th: "สัปดาห์ท้ายของหลักสูตร" },
-    },
-  ],
-  primaryCta: {
-    label: { th: "ดูหลักสูตรทั้งหมด", en: "View Full Curriculum" },
-    href: "/curriculum",
-    targetBlank: false,
-  },
-  secondaryCta: {
-    label: { th: "ดาวน์โหลดตารางเรียน", en: "Download Schedule" },
-    href: "/files/tepcot-schedule.pdf",
-    targetBlank: true,
-  },
-};
+  "TEPCoT, หลักสูตรผู้บริหาร, การค้า, การพาณิชย์, Executive Education, Leadership, Business Management";
+const slogan = "พัฒนาผู้นำยุคใหม่ สู่ความเป็นเลิศทางการค้าและการพาณิชย์";
 ---
 
 <Layout
@@ -136,7 +37,7 @@ const curriculumProps = {
   <!-- <div class="container mx-auto my-8">
       <DownloadBanner lang={lang} client:idle />
     </div> -->
-  <section id="about-us" class="bg-white pt-16">
+  <section id="about-us" class="bg-white py-8 md:py-16">
     <div class="max-w-5xl mx-auto px-4 md:px-0 text-center">
       <h1
         class="leading-none font-bold topic-h2 text-center text-a-blue-030e62 text-44 md:text-64"
@@ -145,27 +46,30 @@ const curriculumProps = {
           class="block md:hidden"
         />ด้านการค้าและการพาณิชย์
       </h1>
-      <h2 class="text-24 md:text-44 font-light text-center">
+      <h2 class="text-24 md:text-44 text-blue-950 text-center">
         Top Executive Program in Commerce and Trade
       </h2>
     </div>
     <PartnerSection client:idle lang={lang} />
   </section>
   <section id="overview">
-    <Overview client:idle lang={lang} />
+    <OverViewSection client:idle lang={lang} />
   </section>
   <section id="target-audience">
     <TargetAudience client:idle lang={lang} />
   </section>
-  <section id="curriculum">
+  <!-- <section id="curriculum">
     <CurriculumSection client:idle />
-  </section>
+  </section> -->
+  <!-- <HorizontalSnapSections cclient:idle /> -->
+  <!-- <FullPageSnap client:idle /> -->
   <!-- <AboutUs client:idle lang={lang} button={t("aboutUs.button")} /> -->
-  <!-- <Course client:idle /> -->
+  <section id="course" class="bg-[#FAFAFF] skeleton">
+    <Course client:idle />
+  </section>
   <!-- <SwiperPromo client:idle /> -->
   <FaqsFetchAPI client:idle lang={lang} />
   <AlumniSection className="py-24" />
   <ArticleSection />
   <BlogSection />
-  <TargetAudience client:idle lang={lang} />
 </Layout>

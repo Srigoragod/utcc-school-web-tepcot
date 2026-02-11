@@ -1,6 +1,6 @@
 <template>
   <div class="container-content relative grid grid-cols-2">
-    <div v-if="item.acf.image" class="bg-imag-staff mx-auto w-full bg-a-glod-D4B769 relative" :style="{
+    <div v-if="item.acf.image" class="bg-imag-staff mx-auto w-full bg-a-glod-F0C571 relative" :style="{
       backgroundImage: `url(${item.acf.image})`,
       backgroundRepeat: 'no-repeat',
       // backgroundPosition: 'center center',
@@ -14,7 +14,7 @@
     </div>
 
     <div v-else-if="item.acf.gender === 'female'"
-      class="bg-imag-staff mx-auto w-full bg-a-glod-D4B769 relative" :style="{
+      class="bg-imag-staff mx-auto w-full bg-a-glod-F0C571 relative" :style="{
         backgroundImage: `url(../../../public/staff/Human-02.png)`,
         backgroundRepeat: 'no-repeat',
         // backgroundPosition: 'center center',
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div v-else class="bg-imag-staff mx-auto w-full bg-a-glod-D4B769  relative" :style="{
+    <div v-else class="bg-imag-staff mx-auto w-full bg-a-glod-F0C571  relative" :style="{
       backgroundImage: `url(../../../public/staff/Human-01.png)`,
       backgroundRepeat: 'no-repeat',
       // backgroundPosition: 'center center',

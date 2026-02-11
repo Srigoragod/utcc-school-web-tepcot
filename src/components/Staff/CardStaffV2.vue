@@ -74,7 +74,7 @@ export default {
 .bg-cover {
   position: relative;
   background: var(--accent-light);
-  background: linear-gradient(180deg, #F2E3BA 20%, #D4B769 80%);
+  background: linear-gradient(180deg, #F2E3BA 20%, #F0C571 80%);
 }
 
 .bg-cover::before {
