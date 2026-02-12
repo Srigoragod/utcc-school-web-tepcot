@@ -1,5 +1,5 @@
 <template>
-<div class="max-w-7xl mx-auto px-4 md:px-0 tepcot-overlap relative pb-20">
+<div class="container mx-auto px-4 md:px-0 tepcot-overlap relative pb-20">
   <div class=" md:px-0">
     <div class="relative grid items-start gap-8 lg:grid-cols-12">
       <!-- Left: Yellow text panel -->
@@ -23,7 +23,7 @@
       </div>
 
       <!-- Right: Video block -->
-      <div class="lg:col-span-4 bg-image h-full rounded-2xl"  :style="{ backgroundImage: `url(${imageUrl})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center ', backgroundSize: 'cover' }"
+      <div class="lg:col-span-4 bg-image h-full rounded-2xl"  :style="{ backgroundImage: `url(${imageUrl})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'contain' }"
             loading="lazy"  >
         <div class="relative">
           <!-- video card -->
@@ -59,7 +59,7 @@
   </div>
 
   </div>
-
+<!-- 
   <div class="flex justify-start mt-10 gap-6 flex-col sm:flex-row items-center">
 
     <a :href="button2.link" class="inline-block"
@@ -74,7 +74,7 @@
     <a :href="button1.link" class="inline-block">
       <button class="btn btn-outline btn-info text-20 md:text-24 rounded-full ">{{ button1.title }}</button>
     </a>
-  </div>
+  </div> -->
 
 </div>
 

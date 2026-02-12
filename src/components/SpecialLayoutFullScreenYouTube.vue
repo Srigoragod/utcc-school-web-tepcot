@@ -44,7 +44,7 @@ export default defineComponent({
     }
     const initialData = (data) => {
       items.value = props.lang == 'en' ? data.en.contentList : data.th.contentList
-      // console.log('initialData ...', JSON.stringify(items.value,null,4));
+  
 
     }
     fetchData();

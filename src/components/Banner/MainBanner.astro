@@ -2,13 +2,13 @@
 const { title, description } = Astro.props;
 ---
 
-<div id="main-banner" class="main-banner relative">
+<div id="main-banner" class="main-banner relative bg-a-blue-1c1c84 shadow-2xl">
   <!--  -->
   <div class="container mx-auto rounded-2xl relative">
     <div class="text-topic text-center">
-      <h4 class="text-24 md:text-30 lg:text-36 text-1-line">{description}</h4>
+      <h2 class="text-24 md:text-30 lg:text-36 text-1-line opacity-70 font-light">{description}</h2>
       <h1
-        class="text-30 md:text-44 lg:text-54 font-bold text-2-line"
+        class="text-30 md:text-44 lg:text-54 font-bold text-2-line max-w-6xl mx-auto "
         set:html={title}
       />
     </div>
@@ -41,13 +41,14 @@ const { title, description } = Astro.props;
     border-radius: 1rem;
   }
   .main-banner {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 5em;
+    padding-bottom: 2.5rem;
   }
   .container {
-    background: #F0C571;
-    background: radial-gradient(circle, #fff5dc, #cb8e16);
+    background: #0e0b80;
+    background: radial-gradient(circle, #0e0b80, #131057);
     height: 246px;
+    color: #fafaff;
   }
   .text-topic {
     content: "";

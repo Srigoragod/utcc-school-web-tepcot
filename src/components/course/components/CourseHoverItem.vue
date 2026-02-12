@@ -15,11 +15,11 @@
         class="rounded-2xl leading-none shadow relative group-hover:shadow-2xl ">
         <!-- <div class="badge badge-info  text-20 absolute top-8 left-8">{{ item.degree.label }}</div> -->
         <div  class="badge badge-info text-20 font-light  capitalize absolute top-4 left-4 "> Executive Education</div>
-        <span class="title_course text-a-glod-F0C571">
+        <span class="title_course text-white ">
           <h2 class="text-44 md:text-54 lg:text-66 leading-none line-clamp-1 font-bold">
             {{ item.title }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light" v-html="item.subtitle"></h4>
+          <h4 class="text-24 md:text-30 font-light opacity-85" v-html="item.subtitle"></h4>
         </span>
 
         <span  class="description_course relative">

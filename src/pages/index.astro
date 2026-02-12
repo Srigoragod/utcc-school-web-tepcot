@@ -14,8 +14,9 @@ import Course from "../components/course/index.vue";
 import OverViewSection from "../components/AboutUs/OverViewSection.vue";
 // import DownloadBanner from "../components/Shared/DownloadBanner.vue";
 import TargetAudience from "../components/AboutUs/TargetAudience.vue";
-import CurriculumSection from "../components/course/CurriculumSection.vue";
-import FullPageSnap from "../components/motion/FullPageSnap.vue";
+// import ThumbsGallery from "../components/SlideShow/ThumbsGallery.vue";
+import Speakers from "../components/course/Speakers.astro";
+import PartnerSwiperUtcc from "../components/Partner/PartnerSwiperUtcc.vue";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -24,6 +25,38 @@ const description = "Top Executive Program in Commerce and Trade";
 const keywords =
   "TEPCoT, หลักสูตรผู้บริหาร, การค้า, การพาณิชย์, Executive Education, Leadership, Business Management";
 const slogan = "พัฒนาผู้นำยุคใหม่ สู่ความเป็นเลิศทางการค้าและการพาณิชย์";
+
+// const items = [
+//   {
+//     imageUrl: "https://picsum.photos/seed/tepcot-01/1600/900",
+//     title: { th: "TEPCoT Module 1", en: "TEPCoT Module 1" },
+//     subtitle: {
+//       th: "Environment Analysis (Outside-In)",
+//       en: "Environment Analysis (Outside-In)",
+//     },
+//   },
+//   {
+//     imageUrl: "https://picsum.photos/seed/tepcot-02/1600/900",
+//     title: { th: "TEPCoT Module 2", en: "TEPCoT Module 2" },
+//     subtitle: { th: "Strategy & Execution", en: "Strategy & Execution" },
+//   },
+//   {
+//     imageUrl: "https://picsum.photos/seed/tepcot-03/1600/900",
+//     title: { th: "TEPCoT Module 3", en: "TEPCoT Module 3" },
+//     subtitle: {
+//       th: "Leadership & Transformation",
+//       en: "Leadership & Transformation",
+//     },
+//   },
+//   {
+//     imageUrl: "https://picsum.photos/seed/tepcot-04/1600/900",
+//     title: { th: "Business Matching", en: "Business Matching" },
+//     subtitle: {
+//       th: "Case workshop + networking",
+//       en: "Case workshop + networking",
+//     },
+//   },
+// ];
 ---
 
 <Layout
@@ -42,17 +75,17 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
       <h1
         class="leading-none font-bold topic-h2 text-center text-a-blue-030e62 text-44 md:text-64"
       >
-        หลักสูตรผู้บริหารระดับสูง<br
-          class="block md:hidden"
-        />ด้านการค้าและการพาณิชย์
+        หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์
       </h1>
-      <h2 class="text-24 md:text-44 text-blue-950 text-center">
+      <h2
+        class="text-30 max-w-5xl md:text-44 text-blue-950 text-center mx-auto font-light"
+      >
         Top Executive Program in Commerce and Trade
       </h2>
     </div>
     <PartnerSection client:idle lang={lang} />
   </section>
-  <section id="overview">
+  <section id="overview" class=" max-w-7xl mx-auto">
     <OverViewSection client:idle lang={lang} />
   </section>
   <section id="target-audience">
@@ -65,11 +98,41 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
   <!-- <FullPageSnap client:idle /> -->
   <!-- <AboutUs client:idle lang={lang} button={t("aboutUs.button")} /> -->
   <section id="course" class="bg-[#FAFAFF] skeleton">
-    <Course client:idle />
+    <div class="">
+      <Course client:idle />
+    </div>
   </section>
+  <section id="speakers" class="skeleton">
+    <Speakers />
+  </section>
+  <!-- <section id="experience-hero" class="">
+      <div class="md:max-w-7xl mx-auto px-4 md:px-8">
+        <ThumbsGallery
+          client:idle
+          items={items}
+          lang="th"
+          autoplay={true}
+          autoplayDelay={3500}
+        />
+      </div>
+  </section> -->
   <!-- <SwiperPromo client:idle /> -->
   <FaqsFetchAPI client:idle lang={lang} />
   <AlumniSection className="py-24" />
   <ArticleSection />
   <BlogSection />
+  <section id="partnership" class="my-16 md:my-20 px-4 md:px-0">
+    <div class="container mx-auto">
+      <div class="text-30 md:text-66 font-semibold mb-0">พันธมิตร</div>
+      <div class="sm:w-30 pt-0 md:pt-4">
+        <div class="text-24 md:text-30 font-light">
+          มาร่วมเป็นส่วนหนึ่งกับพวกเรา ที่มหาวิทยาลัยชั้นนำด้านธุรกิจ
+          พร้อมโอกาสในการร่วมงานกับองค์กรชั้นนำระดับประเทศและระดับโลก
+        </div>
+      </div>
+      <div class="partner-section max-w-7xl mx-auto rounded-2xl p-4">
+        <PartnerSwiperUtcc client:idle :is-show-highlight="false" />
+      </div>
+    </div>
+  </section>
 </Layout>

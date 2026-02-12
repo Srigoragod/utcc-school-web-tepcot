@@ -1,68 +1,63 @@
 <template>
-  <div id="partners" class="md:py-10" :class="customClass">
-    <div class=" container mx-auto">
-      <div class="partner-section max-w-7xl mx-auto rounded-2xl px-4 ">
-        <PartnerSwiperUtcc client:visible :is-show-highlight="true" />
+  <div class="our-partner flex w-full relative justify-center items-center overflow-hidden py-4">
+
+    <div class="partner-group">
+      <div class="partner-list">
+        <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all rounded-md md:rounded-lg">
+          <img :src="item.image" :alt="item.title" loading="lazy" />
+        </div>
+      </div>
+    </div>
+    <div class="partner-group is-mobile">
+      <div class="partner-list">
+        <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all rounded-md md:rounded-lg">
+          <img :src="item.image" :alt="item.title" loading="lazy"  />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
-import { ref, defineComponent } from "vue";
-import { useTranslations } from "../../i18n/utils";
-import ButtonShowMore from "../Button/ButtonShowMore.vue";
-import PartnerSwiper from "./PartnerSwiper.vue";
-import PartnerSwiperUtcc from "./PartnerSwiperUtcc.vue";
-export default defineComponent({
-  name: "FaqCollapse",
-  components: {
-    ButtonShowMore,
-    PartnerSwiper,
-    PartnerSwiperUtcc
-  },
-  props: {
-    customClass: { type: String, default: "" },
-    lang: { type: String, default: "th" },
-    title: { type: String, default: "" },
-    description: { type: String, default: "" },
-    t: { type: Object, default: {} }
-  },
-  setup(props, ctx) {
-    const uri = import.meta.env.PUBLIC_API_WP_PARTNER;
-    const t = useTranslations(props.lang);
-    const itemList = ref(null);
-    const titleName = t("home.partner.title");
-    const desc = t("home.partner.description");
 
-    const fetchData = async () => {
-      await fetch(`${uri}`, { mode: 'cors' }
-      )
+import { ref } from "vue";
+
+export default {
+  name: "PartnerSwiperUtcc",
+  props: {
+    isShowHighlight: { type: Boolean, default: false },
+  },
+  setup(props) {
+    const isHighlight = ref(props.isShowHighlight);
+    const uri = import.meta.env.PUBLIC_API_WP_PARTNER;
+
+    const partnerList = ref(null);
+    const fetchData = () => {
+      fetch(uri, { mode: 'cors' }, { credentials: "include" })
         .then((response) => response.json())
         .then((data) => (initialData(data)))
         .catch((error) =>
-          console.error("Error fetching partner image data:", error)
+          console.error("Error fetching Partner image:", error)
         );
     };
 
     const initialData = (data) => {
-      itemList.value = data
-    }
-
-
-    fetchData()
-
-    return {
-      itemList,
-      t,
-      titleName,
-      desc
+     if(isHighlight.value){
+        partnerList.value = data.filter(item => item?.isHighlight == true)
+     }else{
+      partnerList.value = data
     }
   }
+    fetchData();
 
-})
+    return {
+      partnerList,
+    };
+  },
+
+};
 </script>
+
 <style scoped>
 @import "../../styles/global.css";
 @import "../../styles/base.scss";
@@ -105,6 +100,7 @@ export default defineComponent({
     animation: none;
   }
 
+
   .partner-list {
     display: flex;
     flex-direction: row;
@@ -140,15 +136,7 @@ export default defineComponent({
   }
 
   .partner-list-item img {
-    max-height: 40px;
+    max-height: 80px;
   }
-}
-.our-partner {
-  position: relative;
-}
-
-.partner-section {
-  overflow: hidden;
-  position: relative;
 }
 </style>

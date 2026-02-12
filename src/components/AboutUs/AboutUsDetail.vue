@@ -2,69 +2,67 @@
   <div class="container mx-auto">
     <slot></slot>
     <div v-if="isShowAboutUs">
-      <div class="content indent-8 grid gap-8 items-center">
-        <div>
-          <div class="text-24 mt-4 md:pt-8 pb-4 leading-normal " v-html="content"></div>
+      <div class="content indent-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-20">
+        <div class=" col-span-2">
+          <div v-for="(paragraph, index) in contentParagraphs" :key="index" class="text-20 md:text-24  py-4">
+            <label>{{ paragraph }}</label>
+          </div>
+          <div>
+
+          </div>
+        </div>
+        <div class="h-full flex justify-center items-center p-4">
+          <img src="/../image/logo-tepcost.jpg" alt="about us image" class="w-[66%] h-full mx-auto my-auto" loading="lazy" />
         </div>
       </div>
 
-      <div id="vision" class="grid grid-cols-2 gap-4 items-center pt-20 pb-16">
-        <div class="item h-[450px] bg-cover bg-center rounded-2xl w-full"
-          :style="`background-image: url(${visionImage});`"></div>
-        <div class="item text-center">
-          <h2 class="text-44 md:text-54 font-bold capitalize leading-none">
-            {{ visionTopic }}
-          </h2>
-          <div class="desc text-24 px-4 md:px-8 py-2 text-a-gray-696F6F">
-            <span v-html="visionDesc"></span>
-          </div>
-        </div>
+       <PartnerSection  />
+
+      <div class="grid grid-cols-2  gap-8">
+      <div class="py-10">
+        <h2 class="text-36 md:text-44 font-bold capitalize underline">
+          {{ keyFeatures?.topic }}
+        </h2>
+        <ul class="list-inside list-disc mt-8">
+          <li v-for="(item, index) in keyFeatures?.list" :key="index" class="text-24 px-8 py-4">
+            {{ item }}
+          </li>
+        </ul>
       </div>
-      <div id="philosophy" class="grid grid-cols-2 gap-4 items-center pb-20">
-        <div class="item ">
-          <h2 class="text-44 md:text-54 font-bold capitalize leading-none text-center">
-            {{ philoTopic }}
-          </h2>
-          <div class="desc text-24 px-4 md:px-8 py-2 text-a-gray-696F6F">
-            <span v-html="philoDesc"></span>
-          </div>
-        </div>
-        <div class="item h-[450px] bg-cover bg-center rounded-2xl" :style="`background-image: url(${philoImage});`">
-          &nbsp;
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="mission" class="py-20 px-10 bg-slate-50">
-    <div id="mission-info" class="grid grid-cols-2 gap-4 items-center container mx-auto">
-      <div class="item flex justify-center items-center">
-           <img src="/../image/1-CE-UTCC-2-min.png"  alt="logo cce" class="w-96 mx-auto duration-700"/>
-        <!-- <img :src="missionImage" alt="" class="drop-shadow-lg rounded-full w-96" /> -->
-      </div>
-      <div class="desc item pl-4">
-        <h4 class="text-44 md:text-54 capitalize pl-4">
-          {{ missionTopic }}
-        </h4>
-        <ol class="decimal text-24 pl-8">
-          <li v-for="(item, index) in missionList" :key="index">
+
+      <div class="py-10">
+        <h2 class="text-36 md:text-44 font-bold capitalize underline">
+          {{ objectives?.label }}
+        </h2>
+        <ul class="list-inside list-disc mt-8">
+          <li v-for="(item, index) in objectives?.value" :key="index" class="text-24 px-8 py-1">
             {{ item.text }}
           </li>
-        </ol>
-        <div v-if="objective" class="mt-4">
-          <h4 class="text-44 md:text-54 capitalize pl-4">
-            {{ objective.label }}
-          </h4>
-          <ol class="decimal text-24 pl-8">
-            <li v-for="(item, index) in objective.value" :key="index">
-              {{ item.text }}
-            </li>
-          </ol>
-        </div>
+        </ul>
       </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-20">
+      <div class="p-10  bg-[#FAFAFF] rounded-2xl shadow-sm">
+        <h2 class="text-36 md:text-44 font-bold capitalize underline">
+          {{ participantsProfile?.topic }}
+        </h2>
+        <div class="text-20 md:text-24  py-4">
+          <label>{{ participantsProfile?.desc }}</label>
+        </div>
+        <ul class="list-inside list-disc ">
+          <li v-for="(item, index) in participantsProfile?.list" :key="index" class="text-24 px-8 py-1">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <DonutChart  />
+      </div>
+      </div>
+
     </div>
   </div>
-
-  <WhyUsSection :topic="whyusTopic" :itemList="whyusList" :desc="whyusDesc" :image="whyusImage" />
 </template>
 
 <script>
@@ -72,142 +70,141 @@ import { ref } from "vue";
 import { useTranslations } from "../../i18n/utils";
 // components
 import WhyUsSection from "../WhyUs/WhyUsSection.vue";
+import PartnerSection from "../Partner/PartnerSection.vue";
+import DonutChart from "../charts/DonutChart.vue";
 // import Timeline from "./Timeline.vue";
 
 export default {
   name: "AboutUsDetail",
   components: {
-    WhyUsSection
+    WhyUsSection,
+    PartnerSection,
+    DonutChart
   },
   props: {
     lang: { type: String, default: "en" },
     isShowAboutUs: { type: Boolean, default: true },
   },
   setup(props, ctx) {
-    const t = useTranslations(props.lang);
-    const items = ref("null");
-    const uri_aboutus = import.meta.env.PUBLIC_API_WP_ABOUTUS;
-    const content = ref("");
-    const visionTopic = ref("");
-    const visionDesc = ref("");
-    const visionImage = ref("");
+    const contentParagraphs = ref([
+      "TEPCoT คือหลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ ที่พัฒนาขึ้นเพื่อสร้างผู้นำที่มีวิสัยทัศน์ต่อเศรษฐกิจไทยและเวทีการค้าโลก โดยผสานองค์ความรู้ด้านธุรกิจ นโยบายสาธารณะ และเครือข่ายผู้กำหนดทิศทางประเทศไว้ในพื้นที่การเรียนรู้เดียวกัน",
+      "หลักสูตรนี้ไม่ได้มุ่งเน้นเพียงการเรียนในห้องเรียน แต่เป็น \“เวทีของผู้นำ\” ที่เปิดโอกาสให้ผู้บริหารจากภาครัฐ เอกชน และวิชาชีพ ได้แลกเปลี่ยนประสบการณ์จริง เชื่อมโยงมุมมองเชิงยุทธศาสตร์ และร่วมกันสร้างแนวคิดที่สามารถนำไปใช้ได้จริงในระดับองค์กรและระดับประเทศ",
+      "TEPCoT จึงเป็นทั้งพื้นที่ของการเรียนรู้ และพื้นที่ของการเชื่อมพลังเครือข่ายผู้นำที่มีบทบาทต่อระบบเศรษฐกิจไทยในระยะยาว"
+    ]);
 
-    const philoTopic = ref("");
-    const philoDesc = ref("");
-    const philoImage = ref("");
+    const keyFeatures = ref({
+      topic: "จุดเด่นของหลักสูตร TEPCoT",
+      list: [
+        "เป็นหลักสูตรที่เกิดจากความร่วมมือกันระหว่าง กระทรวงพาณิชย์ กับ หอการค้าไทย ซึ่งเป็นองค์กรที่มีความเชี่ยวชาญในแวดวงการค้าและการพาณิชย์มายาวนาน และมหาวิทยาลัยหอการค้าไทย ต่อมากระทรวงอุตสาหกรรม กระทรวงการคลัง และกระทรวงมหาดไทย เล็งเห็นถึงความสำคัญของหลักสูตรฯ จึงได้เข้ามามีส่วนร่วมในการพัฒนาและดำเนินการหลักสูตร TEPCoT จึงนับเป็นความร่วมมืออย่างลงตัวของ 6 องค์กร",
+        "เป็นหลักสูตรที่เน้นกระบวนการแลกเปลี่ยนความรู้และวิสัยทัศน์ เรียนรู้จากประสบการณ์จริง จากผู้บริหารและผู้ประกอบการที่เป็นที่ยอมรับอย่างกว้างขวาง ทั้งด้านเศรษฐกิจ การค้า และการลงทุน",
+        "เป็นหลักสูตรที่สามารถเสริมสร้างเครือข่ายความสัมพันธ์ด้านการค้าและการพาณิชย์ ระหว่างผู้บริหารระดับสูงในภาคส่วนต่าง ๆ",
+      ]
+    });
 
-    const missionTopic = ref("");
-    const missionList = ref([]);
-    const missionImage = ref("");
 
-    const whyusTopic = ref("");
-    const whyusDesc = ref("");
-    const whyusList = ref([]);
-    const whyusImage = ref("");
-    const time_line = ref([]);
-    const identity = ref("");
-    const yearSince = ref("");
-    const colorSchool = ref("");
-    const imageSchool = ref("");
-    const objective = ref(null);
 
-    const fetchData = async () => {
-      await fetch(
-        `${uri_aboutus}`,
-        { mode: "cors" },
-        { credentials: "include" }
-      )
-        .then((response) => response.json())
-        .then((data) => initialData(data))
-        .catch((error) =>
-          console.error("Error fetching About page data:", error)
-        );
-    };
+    const  objectives = ref({
+      label: "วัตถุประสงค์ของหลักสูตร",
+      value: [
+        { text: "เพื่อพัฒนาผู้นำด้านการค้าและการพาณิชย์ให้มีความรู้ ความสามารถ และเครือข่ายที่จำเป็นต่อการขับเคลื่อนเศรษฐกิจไทย" },
+        { text: "เพื่อเสริมสร้างองค์ความรู้เชิงยุทธศาสตร์ด้านเศรษฐกิจ การค้า และการบริหาร" },
+        { text: "เพื่อพัฒนาศักยภาพผู้นำในการตัดสินใจระดับองค์กรและระดับนโยบาย" },
+        { text: "เพื่อเชื่อมโยงเครือข่ายผู้บริหารจากหลากหลายภาคส่วน" },
+        { text: "เพื่อส่งเสริมการแลกเปลี่ยนประสบการณ์และแนวปฏิบัติที่ดีระหว่างผู้บริหาร" }
+      ]
+    });
 
-    const initialData = (data) => {
-      if (props.lang) {
-        let temp = {
-          title:
-            "quam viverra orci sagittis eu volutpat odio facilisis mauris sit",
-          subtitle:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae aliquet nec ullamcorper sit amet. Ornare lectus sit amet est placerat in egestas erat imperdiet. Cras pulvinar mattis nunc sed blandit libero volutpat. Volutpat diam ut venenatis tellus in. Hac habitasse platea dictumst quisque sagittis. Lacinia quis vel eros donec ac odio tempor. Dolor sit amet consectetur adipiscing. Arcu cursus euismod quis viverra nibh cras pulvinar mattis. Neque viverra justo nec ultrices dui sapien eget. Eget sit amet tellus cras. Mattis aliquam faucibus purus in massa tempor nec feugiat. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu risus quis varius quam. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit. Eu sem integer vitae justo eget magna fermentum iaculis. Laoreet sit amet cursus sit amet dictum sit amet justo.",
-          vision: {
-            label: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            text: "quam viverra orci sagittis eu volutpat odio facilisis mauris sit",
-            image: false,
-          },
-          philo: {
-            label: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            text: "quam viverra orci sagittis eu volutpat odio facilisis mauris sit",
-            image: false,
-          },
-          mission: {
-            label: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            value: [],
-            image: false,
-          },
-          whyus: {
-            label: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            text: "quam viverra orci sagittis eu volutpat odio facilisis mauris sit",
-            value: [],
-            image: false,
-          },
-        };
-        temp = props.lang == "th" ? data.th : data.en;
-        content.value = temp.content;
 
-        visionTopic.value = temp.vision.label;
-        visionDesc.value = temp.vision.text;
-        visionImage.value = temp.vision.image;
+    const learningApproach = ref({
+      topic: "รูปแบบการเรียนรู้ (Learning Approach)",
+      desc: "การเรียนรู้ในหลักสูตรมุ่งเน้นการมีส่วนร่วมและการแลกเปลี่ยนประสบการณ์ของผู้บริหาร ผ่านรูปแบบที่หลากหลาย อาทิ",
+      list: [
+        "การบรรยายและสัมมนา (Lectures & Seminars): โดยผู้เชี่ยวชาญและผู้นำในวงการต่างๆ",
+        "การวิเคราะห์กรณีศึกษา (Case Analysis): ฝึกทักษะการวิเคราะห์และแก้ไขปัญหาทางธุรกิจ",
+        "การเสวนาและแลกเปลี่ยนมุมมองระดับผู้บริหาร (Executive Forums): เปิดโอกาสให้ผู้บริหารได้แลกเปลี่ยนประสบการณ์และแนวปฏิบัติที่ดี",
+        "การเรียนรู้เชิงนโยบายและเศรษฐกิจ (Policy & Economic Learning): เข้าใจบริบทเศรษฐกิจและนโยบายที่มีผลต่อการค้าและการพาณิชย์",
+        "การสร้างเครือข่ายความร่วมมือระหว่างผู้เข้าร่วมหลักสูตร (Networking Opportunities): ส่งเสริมการสร้างความสัมพันธ์ระหว่างผู้บริหารจากหลากหลายภาคส่วน"
+      ]
+    });
 
-        philoTopic.value = temp.philo.label;
-        philoDesc.value = temp.philo.text;
-        philoImage.value = temp.philo.image;
+    const exucutiveNetwork = ref({
+      topic: "เครือข่ายผู้บริหาร (Executive Network)",
+      desc: "ผู้เข้าร่วมหลักสูตร TEPCoT ประกอบด้วยผู้บริหารจากหลายภาคส่วน ได้แก่",
+      list: [
+        "ภาครัฐ",
+        "ภาคธุรกิจและอุตสาหกรรม",
+        "องค์กรวิชาชีพ",
+        "หน่วยงานด้านเศรษฐกิจและการค้า",
+        "ความหลากหลายของผู้เข้าร่วมช่วยสร้างมุมมองที่รอบด้าน และก่อให้เกิดเครือข่ายความร่วมมือที่มีบทบาทต่อการพัฒนาประเทศในระยะยาว"
+      ]
+    });
 
-        missionTopic.value = temp.mission.label;
-        // console.log('temp.mission.value ...',temp.mission.value);
-        missionList.value = temp.mission.value;
-        missionImage.value = temp.mission.image;
+    const participantsProfile = ref({
+      topic: "Executive Profile of Participants",
+      desc: "ผู้เข้าร่วมหลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ เครือข่ายผู้เข้าร่วมหลักสูตรประกอบด้วยผู้นำองค์กรระดับประเทศ ซึ่งมีบทบาทโดยตรงต่อการกำหนดนโยบาย การขับเคลื่อนเศรษฐกิจ และการบริหารองค์กรขนาดใหญ่",
+      list: [
+        "อดีตรัฐมนตรี และผู้ดำรงตำแหน่งระดับนโยบาย",
+        "ประธานกรรมการ และรองประธานกรรมการองค์กรด้านเศรษฐกิจระดับประเทศ",
+        "ผู้บริหารระดับปลัดกระทรวงและรองปลัดกระทรวง",
+        "ผู้บริหารสถาบันอุดมศึกษา เช่น อธิการบดี รองอธิการบดี และคณบดี",
+        "ผู้นำองค์กรด้านตลาดทุนและภาคอุตสาหกรรม",
+        "ผู้บริหารระดับสูงในกระบวนการยุติธรรม",
+        "ผู้บริหารองค์กรส่งเสริมการลงทุนและเศรษฐกิจของประเทศ",
+        "ประธานกรรมการ และผู้บริหารระดับสูงในบริษัทเอกชน",
+        "ผู้บริหารระดับสูงในกองทัพและสำนักงานตำรวจแห่งชาติ"
+      ],
+      outro: "ความหลากหลายของผู้เข้าร่วมในระดับผู้นำองค์กรและระดับนโยบาย ทำให้หลักสูตรเป็นเวทีแลกเปลี่ยนมุมมองเชิงยุทธศาสตร์ที่มีความลึก และก่อให้เกิดเครือข่ายความร่วมมือที่มีผลต่อการพัฒนาเศรษฐกิจของประเทศในระยะยาว"
+    });
 
-        whyusTopic.value = temp.whyus.label;
-        whyusDesc.value = temp.whyus.text;
-        whyusList.value = temp.whyus.value;
-        whyusImage.value = temp.whyus.image;
-        // time_line.value = temp.time_line
-        // identity.value = temp.identity
-        // yearSince.value = temp.identity.year_since
-        // colorSchool.value = temp.identity.color
-        // imageSchool.value = temp.identity.symbol
-        // objective.value = temp.objective
-
+    const kpiCards = ref([
+      {
+        title: "ภาคราชการ – รัฐวิสาหกิจ",
+        value: "35"
+      },
+      {
+        title: "ภาคเอกชน – ธุรกิจและอุตสาหกรรม",
+        value: "57"
+      },
+      {
+        title: "สถาบันการศึกษา",
+        value: "5"
+      },
+      {
+        title: "อื่น ๆ",
+        value: "3"
       }
-    };
-    fetchData();
-    
+    ]);
+
+    const impact = ref({
+      topic: "ผลลัพธ์ที่คาดหวัง (Expected Impact)",
+      desc: "หลังจากสำเร็จหลักสูตร TEPCoT ผู้เข้าร่วมจะมีความสามารถในการ",
+      list: [
+        "มองภาพเศรษฐกิจและการค้าในระดับโครงสร้าง",
+        "ดสินใจเชิงยุทธศาสตร์ได้อย่างมีประสิทธิภาพ",
+        "เชื่อมโยงความร่วมมือระหว่างองค์กรและภาคส่วนต่าง ๆ",
+        "สร้างแนวคิดและโครงการที่เกิดผลจริงต่อเศรษฐกิจและสังคม"
+      ]
+    });
+
+    const  outro = ref("หลักสูตรดำเนินการโดยมหาวิทยาลัยหอการค้าไทย ร่วมกับเครือข่ายภาคธุรกิจและองค์กรที่เกี่ยวข้อง เพื่อพัฒนาผู้นำที่มีบทบาทสำคัญต่อการขับเคลื่อนเศรษฐกิจและการค้าของประเทศ");
+    const  cta =  ref({
+      topic: "สอบถามข้อมูลเกี่ยวกับหลักสูตร TEPCoT",
+      desc: "ทีมงานพร้อมให้ข้อมูลและคำแนะนำสำหรับผู้บริหารที่สนใจเข้าร่วมหลักสูตรอย่างเหมาะสมตามบทบาทและประสบการณ์",
+      link: "/contact-us"
+    })
+
     return {
-      t,
-      content,
-      visionTopic,
-      visionDesc,
-      visionImage,
-      philoTopic,
-      philoDesc,
-      philoImage,
-      missionTopic,
-      missionList,
-      missionImage,
-      whyusTopic,
-      whyusDesc,
-      whyusList,
-      whyusImage,
-      time_line,
-      identity,
-      yearSince,
-      colorSchool,
-      imageSchool,
-      objective
+      contentParagraphs,
+      keyFeatures,
+      objectives,
+      learningApproach,
+      exucutiveNetwork,
+      participantsProfile,
+      kpiCards,
+      impact,
+      outro,
+      cta
+
     };
   },
 };

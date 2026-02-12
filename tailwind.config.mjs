@@ -72,7 +72,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#ffd300",
+          primary: "#002db0",
           secondary: "#A0E077",
           info: "#F0C571",
           accent: "#1c1c84",

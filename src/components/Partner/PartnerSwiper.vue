@@ -1,6 +1,5 @@
 <template>
   <div class="our-partner">
-
     <div class="partner-group w-full">
       <div class=" grid grid-cols-2 md:grid-cols-5 partner-list gap-1 md:gap-8 items-center justify-center ">
         <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all bg-white  rounded-md md:rounded-lg">
@@ -17,15 +16,17 @@
 import { ref } from "vue";
 
 export default {
-  components: {
-
+  name: "PartnerSwiper",
+  props: {
+    isShowHighlight: { type: Boolean, default: false },
   },
-  setup() {
+  setup(props) {
+    const isHighlight = ref(props.isShowHighlight);
     const uri = import.meta.env.PUBLIC_API_WP_PARTNER;
 
     const partnerList = ref(null);
     const fetchData = () => {
-      fetch(uri, { mode: 'cors' }, { credentials: "include" })
+      fetch(uri, { mode: 'cors', credentials: "include" })
         .then((response) => response.json())
         .then((data) => (initialData(data)))
         .catch((error) =>
@@ -34,7 +35,11 @@ export default {
     };
 
     const initialData = (data) => {
-      partnerList.value = data
+      if(isHighlight.value){
+          partnerList.value = data.filter(item => item?.isHighlight == true)
+      }else{
+        partnerList.value = data
+      }
     }
     fetchData();
 

@@ -32,6 +32,9 @@
         <div v-if="isLoading" class="grid justify-items-center h-[305px] items-center rounded-2xl ">
           <span class="loading loading-ring loading-lg text-gray-600"></span>
         </div>
+        <div v-else>
+          <CourseMobile :item="programs" :lang="lang"></CourseMobile>
+        </div>
       </span>
 
     </div>
@@ -77,7 +80,7 @@
         >
           <ArrowDownTrayIcon class="h-6 w-6 mx-2"></ArrowDownTrayIcon>
           Download Brochure
-        </button> 
+        </button>
         <button
           class="btn btn-accent  text-20 md:text-24 font-light ml-4"
 
@@ -149,8 +152,6 @@ export default defineComponent({
         };
 
         programs.value =  preparedData
-        // Process curriculumData if needed
-        console.log('initialData ....', JSON.stringify(preparedData,null,4));
 
     }
 

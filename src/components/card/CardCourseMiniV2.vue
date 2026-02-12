@@ -1,8 +1,9 @@
 <template>
   <div class="item-card relative">
-    <TypeIcon class="absolute bottom-11 right-6 z-10 fede-in" :fund="item.fund" :isShowAll="false" :isMobile="true" />
-    <div class="card w-full drop-shadow-xl rounded-2xl" :style="{
-      backgroundImage: `url(${item.hero_layout[0].image})`,
+    {{ item }}
+    <!-- <TypeIcon class="absolute bottom-11 right-6 z-10 fede-in" :fund="item.fund" :isShowAll="false" :isMobile="true" /> -->
+    <!-- <div class="card w-full drop-shadow-xl rounded-2xl" :style="{
+      backgroundImage: `url(${item.image})`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center center',
       backgroundSize: 'cover',
@@ -17,8 +18,8 @@
           </h4>
         </div>
       </div>
-    </div>
-    <div class="card-body bg-a-blue-030e62 text-a-black-1F2937 h-full rounded-2xl px-4 relative">
+    </div> -->
+    <!-- <div class="card-body bg-a-blue-030e62 text-a-black-1F2937 h-full rounded-2xl px-4 relative">
       <span class="fede-in">
         <span class="title_course ">
           <h2 class="text-30 md:text-34 leading-none text-2-line">
@@ -28,64 +29,17 @@
         </span>
         <div class="description-crad text-24  text-3-line font-light" v-html="item.description"></div>
         <div class="border-b h-1 border-a-black-1F2937 my-4"></div>
-        <div class="grid grid-cols-2 gap-8 ">
-          <div>
-            <div class="text-24 font-light">
-              สำหรับผู้จบการศึกษา
-            </div>
-            <div class="text-24  text-1-line font-light">
-              {{ handleGraduate(item.graduates) }}
-            </div>
-          </div>
-          <div>
-            <div class="text-24 font-light">หลักสูตร</div>
-            <div class="text-24 font-light ">
-              {{ item.course.value }}
-            </div>
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-8">
-          <div>
-            <div class="text-24 font-light text-1-line">
-              เทอม 1/ผ่อนชำระ
-            </div>
-            <div class="w-[160px] text-30  items-center gap-2" :class="isShow ? 'font-bold' : 'font-thin'">
-              {{ handleDisplay(item.entry, "value") }}
-              <span class="text-[16px]  font-thin" v-if="item.web_reference == 'ism'">
-                {{ t("course.thaiPeople") }} *
-              </span>
-            </div>
-          </div>
-          <div class="flex gap-4">
-            <div>
-              <div class="text-24 font-light">ตลอดหลักสูตร</div>
-              <div class="text-30">
-                <div class="w-[160px] mr-4 flex items-center gap-2 "
-                  :class="isShow ? 'font-bold' : 'font-thin'">
-                  {{ handleDisplay(item.total_tuition, "total") }}
-                  <span class="text-[16px]  font-thin" v-if="item.web_reference == 'ism'">
-                    {{ t("course.thaiPeople") }} *
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </span>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
-import TypeIcon from "../Button/TypeIcon.vue";
 import { useTranslations } from "../../i18n/utils.ts";
 
 export default {
   name: "Card",
-  components: {
-    TypeIcon,
-  },
   props: {
     item: { type: Object, default: {} },
     lang: { type: String, default: "th" },

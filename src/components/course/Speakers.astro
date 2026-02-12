@@ -1,0 +1,88 @@
+---
+import CarouselSpecialStaff from "../AboutUs/CarouselSpecialStaff.vue";
+const { lang } = Astro.props;
+---
+
+<div class="relative container-sp-staff">
+  <div class="special-staff bg-fixed is-desktop py-20 relative overflow-hidden">
+    <!-- <div
+      class="absolute z-10 bottom-0 inset-0 bg-gradient-to-b from-black/100 via-black/20 to-transparent h-1/2 mx-auto pointer-events-none"
+    >
+    </div> -->
+    <div
+      class="container mx-auto py-4 text-center h-full flex flex-col justify-center px-4"
+    >
+      <h2 class="text-44 md:text-64 mx-auto text-white">
+        คณาจารย์และวิทยากรผู้เชี่ยวชาญ
+      </h2>
+      <h4 class="text-white font-light text-20 md:text-24 max-w-7xl mx-auto">
+        TEPCoT
+        ภูมิใจนำเสนอคณาจารย์และวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ
+        ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite
+        จากองค์กรชั้นนำทั้งในและต่างประเทศ
+        ทำให้ผู้เข้าร่วมโปรแกรมได้รับความรู้ที่ลึกซึ้งทั้งทางทฤษฎีและประสบการณ์จริงที่สามารถนำไปประยุกต์ใช้ได้ทันที
+      </h4>
+    </div>
+    <div class="container mx-auto py-10">
+      <CarouselSpecialStaff client:load />
+    </div>
+    <div>
+      <div class="py-4 mx-auto text-center">
+        <button class="btn btn-link btn-info text-white text-20 md:text-24 font-light">
+          พบกับคณาจารย์ทั้งหมด
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="special-staff bg-fixed h-full py-8 is-mobile">
+    <div class="container mx-auto text-center">
+      <div class="text-a-glod-F0C571 px-4 pb-4">
+        <h2 class="text-44">
+          คณาจารย์ <br/>และวิทยากรผู้เชี่ยวชาญ
+        </h2>
+        <h4 class="text-a-glod-F0C571 font-light line-clamp-4 text-20 md:text-24">
+          TEPCoT
+          ภูมิใจนำเสนอคณาจารย์และวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ
+          ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite
+          จากองค์กรชั้นนำทั้งในและต่างประเทศ
+          ทำให้ผู้เข้าร่วมโปรแกรมได้รับความรู้ที่ลึกซึ้งทั้งทางทฤษฎีและประสบการณ์จริงที่สามารถนำไปประยุกต์ใช้ได้ทันที
+        </h4>
+      </div>
+      <div class="px-4">
+        <CarouselSpecialStaff client:load />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  /* @import "../styles/global.css"; */
+  .container-sp-staff {
+    /* min-height: 700px; */
+  }
+  .special-staff {
+    background-image: url(/image/bg-speakers.jpg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: repeat;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .container-sp-staff {
+      /* min-height: 300px; */
+    }
+    .is-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .is-mobile {
+      display: none;
+    }
+  }
+</style>

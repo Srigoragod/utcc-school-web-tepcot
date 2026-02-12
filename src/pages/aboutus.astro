@@ -6,11 +6,11 @@ import Layout from "../layouts/Layout.astro";
 // import WhyUsSection from "../components/WhyUs/WhyUsSection.vue";
 import MainBanner from "../components/Banner/MainBanner.astro";
 import TopicAboutUs from "../components/AboutUs/TopicAboutUs.astro";
-import FacilitiesSection from "../components/Facilities/FacilitiesSection.vue";
-import PartnerSection from "../components/Partner/PartnerSection.vue";
+// import FacilitiesSection from "../components/Facilities/FacilitiesSection.vue";
+// import PartnerSection from "../components/Partner/PartnerSection.vue";
 import Faqs from "../components/Faq/FaqFetchAPI.vue";
 import AboutUsDetail from "../components/AboutUs/AboutUsDetail.vue";
-// import CourseList from "../components/course/CourseList.vue";
+// import OverViewSection from "../components/AboutUs/OverViewSection.vue";
 
 import { Icon } from "astro-icon/components";
 
@@ -20,22 +20,20 @@ const t = useTranslations(lang);
 
 const aboutSlug = `/aboutus`;
 const staffSlug = `/staff`;
-const researchSlug = `/research`;
-
 ---
 
 <Layout
-  title={`CE ${t("aboutUs.title")} | ${t("name")} ${t("university")}`}
+  title={`เกี่ยวกับเรา | ${t("name")} ${t("university")}`}
   description={`${t("aboutUs.description")}`}
   lang={lang}
   isMenu={true}
 >
-  <MainBanner title={t("aboutUs.title")} description={t("name")} />
+  <MainBanner title={"เกี่ยวกับเรา"} description={t("name")} />
 
   <div class="pt-16 w-full" id="history">
     <!-- This Content  -->
     <AboutUsDetail client:visible lang={lang}>
-      <TopicAboutUs title={t("aboutUs.history")} desc={t("name")}>
+      <TopicAboutUs title={"About TEPCoT"} desc={t("name")}>
         <a href={aboutSlug}>
           <button
             class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 btn-active px-4 text-center md:text-left mr-2"
@@ -46,22 +44,19 @@ const researchSlug = `/research`;
         </a>
         <a href={staffSlug}>
           <button
-            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24  text-center md:text-left"
+            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 text-center md:text-left"
           >
             <Icon name="check-circle" class="hidden md:block" />
             {t("nav.staff")}</button
           >
         </a>
-
       </TopicAboutUs>
     </AboutUsDetail>
-
+    <!-- <OverViewSection client:visible lang={lang} /> -->
     <Faqs client:load lang={lang} />
-    <PartnerSection client:load />
     <!-- <CourseList client:load lang={lang} class:list={'bg-a-yellow-CFECFF'} /> -->
-    <FacilitiesSection slug={""} title={""} lang={lang} client:load />
+    <!-- <FacilitiesSection slug={""} title={""} lang={lang} client:load /> -->
   </div>
-
 </Layout>
 <style scoped>
   @import "../styles/global.css";
