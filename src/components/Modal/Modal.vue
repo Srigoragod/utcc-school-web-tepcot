@@ -2,7 +2,7 @@
 <template>
   <div class="fixed inset-0 z-[99]" :class="[customClass]" id="modal">
     <div class="flex items-center justify-center relative">
-      <div class="fixed inset-0 backdrop-blur-sm bg-black/40" @click="closeModal"></div>
+      <div class="fixed inset-0 backdrop-blur-xl bg-white/40" @click="closeModal"></div>
       <div class="relative rounded-2xl">
         <button @click="closeModal"
           class="btn-close btn btn-sm btn-circle flex absolute right-5 top-4 md:top-5 z-20 text-20 px-4 items-center   opacity-50 hover:opacity-100 bg-slate-400 hover:bg-blue-100 border-0">

@@ -13,9 +13,9 @@
           <div class="flex ">
             <img :src="item?.image" alt="" class="rounded-full " />
             <div class="grid grid-column">
+               <span class="font-light text-18  text-white/80 line-clamp-1 ">{{ item.generation }}</span>
               <h4 class="text-30 text-2-line text-a-gold-F0C571">{{ item.name }}</h4>
-              <p class="font-light text-20 line-clamp-2 text-white/80 pr-8">{{ item.company }}</p>
-              <span class="font-light text-20 -mt-4 text-white/70 line-clamp-1 ">{{ item.generation }}</span>
+              <p class="font-light text-20 line-clamp-2 text-white/70 pr-8">{{ item.company }}</p>
             </div>
           </div>
         </swiper-slide>
@@ -23,19 +23,19 @@
     <!-- Modal -->
     <ModalMaster v-if="showModal" @close="clikeClose" :customClass="'content-center'"  :isShow="showModal" id="modal-master">
       <div class="parent relative w-full h-full min-w-3xl max-w-4xl">
-        <div class="py-10 px-8 max-w-3xl min-h-64  overflow-y-auto hide-scroll relative">
+        <div class="py-10 px-8 max-w-3xl min-h-64   overflow-y-auto hide-scroll relative">
           <div class="profile">
-            <img class="w-[100px] mx-auto drop-shadow-md rounded-full" :src="itemShow.image" />
-            <div class="text-center pt-2 ">
+            <img class="w-[100px] mx-auto drop-shadow-md rounded-full ring-2 ring-a-gold-F0C571" :src="itemShow.image" />
+            <div class="text-center pt-2 text-slate-600">
+              {{ itemShow.generation }}
               <h4 class="text-34 text-1-line  text-slate-800">{{ itemShow.name }}</h4>
               <p class="text-24 text-2-line text-slate-600 px-4">
                 {{ `${itemShow.company} ` }}
-                <br/>
-                {{ itemShow.generation }}
+               
               </p>
             </div>
           </div>
-          <div class="relative quote-moda bg-a-blue-030e62  font-light indent-10  p-8 rounded-2xl">
+          <div class="relative quote-moda bg-a-blue-030e62 text-a-gold-F0C571  font-light indent-10  p-8 rounded-2xl">
           <div class="text-20 md:text-24   min-h-32  overflow-y-auto hide-scroll relative content">
             {{ itemShow.text }}
           </div>

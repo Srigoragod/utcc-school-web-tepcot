@@ -14,7 +14,7 @@
 
           <div class="relative px-4">
             <div class="-mt-12 flex items-start justify-between">
-              <div class="h-24 w-24 rounded-full bg-white ring-2  ring-a-gold-F0C571 overflow-hidden shadow-sm">
+              <div class="h-24 w-24 rounded-full bg-white ring-4  ring-white overflow-hidden shadow-xl">
                 <img :src="p.image" :alt="p.name" class="h-full w-full object-cover" />
               </div>
             </div>
