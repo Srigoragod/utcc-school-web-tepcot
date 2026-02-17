@@ -3,15 +3,15 @@
     <slot></slot>
     <div v-if="isShowAboutUs">
       <div class="content indent-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start pt-20">
-        <div class=" col-span-2">
-          <div v-for="(paragraph, index) in contentParagraphs" :key="index" class="text-20 md:text-24  py-4">
+        <div class=" col-span-2 bg-slate-100/80 p-6 rounded-2xl shadow-sm h-full">
+          <div v-for="(paragraph, index) in contentParagraphs" :key="index" class="text-20 md:text-24 text-slate-700 font-light py-4">
             <label>{{ paragraph }}</label>
           </div>
           <div>
 
           </div>
         </div>
-        <div class="h-full flex justify-center items-center p-4">
+        <div class="h-full flex justify-center items-center p-4 bg-slate-50 rounded-2xl shadow-sm">
           <img src="/../image/logo-tepcost.jpg" alt="about us image" class="w-[66%] h-full mx-auto my-auto" loading="lazy" />
         </div>
       </div>
@@ -23,7 +23,7 @@
         <h2 class="text-36 md:text-44 font-bold capitalize underline">
           {{ keyFeatures?.topic }}
         </h2>
-        <ul class="list-inside list-disc mt-8">
+        <ul class="list-inside list-disc mt-8 text-slate-700 font-light ">
           <li v-for="(item, index) in keyFeatures?.list" :key="index" class="text-24 px-8 py-4">
             {{ item }}
           </li>
@@ -34,7 +34,7 @@
         <h2 class="text-36 md:text-44 font-bold capitalize underline">
           {{ objectives?.label }}
         </h2>
-        <ul class="list-inside list-disc mt-8">
+        <ul class="list-inside list-disc mt-8 text-slate-700 font-light ">
           <li v-for="(item, index) in objectives?.value" :key="index" class="text-24 px-8 py-1">
             {{ item.text }}
           </li>
@@ -47,10 +47,10 @@
         <h2 class="text-36 md:text-44 font-bold capitalize underline">
           {{ participantsProfile?.topic }}
         </h2>
-        <div class="text-20 md:text-24  py-4">
+        <div class="text-20 md:text-24  py-4 text-slate-700 font-light ">
           <label>{{ participantsProfile?.desc }}</label>
         </div>
-        <ul class="list-inside list-disc ">
+        <ul class="list-inside list-disc text-slate-700 font-light ">
           <li v-for="(item, index) in participantsProfile?.list" :key="index" class="text-24 px-8 py-1">
             {{ item }}
           </li>
@@ -61,6 +61,29 @@
       </div>
       </div>
 
+       <div class="mt-10 flex flex-col items-center bg-blue-200/10 p-10 md:p-20 rounded-xl">
+        <h3 class="text-24 md:text-44 text-center opacity-75" > วีดีโอแนะนำหลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ </h3>
+        <h2 class="text-36 md:text-54 mb-4 text-center"> TEPCoT 17 Be TEPCoT Family 2025 </h2>
+        <div class="w-full md:w-[888px] h-56 md:h-[555px] rounded-xl overflow-hidden shadow-lg mx-auto">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/kPTiFWRAg-Q?si=xJk7FwXn3Ppt96Th?rel=0&autoplay=1&mute=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+
+      <div class="py-10">
+        <h3 class="text-44 md:text-54 text-gradient-blue font-bold capitalize  max-w-5xl mx-auto text-center">
+          "{{ outro }}"
+        </h3>
+      </div>
     </div>
   </div>
 </template>

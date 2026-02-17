@@ -1,7 +1,7 @@
 <template>
   <!-- container -->
   <div class="item-course relative">
-    <ArrowRightIcon class="absolute z-10 right-4 top-4 text-a-glod-F0C571 w-6 h-6" />
+    <ArrowRightIcon class="absolute z-10 right-4 top-4 text-a-gold-F0C571 w-6 h-6" />
     <div v-if="isLoading" class="show-on-hover-none course-container grid gap-4 ">
       <div class="skeleton rounded-2xl bg-gray-200" :class="{ 'custom-order-div-even-number': isEvenNumber }">
 
@@ -19,18 +19,19 @@
           <h2 class="text-44 md:text-54 lg:text-66 leading-none line-clamp-1 font-bold">
             {{ item.title }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light opacity-85" v-html="item.subtitle"></h4>
+          <h3 class="text-24 md:text-30 font-light opacity-85" v-html="item.subtitle"></h3>
+          <h4 class="text-20 md:text-24 font-light mt-2 text-a-gold-F0C571" v-html="item.shortdescription"></h4>
         </span>
 
         <span  class="description_course relative">
-          <h2 class="text-30 md:text-36 mt-4 text-a-glod-F0C571">
+          <h2 class="text-30 md:text-36 mt-4 text-a-gold-F0C571">
             {{ item.fullname }}
           </h2>
-          <p class="text-20 md:text-24 font-light line-clamp-4 pt-2"  v-html="item.description ">
+          <p class="text-20 md:text-24 font-light line-clamp-3 pt-2"  v-html="item.description ">
           </p>
           <div class="not-show border-t border-white/30 mt-40px pt-8 grid grid-cols-4 gap-4">
             <div  v-for="(hl, index) in item.highlights" :key="index">
-              <div class="col-span-1 text-44 md:text-66 font-semibold text-a-glod-F0C571">
+              <div class="col-span-1 text-44 md:text-66 font-semibold text-a-gold-F0C571">
                 {{  hl?.value }}
               </div>
               <div class="col-span-3">
@@ -50,12 +51,13 @@
         } : {}"
       >
         <div class="overlay bg-overlay ">
-          <h2 class="text-44 md:text-54 lg:text-66 text-2-line text-a-glod-F0C571">
+          <h2 class="text-44 md:text-54 lg:text-66 text-2-line text-white font-bold">
             {{ item?.title ?? '' }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light text-a-glod-F0C571">
+          <h4 class="text-24 md:text-30 font-light text-white/80">
             {{ item?.subtitle ?? '' }}
           </h4>
+          <h4 class="text-20 md:text-24 font-light  text-a-gold-F0C571" v-html="item?.shortdescription ?? ''"></h4>
         </div>
       </div>
     </div>

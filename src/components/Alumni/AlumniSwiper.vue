@@ -7,15 +7,15 @@
         class="alumniSwiper">
         <swiper-slide  v-for="(item, index) in alumniList" :key="index" :virtualIndex="index" class="items-stretch cursor-pointer relative" @click="clickShow(item)">
           <div class="quote relative text-blue-950">
-            <span class="line-clamp-3 mobile:line-clamp-4 px-4 lg:pt-4 md:text-24 ">{{ item.text }}</span>
+            <span class="line-clamp-4 mobile:line-clamp-3 px-4 lg:pt-4 md:text-24 ">{{ item.text }}</span>
             <div class="quote-after absolute right-14 top-28"></div>
           </div>
           <div class="flex ">
             <img :src="item?.image" alt="" class="rounded-full " />
             <div class="grid grid-column">
-              <h4 class="text-30 text-2-line text-a-glod-F0C571">{{ item.name }}</h4>
-              <p class="font-light text-20 md:text-24 text-a-glod-F0C571/60 pr-8">{{ item.company }}</p>
-              <span class="font-light text-20 -mt-4 text-white/80 ">{{ item.generation }}</span>
+              <h4 class="text-30 text-2-line text-a-gold-F0C571">{{ item.name }}</h4>
+              <p class="font-light text-20 line-clamp-2 text-white/80 pr-8">{{ item.company }}</p>
+              <span class="font-light text-20 -mt-4 text-white/70 line-clamp-1 ">{{ item.generation }}</span>
             </div>
           </div>
         </swiper-slide>
@@ -27,15 +27,15 @@
           <div class="profile">
             <img class="w-[100px] mx-auto drop-shadow-md rounded-full" :src="itemShow.image" />
             <div class="text-center pt-2 ">
-              <h4 class="text-34 text-1-line  text-a-blue-030e62">{{ itemShow.name }}</h4>
-              <p class="text-24 text-2-line text-blue-800 px-4">
+              <h4 class="text-34 text-1-line  text-slate-800">{{ itemShow.name }}</h4>
+              <p class="text-24 text-2-line text-slate-600 px-4">
                 {{ `${itemShow.company} ` }}
                 <br/>
                 {{ itemShow.generation }}
               </p>
             </div>
           </div>
-          <div class="relative quote-moda bg-a-blue-030e62 text-a-glod-F0C571  p-8 rounded-2xl">
+          <div class="relative quote-moda bg-a-blue-030e62  font-light indent-10  p-8 rounded-2xl">
           <div class="text-20 md:text-24   min-h-32  overflow-y-auto hide-scroll relative content">
             {{ itemShow.text }}
           </div>
@@ -48,6 +48,21 @@
           class="btn btn-sm text-20 custom-btn  absolute text-a-black-1F2937 bg-white bottom-4 right-4">Close</button>
       </div>
     </ModalMaster>
+    <div class="mt-10 flex items-center gap-2 text-[14px] text-[#0B1F3A]/65 justify-center mx-auto">
+        <div class="avatar-group -space-x-3">
+            <div class="avatar" v-for="(m, i) in avatarList"  :key="i">
+              <div class="w-12 ring-primary ring-offset-base-100  rounded-full ring-2 ring-offset-2">
+                <img :src="m" />
+              </div>
+            </div>
+        </div>
+        <a href="/alumni" class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1">
+          <span class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1">
+            อ่านเรื่องราวความสำเร็จเพิ่มเติม 
+            <ArrowRightIcon class=" text-a-gold-F0C571 w-6 h-6" />
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -61,16 +76,20 @@ import "swiper/css";
 import "swiper/css/virtual";
 import "swiper/css/autoplay";
 import ModalMaster from "../Modal/Modal.vue";
+import { ArrowRightIcon } from '@heroicons/vue/24/solid'
+
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
-    ModalMaster
+    ModalMaster,
+    ArrowRightIcon
   },
   setup() {
     const showModal = ref(false);
     const alumniList = ref(null);
+    const avatarList = ref(null);
     const itemShow = ref(null);
     const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 
@@ -89,7 +108,7 @@ export default {
     const initialData = (data) => {
       let listData = data?.list2 || [];
       alumniList.value = listData.sort(randomSort);
-      console.log('Alumni ....', JSON.stringify(alumniList.value, null, 4))
+      avatarList.value = listData.slice(0, 5).map(item => item.image);
     };
     const clickShow  = (item) => {
       itemShow.value = item
@@ -104,6 +123,7 @@ export default {
 
     return {
       alumniList,
+      avatarList,
       Virtual,
       Autoplay,
       showModal,
@@ -143,7 +163,7 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top center;
-  height: 78%;
+  height: 88%;
   max-width: 360px;
 }
 

@@ -1,5 +1,5 @@
 ---
-import ArticleListPage from "../../components/Blogs/ArticleListPage.astro";
+import AlumniListPage from "../../components/Alumni/AlumniListPage.astro";
 import { ARTICLE_PER_PAGE } from "../../consts";
 
 const uri = import.meta.env.PUBLIC_API_WP_NEWS;
@@ -9,9 +9,9 @@ const allArticle = await data.json();
 const currentPage = 1;
 ---
 
-<ArticleListPage 
-  allArticle={allArticle} 
-  currentPage={currentPage} 
-  perPage={ARTICLE_PER_PAGE} 
-  baseUrl="/articles"
+<AlumniListPage
+  allArticle={allArticle}
+  currentPage={currentPage}
+  perPage={ARTICLE_PER_PAGE}
+  baseUrl="/alumni"
 />

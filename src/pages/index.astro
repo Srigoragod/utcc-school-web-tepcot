@@ -85,7 +85,7 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     </div>
     <PartnerSection client:idle lang={lang} />
   </section>
-  <section id="overview" class=" max-w-7xl mx-auto">
+  <section id="overview" class="max-w-7xl mx-auto">
     <OverViewSection client:idle lang={lang} />
   </section>
   <section id="target-audience">
@@ -103,7 +103,7 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     </div>
   </section>
   <section id="speakers" class="skeleton">
-    <Speakers />
+    <Speakers client:idle />
   </section>
   <!-- <section id="experience-hero" class="">
       <div class="md:max-w-7xl mx-auto px-4 md:px-8">
@@ -121,18 +121,4 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
   <AlumniSection className="py-24" />
   <ArticleSection />
   <BlogSection />
-  <section id="partnership" class="my-16 md:my-20 px-4 md:px-0">
-    <div class="container mx-auto">
-      <div class="text-30 md:text-66 font-semibold mb-0">พันธมิตร</div>
-      <div class="sm:w-30 pt-0 md:pt-4">
-        <div class="text-24 md:text-30 font-light">
-          มาร่วมเป็นส่วนหนึ่งกับพวกเรา ที่มหาวิทยาลัยชั้นนำด้านธุรกิจ
-          พร้อมโอกาสในการร่วมงานกับองค์กรชั้นนำระดับประเทศและระดับโลก
-        </div>
-      </div>
-      <div class="partner-section max-w-7xl mx-auto rounded-2xl p-4">
-        <PartnerSwiperUtcc client:idle :is-show-highlight="false" />
-      </div>
-    </div>
-  </section>
 </Layout>

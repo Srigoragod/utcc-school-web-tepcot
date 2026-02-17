@@ -7,6 +7,7 @@ import ScrollToTopButton from "../components/Button/ScrollToTopButton.astro";
 import MenuMobile from "../components/MenuMobile.astro";
 import ButtonMain from "../components/Button/ButtonMain.astro";
 import TopBanner from "./TopBanner.astro";
+import PartnerSwiperUtcc from "../components/Partner/PartnerSwiperUtcc.vue";
 // import Schema from "../components/Schema.astro";
 
 import { useTranslations, type UiType } from "../i18n/utils";
@@ -111,6 +112,41 @@ const t = useTranslations(lang as UiType);
   <ScrollToTopButton />
   <slot />
   <MenuMobile />
+  <section id="partnership" class="my-16 md:my-20 px-4 md:px-0">
+    <div class="">
+      <div class="container mx-auto">
+        <div class="text-30 md:text-66 font-semibold mb-0">พันธมิตร</div>
+        <div class="sm:w-30 pt-0 md:pt-4">
+          <div class="text-24 md:text-30 font-light">
+            มาร่วมเป็นส่วนหนึ่งกับพวกเรา ที่มหาวิทยาลัยชั้นนำด้านธุรกิจ
+            พร้อมโอกาสในการร่วมงานกับองค์กรชั้นนำระดับประเทศและระดับโลก
+          </div>
+        </div>
+      </div>
+      <div class="partner-section mx-auto rounded-2xl p-4">
+        <PartnerSwiperUtcc client:idle :is-show-highlight="false" />
+      </div>
+    </div>
+  </section>
+  <section class="w-full bg-gradient-to-r from-[#00255B] to-[#7EC0FF]">
+    <div class="container mx-auto px-4 md:px-0 py-6 sm:py-8">
+      <div
+        class="flex flex-col items-center justify-between gap-4 sm:flex-row sm:gap-6"
+      >
+        <h2 class="text-white text-center sm:text-left text-36 md:text-44">
+          สนใจสมัครเรียนหรือต้องการสอบถามข้อมูลเพิ่มเติม?
+        </h2><div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <!--[--><!--]-->
+          <a
+            href="https://line.me/R/ti/p/@asc.utcc"
+            class="rounded-full px-5 py-3 bg-white/60 text-slate-900 text-30 font-semibold hover:bg-white transition inline-flex items-center gap-2 cursor-pointer shadow-lg"
+          >
+            LINE ID : @asc.utcc
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
   <Footer lang={lang} />
 
   <script src="../scripts/local.js"></script>

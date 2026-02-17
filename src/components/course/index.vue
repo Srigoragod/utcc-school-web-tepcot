@@ -144,6 +144,7 @@ export default defineComponent({
           fullname: data.fullname || '',
           title: data.title || '',
           subtitle: data.subtitle || '',
+          shortdescription: data.shortdescription || '',
           description: data.description || '',
           highlights: data.highlights || [],
           teaching_methods: data.teaching_methods || [],

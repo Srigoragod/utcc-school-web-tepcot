@@ -13,7 +13,7 @@ export default {
         "a-blue-030e62": "#030e62",
         "a-blue-1c1c84": "#1c1c84",
         "a-blue-2B7FFF": "#2B7FFF",
-        "a-glod-F0C571": "#F0C571",
+        "a-gold-F0C571": "#F0C571",
         "a-orage-F36A10": "#F36A10",
         "a-blue-aad6ec": "#aad6ec",
         "a-blue-0033A1": "#0033A1",

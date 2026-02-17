@@ -17,14 +17,17 @@ const homeSlug = `/`;
 const courSection = `/#course`;
 const faqSection = `/#faq`;
 const aboutSection = `/aboutus`;
-const partnerSection = "/#partners";
-const alumniSection = "/#alumni";
+const partnerSection = "/speakers";
+const alumniSection = "/alumni";
 const newsSection = `/#news`;
 const blogSection = `/#blogs`;
 ---
 
 <header>
-  <div  id="header" class="w-full relative z-20 pb-2 items-center mx-auto md:px-0">
+  <div
+    id="header"
+    class="w-full relative z-20 pb-2 items-center mx-auto md:px-0"
+  >
     <script type="module">
       (function () {
         const header = document.getElementById("header");
@@ -52,7 +55,12 @@ const blogSection = `/#blogs`;
     <div class="navbar container mx-auto items-center">
       <div class="navbar-start">
         <a href={homeSlug} class="logo px-0">
-          <Image src={Logo} alt="Logo UTCC" class={'w-[70%]'} alt={'หลักสูตร TEPCoT'} />
+          <Image
+            src={Logo}
+            alt="Logo UTCC"
+            class={"w-[70%]"}
+            alt={"หลักสูตร TEPCoT"}
+          />
         </a>
       </div>
       <div class="navbar-center hidden lg:flex">
@@ -60,7 +68,7 @@ const blogSection = `/#blogs`;
           <HeaderLink href={aboutSection}>{t("nav.about")}</HeaderLink>
           <HeaderLink href={courSection}>{t("nav.course")}</HeaderLink>
           <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
-          <HeaderLink href={partnerSection}>{t("nav.partner")}</HeaderLink>
+          <HeaderLink href={partnerSection}>วิทยากร</HeaderLink>
           <HeaderLink href={alumniSection}>{t("nav.alumni")}</HeaderLink>
           <HeaderLink href={newsSection}>{t("nav.news")}</HeaderLink>
           <HeaderLink href={blogSection}>{t("nav.blog")}</HeaderLink>

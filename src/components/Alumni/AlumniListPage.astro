@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MainBanner from "../../components/Banner/MainBanner.astro";
+
+import AlumniSuggestionGrid from "./AlumniSuggestionGrid.vue";
+import AlumniSection from "./AlumniSection.astro";
+
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { allArticle, currentPage, perPage, baseUrl } = Astro.props;
+
+const start = (currentPage - 1) * perPage;
+const end = start + perPage;
+const paginatedArticle = allArticle.slice(start, end);
+const totalPages = Math.ceil(allArticle.length / perPage);
+const homeSlug = `/`;
+const alumniSlug = `/alumni`;
+---
+
+<Layout
+  title={`ศิษย์เก่า | ${t("name")} ${t("university")}`}
+  description={`${t("news.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner
+    title={"ศิษย์เก่า TEPCoT (Alumni)"}
+    description={"เครือข่ายผู้บริหารระดับสูงด้านการค้าและการพาณิชย์"}
+  />
+  <div class="bg-a-yellow-FFF4DF">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "ศิษย์เก่า", href: alumniSlug },
+            { label: "" },
+          ]}
+        />
+        <section class="py-8 md:py-16">
+          <h2 class="text-44 md:text-66 font-semibold mb-4">
+            เครือข่ายศิษย์เก่า
+          </h2>
+          <AlumniSuggestionGrid client:idle />
+        </section>
+      </div>
+    </div>
+    <section class="my-8 md:py-16">
+      <AlumniSection client:idle />
+    </section>
+  </div>
+</Layout>
