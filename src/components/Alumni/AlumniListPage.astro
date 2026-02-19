@@ -22,14 +22,14 @@ const alumniSlug = `/alumni`;
 ---
 
 <Layout
-  title={`ศิษย์เก่า | ${t("name")} ${t("university")}`}
+  title={`ศิษย์เก่า TEPCoT (Alumni)| ${t("university")}`}
   description={`${t("news.description")}`}
   lang={lang}
   isMenu={true}
 >
   <MainBanner
     title={"ศิษย์เก่า TEPCoT (Alumni)"}
-    description={"เครือข่ายผู้บริหารระดับสูงด้านการค้าและการพาณิชย์"}
+    description={"เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"}
   />
   <div class="bg-a-yellow-FFF4DF">
     <div class="px-4 sm:px-16">
@@ -41,10 +41,13 @@ const alumniSlug = `/alumni`;
             { label: "" },
           ]}
         />
-        <section class="py-8 md:py-16">
-          <h2 class="text-44 md:text-66 font-semibold mb-4">
+        <section class="py-4">
+          <h3 class="text-30 md:text-44 font-bold mb-4">
             เครือข่ายศิษย์เก่า
-          </h2>
+          </h3>
+          <h4 class="text-20 md:text-24 max-w-4xl opacity-90 font-light mb-8">
+            ตลอดระยะเวลาของ TEPCoT ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย ต่อไปนี้คือส่วนหนึ่งของศิษย์เก่าที่กำลังขับเคลื่อนประเทศและองค์กรในหลากหลายมิติ
+          </h4>
           <AlumniSuggestionGrid client:idle />
         </section>
       </div>

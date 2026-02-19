@@ -61,180 +61,9 @@
         </div>
       </div>
 
-      <div class="container mx-auto content-detail">
-
-        <!-- content layout grid -->
-        <div class="main-content py-8 grid grid-cols-3 gap4">
-          <!-- Menu with icons -->
-          <div class="menu-icon-list div-1">
-            <!-- หลักสูตร -->
-            <div class="mb-2">
-              <h2 class="text-20 md:text-24">
-                {{ itemList.course.label }}
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <img src="/icon/icon-course-1.svg" class="min-w-10" />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line font-light">
-                  {{ itemList.course.value }}
-                </h4>
-              </div>
-            </div>
-            <!-- / หลักสูตร -->
-            <!-- หน่วยกิตทั้งหมด -->
-            <div class="mb-2" v-if="itemList.credits.credit">
-              <h2 class="text-20 md:text-24 text-1-line">
-                {{ itemList.credits.label }}
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <img src="/icon/icon-course-6.svg" class="min-w-10" />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line font-light">
-                  {{ itemList.credits.credit }} หน่วยกิต
-                </h4>
-              </div>
-            </div>
-            <!-- / หน่วยกิตทั้งหมด -->
-            <!-- สำหรับผู้จบการศึกษา -->
-            <div class="mb-2">
-              <h2 class="text-20 md:text-24">
-                {{ itemList.graduates.label }}
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <img src="/icon/icon-course-2.svg" class="min-w-14" />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line font-light">
-                  {{ itemList.graduates.value }}
-                </h4>
-              </div>
-            </div>
-            <!-- / สำหรับผู้จบการศึกษา -->
-            <!-- เทอม 1 / ผ่อนชำระ -->
-            <div class="mb-2" v-if="itemList.entry.value">
-              <h2 class="text-20 md:text-24">
-                {{ itemList.entry.label }}
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <img src="/icon/icon-course-3.svg" class="min-w-14" />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line font-light" v-html="itemList.entry.value"></h4>
-              </div>
-            </div>
-            <!-- / เทอม 1 / ผ่อนชำระ -->
-            <!-- ตลอดหลักสูตร -->
-            <div class="mb-2">
-              <h2 class="text-20 md:text-24">
-                {{ itemList.total_tuition.label }}
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <img src="/icon/icon-course-5.svg" class="min-w-14" />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line font-light" v-html="itemList.total_tuition.total"></h4>
-              </div>
-            </div>
-            <!-- / ตลอดหลักสูตร -->
-            <!-- การกู้ยืม -->
-            <div class="mb-2" v-if="itemList.fund.id">
-              <h2 class="text-20 md:text-24">
-                คุณสมบัติผู้ขอกู้ กยศ.
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center">
-                  <TypeIcon :fund="itemList.fund" :isShowAll="false" :isMobile="true" />
-                </div>
-                <h4 class="text-18 md:text-20 text-2-line font-light">{{ itemList.fund.value }}</h4>
-              </div>
-            </div>
-            <!-- / การกู้ยืม -->
-            <!-- DOWNLOAD รายละเอียดเพิ่มเติม -->
-            <!-- <div class="mb-2">
-              <h2
-                class="text-20 md:text-24"
-              >
-                รายละเอียดเพิ่มเติม
-              </h2>
-              <div class="flex justify-start items-center gap-4">
-                <div
-                  class="menu-item min-w-14 min-h-14  rounded-md flex justify-center items-center"
-                >
-                  <img
-                    src="/icon/icon-course-7.svg"
-                    class="min-w-14"
-                  />
-                </div>
-                <h4 class="text-20 md:text-24 text-1-line text-a-red-E9252B hover:underline cursor-pointer font-light">Download Attachment</h4>
-              </div>
-            </div> -->
-            <!-- /  DOWNLOAD รายละเอียดเพิ่มเติม -->
-            <div class="px-0 md:pr-10 col-span-2 md:col-span-1  hidden lg:block">
-              <SwiperPromo :isWidget="true" class="mx-auto" />
-             </div>
-          </div>
-          <!-- / Menu with icons -->
-          <div class="col-span-2 div-2">
-            <div class="block md:hidden">
-              <h2 class="text-20 md:text-24">
-                รายละเอียดหลักสูตร
-              </h2>
-            </div>
-            <div class="">
-              <div class="text-20 md:text-24 mb-8 font-light" v-html="itemList.description"></div>
-              <div class="info grid grid-cols-2 gap-8" v-if="itemList.course_name.title_th">
-                <div>
-                  <div class="text-20 md:text-24">
-                    {{ itemList.course_name.label }}
-                  </div>
-                  <ul class="text-20 md:text-24 w-full font-light">
-                    <li>
-                      {{ itemList.course_name.title_th }}
-                    </li>
-                    <li>
-                      {{ itemList.course_name.title_en }}
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <div class="text-20 md:text-24">
-                    {{ itemList.degree_name.label }}
-                  </div>
-                  <ul class="text-20 md:text-24 w-full font-light">
-                    <li>
-                      {{ itemList.degree_name.fullname_th }}
-                    </li>
-                    <li>
-                      {{ itemList.degree_name.shortname_th }}
-                    </li>
-                    <li>
-                      {{ itemList.degree_name.fullname_en }}
-                    </li>
-                    <li>
-                      {{ itemList.degree_name.shortname_en }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <TableDetailFee v-if="itemList.detailFee" :items="itemList.detailFee" class="container mx-auto my-10" />
-
-              <TermsAndConditions v-if="itemList.fund.id" :isLoan="true" class="container mx-auto my-10" /> 
-            </div>
-          </div>
-        </div>
-        <!-- /content layout grid -->
-      </div>
-      <ImageJobOpp :items="jobOop" />
-      <div class="block lg:hidden px-4">
-        <SwiperPromo :isWidget="true" class="mx-auto" />
-      </div>
+      <!-- <CurriculumSection :title="itemList.title" :subtitle="itemList.subtitle" :paragraphs="[itemList.description]" :highlights="itemList.highlights" :facts="itemList.facts" /> -->
+      <FullPageSnap />
     </div>
-    <!-- <CourseList :slug="slug" :lang="lang" /> -->
-
-    <FacilitiesSection :slug="slug" :title="itemList.title" :lang="lang" />
 
   </div>
 </template>
@@ -250,6 +79,8 @@ import TypeIcon from "../../Button/TypeIcon.vue";
 import ImageJobOpp from "./ImageJobOpp.vue";
 import FacilitiesSection from "../../Facilities/FacilitiesSection.vue";
 import SwiperPromo from "../../SlideShow/SwiperPromo.vue";
+import CurriculumSection from "../CurriculumSection.vue";
+import FullPageSnap from "../../motion/FullPageSnap.vue";
 
 export default defineComponent({
   name: "CourseDetailV2",
@@ -260,7 +91,9 @@ export default defineComponent({
     TypeIcon,
     ImageJobOpp,
     FacilitiesSection,
-    SwiperPromo
+    SwiperPromo,
+    CurriculumSection,
+    FullPageSnap
   },
   props: {
     items: { type: Object, require: true },

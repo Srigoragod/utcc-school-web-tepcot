@@ -7,14 +7,14 @@
         class="alumniSwiper">
         <swiper-slide  v-for="(item, index) in alumniList" :key="index" :virtualIndex="index" class="items-stretch cursor-pointer relative" @click="clickShow(item)">
           <div class="quote relative text-blue-950">
-            <span class="line-clamp-4 mobile:line-clamp-3 px-4 lg:pt-4 md:text-24 ">{{ item.text }}</span>
+            <span class="line-clamp-4 mobile:line-clamp-3 px-4 lg:pt-4 text-20 md:text-24 ">{{ item.text }}</span>
             <div class="quote-after absolute right-14 top-28"></div>
           </div>
           <div class="flex ">
             <img :src="item?.image" alt="" class="rounded-full " />
             <div class="grid grid-column">
-               <span class="font-light text-18  text-white/80 line-clamp-1 ">{{ item.generation }}</span>
-              <h4 class="text-30 text-2-line text-a-gold-F0C571">{{ item.name }}</h4>
+              <span class="font-light text-20 text-white/80 line-clamp-1">{{ item.generation }}</span>
+              <h4 class="text-24 text-1-line text-a-gold-F0C571">{{ item.name }}</h4>
               <p class="font-light text-20 line-clamp-2 text-white/70 pr-8">{{ item.company }}</p>
             </div>
           </div>
@@ -31,7 +31,6 @@
               <h4 class="text-34 text-1-line  text-slate-800">{{ itemShow.name }}</h4>
               <p class="text-24 text-2-line text-slate-600 px-4">
                 {{ `${itemShow.company} ` }}
-               
               </p>
             </div>
           </div>
@@ -57,8 +56,8 @@
             </div>
         </div>
         <a href="/alumni" class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1">
-          <span class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1">
-            อ่านเรื่องราวความสำเร็จเพิ่มเติม 
+          <span class="line-clamp-2 text-20  text-a-gold-F0C571/80 font-light flex items-center gap-1">
+            ดูเพิ่มเติมเกี่ยวกับศิษย์เก่าของเรา
             <ArrowRightIcon class=" text-a-gold-F0C571 w-6 h-6" />
           </span>
         </a>
@@ -94,7 +93,7 @@ export default {
     const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 
     const fetchData = () => {
-      fetch(uri)
+      fetch(`${uri}?acf_format=standard&_fields=id,slug,title,acf`, { mode: "cors" })
         .then((response) => response.json())
         .then((data) => initialData(data))
         .catch((error) =>
@@ -106,9 +105,16 @@ export default {
       return Math.random() - 0.5;
     }
     const initialData = (data) => {
-      let listData = data?.list2 || [];
+
+      let listData = data.map((item) => ({
+        name: item.title.rendered,
+        company: item.acf.company,
+        generation: item.acf.generation,
+        image: item.acf.image,
+        text: item.acf.text
+      }));
       alumniList.value = listData.sort(randomSort);
-      avatarList.value = listData.slice(0, 5).map(item => item.image);
+      avatarList.value = listData.slice(0, 3).map(item => item.image);
     };
     const clickShow  = (item) => {
       itemShow.value = item
@@ -158,7 +164,6 @@ export default {
 
 .alumniSwiper .swiper-slide .quote {
   padding: 40px 20px  0 20px;
-  border-radius: 15px;
   background-image: url(/icon/review-blog.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -205,8 +210,8 @@ export default {
 }
 
 .alumniSwiper .swiper-slide img {
-  width: 100px;
-  height: 100px;
+  width: 99px;
+  height: 99px;
   margin-right: 1rem;
   /* margin: 0 30px 0 0; */
 }
@@ -214,7 +219,7 @@ export default {
 @media (max-width: 767px) {
   .alumniSwiper .swiper-slide .quote {
     max-width: 100%;
-    padding: 60px 10px 0 10px;
+    padding: 40px 10px 0 10px;
     height: 99%;
   }
  .quote::before {
