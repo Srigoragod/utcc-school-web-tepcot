@@ -1,0 +1,35 @@
+---
+import AlumniListPage from "../../../components/Alumni/AlumniListPage.astro";
+import { ALUMNI_PER_PAGE } from "../../../consts";
+
+const { page } = Astro.params;
+const currentPage = Number(page);
+
+// ✅ generate static paths
+export async function getStaticPaths() {
+  const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
+  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+  const allAlumni = await data.json();
+
+  const perPage = ALUMNI_PER_PAGE;
+  const totalPages = Math.ceil(allAlumni.length / perPage);
+
+  return Array.from({ length: totalPages }).map((_, i) => ({
+    params: { page: String(i + 1) },
+    props: { allAlumni },
+  }));
+}
+
+const allAlumni = Astro.props.allAlumni;
+
+if (currentPage < 1 || currentPage > Math.ceil(allAlumni.length / ALUMNI_PER_PAGE)) {
+  throw new Error("Page not found");
+}
+---
+
+<AlumniListPage
+  allAlumni={allAlumni}
+  currentPage={currentPage}
+  perPage={ALUMNI_PER_PAGE}
+  baseUrl="/alumni"
+/>

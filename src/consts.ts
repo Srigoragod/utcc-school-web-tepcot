@@ -11,3 +11,7 @@ export const ARTICLE_WIDGET = 5;
 export const HOMEPAGE_BLOG_LIMIT = 6;
 export const BLOG_PER_PAGE = 12;
 export const BLOG_PER_WIDGET = 5;
+
+export const HOMEPAGE_ALUMNI_LIMIT = 6;
+export const ALUMNI_PER_PAGE = 9;
+export const ALUMNI_PER_WIDGET = 5;

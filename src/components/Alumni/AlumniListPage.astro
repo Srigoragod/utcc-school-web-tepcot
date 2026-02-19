@@ -4,19 +4,19 @@ import MainBanner from "../../components/Banner/MainBanner.astro";
 
 import AlumniSuggestionGrid from "./AlumniSuggestionGrid.vue";
 import AlumniSection from "./AlumniSection.astro";
-
+import Pagination from "../Pagination.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { allArticle, currentPage, perPage, baseUrl } = Astro.props;
+const { allAlumni, currentPage, perPage, baseUrl } = Astro.props;
 
 const start = (currentPage - 1) * perPage;
 const end = start + perPage;
-const paginatedArticle = allArticle.slice(start, end);
-const totalPages = Math.ceil(allArticle.length / perPage);
+const paginatedArticle = allAlumni.slice(start, end);
+const totalPages = Math.ceil(allAlumni.length / perPage);
 const homeSlug = `/`;
 const alumniSlug = `/alumni`;
 ---
@@ -42,18 +42,21 @@ const alumniSlug = `/alumni`;
           ]}
         />
         <section class="py-4">
-          <h3 class="text-30 md:text-44 font-bold mb-4">
-            เครือข่ายศิษย์เก่า
-          </h3>
+          <h3 class="text-30 md:text-44 font-bold mb-4">เครือข่ายศิษย์เก่า</h3>
           <h4 class="text-20 md:text-24 max-w-4xl opacity-90 font-light mb-8">
-            ตลอดระยะเวลาของ TEPCoT ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย ต่อไปนี้คือส่วนหนึ่งของศิษย์เก่าที่กำลังขับเคลื่อนประเทศและองค์กรในหลากหลายมิติ
+            ตลอดระยะเวลาของ TEPCoT
+            ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย
+            ต่อไปนี้คือส่วนหนึ่งของศิษย์เก่าที่กำลังขับเคลื่อนประเทศและองค์กรในหลากหลายมิติ
           </h4>
           <AlumniSuggestionGrid client:idle />
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl={alumniSlug}
+          />
         </section>
       </div>
     </div>
-    <section class="my-8 md:py-16">
-      <AlumniSection client:idle />
-    </section>
   </div>
 </Layout>

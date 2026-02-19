@@ -1,17 +1,17 @@
 ---
 import AlumniListPage from "../../components/Alumni/AlumniListPage.astro";
-import { ARTICLE_PER_PAGE } from "../../consts";
+import { ALUMNI_PER_PAGE } from "../../consts";
 
 const uri = import.meta.env.PUBLIC_API_WP_NEWS;
 const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
-const allArticle = await data.json();
+const allAlumni = await data.json();
 
 const currentPage = 1;
 ---
 
 <AlumniListPage
-  allArticle={allArticle}
+  allAlumni={allAlumni}
   currentPage={currentPage}
-  perPage={ARTICLE_PER_PAGE}
+  perPage={ALUMNI_PER_PAGE}
   baseUrl="/alumni"
 />
