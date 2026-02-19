@@ -80,7 +80,7 @@
 
 
       <div class="py-10">
-        <h3 class="text-44 md:text-54 text-gradient-blue font-bold capitalize  max-w-5xl mx-auto text-center">
+        <h3 class="text-36 md:text-30 text-gradient-blue  capitalize  max-w-5xl mx-auto text-center">
           "{{ outro }}"
         </h3>
       </div>

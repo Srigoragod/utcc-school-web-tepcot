@@ -33,7 +33,7 @@ const cleanKeywords = post.acf?.keywords || `${cleanTitle}, ${cleanExcerpt}, ${p
 // If using SSR, you will not need this function.
 export async function getStaticPaths() {
   const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
-  const data = await fetch(uri + "?per_page=100&acf_format=standard");
+  const data = await fetch(uri + "?acf_format=standard");
   const posts = await data.json();
 
   return posts.map((post) => ({
@@ -78,11 +78,11 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
             { label: "" },
           ]}
         />
-
-        {
+        <div class=" max-w-5xl mx-auto">
+          {
           post && (
             <section class="py-4">
-              <div class="flex flex-col md:flex-row gap-8">
+              <div class="flex flex-col md:flex-row gap-8 items-center">
                 <div class="md:w-1/5">
                   <img
                     src={
@@ -91,12 +91,12 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
                         : cleanImageUrl
                     }
                     alt={cleanTitle}
-                    class="w-1/2 md:w-3/4 lg:w-full h-auto object-cover rounded-lg mx-auto"
+                    class="w-1/2 md:w-3/4 lg:w-full h-auto object-cover  mx-auto ring-4 ring-offset-2 ring-a-gold-F0C571 rounded-full"
                   />
                 </div>
                 <div class="md:w-4/5 flex flex-col gap-4">
                   <h1 class="text-24 md:text-36 font-bold">{cleanTitle} — {post.acf?.gen?.name}</h1>
-                  <div class="text-gray-600">{post.acf.company}</div>
+                  <div class=" text-slate-700 text-20 md:text-24">{post.acf.company}</div>
                   <div class="flex items-center gap-4 text-gray-500">
                     <div class="indent-8 text-justify">{post.acf?.text}</div>
                   </div>
@@ -109,6 +109,8 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
             </section>
           )
         }
+
+        </div>
       </div>
     </div>
   </div>

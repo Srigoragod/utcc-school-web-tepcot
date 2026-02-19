@@ -1,10 +1,10 @@
 <template>
-  <div class="card w-full drop-shadow-xl px-0 relative">
-    <ArrowRightIcon class="absolute top-4 right-4 z-10 w-6 h-6  text-a-blue-021430" />
+  <div class="card w-full drop-shadow-xl px-4 relative">
+    <ArrowRightIcon class="absolute top-4 right-8 z-10 w-6 h-6  text-a-gold-F0C571" />
     <div
       class="rounded-t-2xl h-[305px]"
       :style="{
-        backgroundImage: `url(${item.image})`,
+        backgroundImage: `url(${item?.hero_mobile})`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundSize: 'cover',
@@ -14,10 +14,11 @@
       <div class="overlay bg-overlay relative">
         <div>
 
-          <h2 class="text-24 md:text-30 font-normal leading-none text-1-line">
+          <h2 class="text-44 font-normal leading-none line-clamp-1">
             {{ item.title }}
           </h2>
-          <h4 class="text-24 md:text-30 font-light w-full text-1-line">{{ item.subtitle }}</h4>
+          <h3 class="text-24 font-light w-full line-clamp-2">{{ item.subtitle }}</h3>
+          <h4 class="text-20 font-light mt-2 text-a-gold-F0C571 line-clamp-2" v-html="item.shortdescription"></h4>
         </div>
       </div>
     </div>

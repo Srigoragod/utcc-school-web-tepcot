@@ -25,7 +25,7 @@
           <button
             v-if="localQuery"
             type="button"
-            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2 text-[#0B1F3A]/60 hover:bg-[#0B1F3A]/5"
+            class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-2 btn-info"
             aria-label="Clear search"
             @click="clearQuery()"
           >

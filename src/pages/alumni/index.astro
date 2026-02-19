@@ -3,7 +3,7 @@ import AlumniListPage from "../../components/Alumni/AlumniListPage.astro";
 import { ALUMNI_PER_PAGE } from "../../consts";
 
 const uri = import.meta.env.PUBLIC_API_WP_NEWS;
-const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+const data = await fetch(uri + "?per_page=50&_embed&acf_format=standard");
 const allAlumni = await data.json();
 
 const currentPage = 1;

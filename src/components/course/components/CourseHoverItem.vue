@@ -10,7 +10,7 @@
 
       </div>
     </div>
-    <div v-else class="show-on-hover course-container grid gap-4">
+    <div v-else class="show-on-hover course-container grid gap-4" @click="clickShow(item.slug, true)">
       <div :class="{ 'custom-order-div-even-number': isEvenNumber }"
         class="rounded-2xl leading-none shadow relative group-hover:shadow-2xl ">
         <!-- <div class="badge badge-info  text-20 absolute top-8 left-8">{{ item.degree.label }}</div> -->
@@ -43,8 +43,8 @@
       </div>
       <div
         class="rounded-2xl h-[400px] shadow hover:shadow-xl group-hover:shadow-blue-300/40 bg-center bg-cover isometric relative"
-        :style="item?.imageUrl ? {
-          backgroundImage: `url('${item.imageUrl}')`,
+        :style="item?.imageHero ? {
+          backgroundImage: `url('${item.imageHero}')`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
           backgroundSize: 'cover',
@@ -92,11 +92,11 @@ export default defineComponent({
 
 
 
-    const clickShow = (item, disable) => {
+    const clickShow = (slug, disable) => {
       if(disable) {
-        window.location.replace(`${item.slug}`)
+        window.location.replace(`${slug}`)
       }else{
-        window.open(`${item.url}`, '_blank')
+        window.open(`${'tepcot-executive-education'}`, '_blank')
       }
     }
 
