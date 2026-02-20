@@ -386,7 +386,7 @@ const overlaySideClass = (id: string) => {
 
 function onDetails(cohort: Cohort) {
   // hook to modal/router
-  console.log('Details cohort:', cohort.cohortNo)
+  console.log('*Details cohort:', cohort.cohortNo)
 }
 </script>
 
