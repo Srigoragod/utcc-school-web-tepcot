@@ -1,5 +1,4 @@
 ---
-// ไฟล์: src/components/Alumni/AlumniListView.astro
 import Layout from "../../layouts/Layout.astro";
 import MainBanner from "../Banner/MainBanner.astro";
 import AlumniCard from "./AlumniCard.astro";
@@ -11,21 +10,19 @@ import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// รับค่า Props ที่จะเปลี่ยนไปตามแต่ละหน้า
 const {
   pageTitle,
   pageDesc,
   breadcrumbsItems,
-  showIntroText = false, // หน้า gen จะไม่โชว์ข้อความนี้
-  allAlumni = [], // ไว้หาเพื่อน
-  displayAlumni = [], // ข้อมูลที่จะเอามาโชว์ (ตัดแบ่งหน้ามาให้แล้ว)
+  showIntroText = false,
+  allAlumni = [],
+  displayAlumni = [],
   currentPage,
   totalPages,
   paginationBaseUrl,
   emptyMessage = "ยังไม่มีข้อมูล"
 } = Astro.props;
 
-// ฟังก์ชันหาเพื่อน (มาอยู่ที่นี่ที่เดียวเลย)
 const getMutualAvatars = (generationKey, currentSlug) => {
   if (!generationKey || !allAlumni.length) return [];
   return allAlumni
