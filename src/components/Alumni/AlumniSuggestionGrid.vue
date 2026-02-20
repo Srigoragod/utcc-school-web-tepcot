@@ -25,7 +25,7 @@
 
 <script>
 import { ref, computed } from "vue";
-import AlumniCard from "./AlumniCard.vue";
+import AlumniCard from "./AlumniCardV2.vue";
 import AlumniSearchBar from "./AlumniSearchBar.vue";
 export default {
   components: {
@@ -38,6 +38,22 @@ export default {
     const alumniList = ref(null);
     const generations = ref([]);
     const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
+    const uriGeneration = import.meta.env.PUBLIC_API_WP_ALUMNI_GENERATION;
+
+    const fetchGenerations = () => {
+      fetch(`${uriGeneration}?per_page=100&acf_format=standard`, { mode: "cors" })
+        .then((response) => response.json())
+        .then((data) => {
+          generations.value = data.map((item) => ({
+            id: parseInt(item.slug.split('-')[1]),
+            key: item.key,
+            name: item.name
+          })).sort((a, b) => b.id - a.id);
+        })
+        .catch((error) =>
+          console.error("Error fetching Alumni Generation data:", error),
+        );
+    };
 
     const fetchData = () => {
       fetch(
@@ -66,6 +82,7 @@ export default {
     });
 
     fetchData();
+
     const randomSort = () => {
       return Math.random() - 0.5;
     };
@@ -92,9 +109,7 @@ export default {
       }));
 
       alumniList.value = listData.value.sort(randomSort);
-      generations.value = createdGenerations.value.sort((a, b) =>
-        b.key.localeCompare(a.key),
-      );
+      fetchGenerations();
     };
 
     return {

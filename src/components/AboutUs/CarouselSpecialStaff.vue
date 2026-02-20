@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-special-staff">
+  <div class="carousel-special-staff" >
     <div class="is-desktop relative">
       <!-- Card Grid -->
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 h-full">
@@ -7,7 +7,7 @@
           v-for="(lecturer, index) in itemsList"
           :key="index"
           @click="clickShow(lecturer)"
-          class="group  text-center text-white  hover:bg-a-blue-0b57d0/60 transition relative  h-full item-special"
+          class="group  text-center   hover:bg-a-blue-0b57d0/60 transition relative  h-full item-special"
         >
           <div class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur  mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900  border-2 border-a-gold-F0C571">
             <!-- Image -->
@@ -20,13 +20,13 @@
             />
           </div>
           <!-- Overlay Name Speaker -->
-          <div class="py-4 h-36" >
+          <div class="py-4 h-36 text-white" :class="[customClass]" >
               <div class="absolute -bottom-4 p-4 text-left w-full z-10">
                 <h3 class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571">
                   {{ lecturer?.title }}
                 </h3>
-                 <h4 class=" text-24 text-center text-white font-light mt-auto">{{ lecturer?.career }}</h4>
-                 <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center text-white/70"> {{ lecturer?.major }}</h5>
+                 <h4 class=" text-24 text-center  font-light mt-auto">{{ lecturer?.career }}</h4>
+                 <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center"> {{ lecturer?.major }}</h5>
               </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
         v-for="(lecturer, index) in itemsList"
         :key="index"
         @click="clickShow(lecturer)"
-        class="group bg-black backdrop-blur rounded-lg text-center text-white hover:bg-black/20 bg-blue-950/100 transition relative"
+        class="group bg-black backdrop-blur rounded-lg text-center  hover:bg-black/20 bg-blue-950/100 transition relative"
       >
         <div class="group relative overflow-hidden">
           <!-- Image -->
@@ -104,6 +104,7 @@ export default {
     lang: { type: String, default: "th" },
     showTopic: { type: Boolean, default: false },
     topic: { type: String, default: "" },
+    customClass: { type: String, default: "" },
   },
   setup(props) {
     const showModal = ref(false);
@@ -157,6 +158,7 @@ export default {
       clickShow,
       clikeClose,
       t,
+      customClass: props.customClass
     };
   },
 };

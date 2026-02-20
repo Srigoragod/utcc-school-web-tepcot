@@ -7,11 +7,11 @@
             <h6 class="py-0 text-20 md:text-30  font-semibold">
             {{ h.description }}
             </h6>
-            <ul class="list-disc list-inside mt-2 text-base md:text-20  font-light">
+            <!-- <ul class="list-disc list-inside mt-2 text-base md:text-20  font-light">
                 <li v-for="(label, idx) in h.labels" :key="idx">
                     {{ label.text }}
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 </template>

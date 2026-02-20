@@ -24,11 +24,13 @@ const { lang } = Astro.props;
       </h4>
     </div>
     <div class="container mx-auto py-10">
-      <CarouselSpecialStaff client:load />
+      <CarouselSpecialStaff :customClass="'text-white'" client:idle />
     </div>
     <div>
       <div class="py-4 mx-auto text-center">
-        <button class="btn btn-link btn-info text-white text-20 md:text-24 font-light">
+        <button
+          class="btn btn-link btn-info text-white text-20 md:text-24 font-light"
+        >
           พบกับคณาจารย์ทั้งหมด
         </button>
       </div>
@@ -38,9 +40,11 @@ const { lang } = Astro.props;
     <div class="container mx-auto text-center">
       <div class="text-a-gold-F0C571 px-4 pb-4">
         <h2 class="text-44">
-          คณาจารย์ <br/>และวิทยากรผู้เชี่ยวชาญ
+          คณาจารย์ <br />และวิทยากรผู้เชี่ยวชาญ
         </h2>
-        <h4 class="text-a-gold-F0C571 font-light line-clamp-4 text-20 md:text-24">
+        <h4
+          class="text-a-gold-F0C571 font-light line-clamp-4 text-20 md:text-24"
+        >
           TEPCoT
           ภูมิใจนำเสนอคณาจารย์และวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ
           ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite
@@ -49,7 +53,7 @@ const { lang } = Astro.props;
         </h4>
       </div>
       <div class="px-4">
-        <CarouselSpecialStaff client:load />
+        <CarouselSpecialStaff :customClass="'text-a-gold-F0C571'" client:idle />
       </div>
     </div>
   </div>

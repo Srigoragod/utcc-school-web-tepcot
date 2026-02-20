@@ -1,22 +1,37 @@
 ---
-
 import Layout from "../layouts/Layout.astro";
 import { getLangFromUrl } from "../i18n/utils";
 
 // components
 import CourseDetailV2 from "../components/course/components/CourseDetailV2.vue";
+import AlumniSection from "../components/Alumni/AlumniSection.astro";
+import Speakers from "../components/course/Speakers.astro";
+import FaqsFetchAPI from "../components/Faq/FaqFetchAPI.vue";
 
 const lang = getLangFromUrl(Astro.url);
-const uri = import.meta.env.PUBLIC_API_WP_PROGRAM;
-const slug = 'entrepreneurship';
-const response = await fetch(`${uri}?acf_format=standard&_fields=id,slug,acf&slug=${slug}`, { mode: 'cors' }
-);
+const uri = import.meta.env.PUBLIC_API_WP_CURRICULUM;
+const slug = "entrepreneurship";
+const response = await fetch(`${uri}`, { mode: "cors" });
 
 const data = await response.json();
-const items = lang == 'th' ? data[0].acf.th : data[0].acf.en;
-
+const items = data;
+const title = `TEPCoT หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์`;
+const description = `Top Executive Program in Commerce and Trade`;
+const keywords = `TEPCoT, หลักสูตรผู้บริหาร, การค้า, การพาณิชย์, Executive Education, Leadership, Business Management`;
 ---
 
-<Layout title={items.meta.title} description={items.meta.description} keywords={items.meta.keyword} lang={lang} isFooterOnly={true}>
-  <CourseDetailV2 client:load currency={lang} slug={slug} items={items} lang={lang} />
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  lang={lang}
+  isFooterOnly={true}
+>
+  <CourseDetailV2
+    client:idle
+    items={items}
+  />
+  <Speakers client:idle lang={lang} />
+  <FaqsFetchAPI client:idle lang={lang} />
+  <AlumniSection client:idle lang={lang} />
 </Layout>

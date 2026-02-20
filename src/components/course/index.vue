@@ -2,7 +2,7 @@
   <div class="container mx-auto py-10 md:py-40" id="course">
     <!-- header -->
     <div class="custom-grid items-center mb-0 md:mb-4">
-      <div class="leading-none pl-4 md:pl-0">
+      <div class="leading-none pl-4 md:pl-0 mb-4">
         <h2 class="text-44 md:text-66 font-semibold">หลักสูตรพิเศษ</h2>
         <!-- <h4 class="text-height text-30 text-a-gray-696F6F my-2 text-1-line">
           <span v-if=" degreeSelect == 'master' ||  degreeSelect == 'doctoral'"> x บัณฑิตวิทยาลัย</span>
@@ -40,8 +40,8 @@
     </div>
 
     <!-- / content -->
-    <div class="px-4 py-10 text-a-gray-696F6F font-light">
-    <div class="grid grid-cols-1 md:grid-cols-3  gap-8">
+  <div class="px-4 py-10 text-a-gray-696F6F font-light">
+    <div class="grid grid-cols-1 md:grid-cols-3  gap-8 py-10">
       <div class="item  gap-4 col-span-2 hidden">
         <h4 class="text-20 md:text-24 text-a-blue-030e62 font-normal"> รูปแบบการเรียนการสอน </h4>
         <ul class="custom-list text-slate-600 mb-4" style="padding-left: 1.5rem; margin-bottom: 2rem; list-style: disc;">
@@ -74,21 +74,26 @@
           </ul>
         </div>
       </div>
-      <div class="item flex justify-end">
+      <div class="flex-row md:flex justify-end">
+        <div class="px-1">
         <button
           class="btn btn-outline btn-accent text-a-blue-1c1c84 text-20 md:text-24 font-light"
         >
           <ArrowDownTrayIcon class="h-6 w-6 mx-2"></ArrowDownTrayIcon>
           Download Brochure
         </button>
+        </div>
+        <div class="px-1">
+        <a href="/tepcot-executive-education">  
         <button
-          class="btn btn-accent  text-20 md:text-24 font-light ml-4"
+          class="btn btn-accent text-20 md:text-24 font-light"
 
         >
           ดูรายละเอียดการสมัคร
           <ArrowRightIcon class="h-6 w-6 ml-2"></ArrowRightIcon>
         </button>
-
+        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -138,9 +143,11 @@ export default defineComponent({
 
     const initialData = (data) => {
         let preparedData = {
+          slug: data.slug,
           isDetail: true,
           isRecommended: true,
-          imageUrl: data.imageUrl || '',
+          imageHero: data.imageHero ,
+          hero_mobile: data.hero_mobile || '',
           fullname: data.fullname || '',
           title: data.title || '',
           subtitle: data.subtitle || '',
