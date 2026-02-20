@@ -1,0 +1,112 @@
+---
+interface Props {
+  type?: 'blog' | 'news' | 'alumni';
+}
+
+interface Item {
+  id: number;
+  slug: string;
+  name: string;
+}
+
+const { type = 'blog' } = Astro.props;
+
+let items: Item[] = [];
+let basePath = '';
+
+// 1. กำหนด Config และแอบใส่ฟังก์ชัน sort เฉพาะของ alumni เข้าไป
+const apiConfig = {
+  blog: {
+    uri: import.meta.env.PUBLIC_API_WP_BLOG_TYPE,
+    path: '/blogs/category'
+  },
+  news: {
+    uri: import.meta.env.PUBLIC_API_WP_NEWS_TYPE,
+    path: '/articles/tag'
+  },
+  alumni: {
+    uri: import.meta.env.PUBLIC_API_WP_ALUMNI_GENERATION,
+    path: '/alumni/generation',
+    // เพิ่มการตั้งค่า sort เข้ามาตรงนี้
+    sortFn: (a, b) => b.name.localeCompare(a.name, undefined, { numeric: true })
+  }
+};
+
+const currentConfig = apiConfig[type] || apiConfig.alumni;
+
+const reqUrlType = `?acf_format=standard&_fields=id,slug,name&per_page=100`;
+const responseType = await fetch(currentConfig.uri + reqUrlType, { mode: "cors" });
+const rawData = await responseType.json();
+
+// 4. Map ข้อมูลเสร็จปุ๊บ
+items = rawData.map((item) => ({
+  id: item.id,
+  slug: item.slug,
+  name: item.name,
+}));
+
+// 5. เช็คว่า Config ของตัวนี้มีฟังก์ชัน sortFn ให้ทำไหม? ถ้ามีก็ทำเลย
+if (currentConfig.sortFn) {
+  items.sort(currentConfig.sortFn);
+}
+
+basePath = currentConfig.path;
+
+// เช็คว่าไม่ใช่ alumni และ ต้องยังไม่มี 'others' อยู่ใน list
+if (type !== 'alumni' && !items.some((it) => it.slug === 'others')) {
+  items.push({ id: -1, slug: 'others', name: 'อื่นๆ' });
+}
+
+// Normalize current pathname (handle trailing slashes) and compute "all" active state
+// Use Astro.url.pathname (available in Astro component frontmatter)
+const rawPathname = Astro.url && Astro.url.pathname ? Astro.url.pathname : '/';
+const pathname = rawPathname === '/' ? '/' : rawPathname.replace(/\/+$/g, '');
+// const allPath = type === 'blog' ? '/blogs' : '/articles';
+const pathMap = {
+  blog: '/blogs',
+  news: '/articles',
+  alumni: '/alumni'
+};
+
+// ดึงค่าตาม type (ถ้าไม่เจอให้ default เป็น '/articles')
+const allPath = pathMap[type] || '/articles';
+const allPathNorm = allPath.replace(/\/+$/g, '');
+const allActive = pathname === allPathNorm || pathname.startsWith(`${allPathNorm}/page`);
+---
+
+<div class="flex justify-start border-b-2 border-b-blue-900 pb-4">
+  <h2 class="text-24 md:text-30">{type === 'alumni' ? 'เลือกปีที่คุณสนใจ' : 'เลือกหัวข้อที่คุณสนใจ'}</h2>
+</div>
+<ul class="mt-6">
+  <li>
+    <a
+      href={allPath}
+      class:list={[
+        "text-24",
+        allActive ? "text-blue-600 font-bold" : "text-gray-400"
+      ]}
+    >
+      <h5>ทั้งหมด</h5>
+    </a>
+  </li>
+  {
+    items.map((item) => {
+      const itemPath = `${basePath}/${item.slug}`;
+      const itemPathNorm = itemPath.replace(/\/+$/g, '');
+      const isActive = pathname === itemPathNorm || pathname.startsWith(`${itemPathNorm}/`);
+      return (
+        <li class="">
+          <a
+            href={itemPath}
+            class:list={[
+              "text-24",
+              isActive ? "text-blue-600 font-bold" : "text-gray-400"
+            ]}
+          >
+            <h5>{item.name}</h5>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>

@@ -1,0 +1,114 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import AlumniCard from "../../../../components/Alumni/AlumniCard.astro";
+import Pagination from "../../../../components/Pagination.astro";
+import { ALUMNI_PER_PAGE } from "../../../../consts";
+import MainBanner from "../../../../components/Banner/MainBanner.astro";
+import { getLangFromUrl, useTranslations } from "../../../../i18n/utils";
+import UniqueType from "../../../../components/uniqueType.astro";
+import Breadcrumbs from "../../../../components/Breadcrumbs.astro";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const alumniApi = import.meta.env.PUBLIC_API_WP_ALUMNI;
+  const cateApi = import.meta.env.PUBLIC_API_WP_ALUMNI_GENERATION;
+
+  // ✅ fetch all categories first
+  const cateRes = await fetch(`${cateApi}?per_page=100`);
+  const categories = await cateRes.json();
+
+  // ✅ fetch all news once
+  const alumniRes = await fetch(
+    `${alumniApi}?per_page=100&_embed&acf_format=standard`,
+  );
+  const generation = await alumniRes.json();
+
+  // ✅ build paths by gen slug (route param is [gen])
+  const paths = categories.map((cat) => ({
+    params: { generation: cat.slug },
+    props: {
+      generation,
+      genSlug: cat.slug,
+      genName: cat.name,
+    },
+  }));
+  return paths;
+}
+
+const props = Astro.props as any;
+const generation: any[] = props.generation ?? [];
+const genSlug: string = props.genSlug;
+const genName: string = props.genName;
+const perPage = ALUMNI_PER_PAGE;
+const currentPage = 1;
+
+// ✅ filter alumni by generation
+let alumniGens: any[] = [];
+alumniGens = generation.filter((b) => {
+  const tags = b.acf?.gen;
+  if (!tags) return false;
+  if (Array.isArray(tags)) return tags.some((tt) => tt?.slug === genSlug);
+  // fallback if tag is single object
+  return tags?.slug === genSlug;
+});
+
+const totalPages = Math.ceil(alumniGens.length / perPage);
+const paginatedAlumni = alumniGens.slice(0, perPage);
+const homeSlug = `/`;
+const alumniSlug = `/alumni`;
+---
+
+<Layout
+  title={`ศิษย์เก่า TEPCoT (Alumni)| ${t("university")}`}
+  description={`${t("news.description")}`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner
+    title={`${genName}`}
+    description={`${t("news.title")}`}
+  />
+  <div class="bg-a-yellow-FFF4DF">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "ศิษย์เก่า", href: alumniSlug },
+            { label: genName },
+          ]}
+        />
+        <div class="article pb-8">
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
+            <div class="col-span-4 lg:col-span-4 mb-0">
+              {
+                paginatedAlumni.length >= 1 ? (
+                  <>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+                      {paginatedAlumni.map((alumni) => (
+                        <AlumniCard p={alumni} />
+                      ))}
+                    </div>
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      baseUrl={`/alumni/generation/${genSlug}`}
+                    />
+                  </>
+                ) : (
+                  <div class="text-center text-a-gray-696F6F py-16">
+                    <p>ยังไม่มีข้อมูลใน {genName}</p>
+                  </div>
+                )
+              }
+            </div>
+            <div class="col-span-2 md:col-span-1">
+              <UniqueType type="alumni" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -11,7 +11,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 const { slug } = Astro.params;
-const reqUrl = `?per_page=20&_embed&acf_format=standard`;
+const reqUrl = `?per_page=100&_embed&acf_format=standard`;
 // const res = await fetch(uri + `${reqUrl}&slug=${slug}`, { mode: "cors" });
 // const [post] = await res.json();
 const res = await fetch(uri + `${reqUrl}`, { mode: "cors" });
@@ -33,7 +33,7 @@ const cleanKeywords = post.acf?.keywords || `${cleanTitle}, ${cleanExcerpt}, ${p
 // If using SSR, you will not need this function.
 export async function getStaticPaths() {
   const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
-  const data = await fetch(uri + "?acf_format=standard");
+  const data = await fetch(uri + "?acf_format=standard&per_page=100");
   const posts = await data.json();
 
   return posts.map((post) => ({
@@ -65,7 +65,7 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
   image={getCoverImage(post.featured_media)}
 >
   <MainBanner
-    description="ทำเนียบผู้สำเร็จการศึกษา"
+    description="ศิษย์เก่า"
     title={cleanTitle}
   />
   <div class="text-a-black-1F2937">
@@ -74,8 +74,8 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
         <Breadcrumbs
           items={[
             { label: "หน้าหลัก", href: homeSlug },
-            { label: "ทำเนียบผู้สำเร็จการศึกษา", href: alumniSlug },
-            { label: "" },
+            { label: "ศิษย์เก่า", href: alumniSlug },
+            { label: cleanTitle },
           ]}
         />
         <div class=" max-w-5xl mx-auto">
@@ -104,7 +104,7 @@ const urlOtherAlumni = `${site}alumni/${post.slug}`;
               </div>
               <div class="flex justify-between items-center">
                 <PrevNext items={posts} currentSlug={slug} basePath={`${alumniSlug}`} />
-                <ButtonShare client:visible url={urlOtherAlumni} isBlog={true} />
+                <ButtonShare client:idle url={urlOtherAlumni} isBlog={true} />
               </div>
             </section>
           )
