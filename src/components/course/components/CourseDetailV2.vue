@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-page bg-white pt-20">
+  <div class="layout-page bg-white">
     <SkeletonAnimated v-if="isLoading" />
     <div v-else>
       <div class="w-full h-[750px] bg-local bg-no-repeat rounded-none is-desktop relative" :style="{
@@ -351,9 +351,9 @@ export default defineComponent({
   font-size: 1.75rem;
 }
 
-#header {
+/* #header {
   background-color: navy;
-}
+} */
 
 #description-program ul {
   list-style: disc;
@@ -392,9 +392,9 @@ iframe {
   margin-bottom: 1rem;
 }
 
-#header {
+/* #header {
   background-color: navy;
-}
+} */
 
 .menu-item {
   border-radius: 50%;
