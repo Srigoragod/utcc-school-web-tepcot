@@ -4,7 +4,7 @@ const { lang } = Astro.props;
 ---
 
 <div class="relative container-sp-staff">
-  <div class="special-staff bg-fixed is-desktop py-20 relative overflow-hidden">
+  <div class="special-staff bg-fixed py-20 relative overflow-hidden">
     <!-- <div
       class="absolute z-10 bottom-0 inset-0 bg-gradient-to-b from-black/100 via-black/20 to-transparent h-1/2 mx-auto pointer-events-none"
     >
@@ -33,27 +33,6 @@ const { lang } = Astro.props;
         >
           พบกับคณาจารย์ทั้งหมด
         </button>
-      </div>
-    </div>
-  </div>
-  <div class="special-staff bg-fixed h-full py-8 is-mobile">
-    <div class="container mx-auto text-center">
-      <div class="text-a-gold-F0C571 px-4 pb-4">
-        <h2 class="text-44">
-          คณาจารย์ <br />และวิทยากรผู้เชี่ยวชาญ
-        </h2>
-        <h4
-          class="text-a-gold-F0C571 font-light line-clamp-4 text-20 md:text-24"
-        >
-          TEPCoT
-          ภูมิใจนำเสนอคณาจารย์และวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ
-          ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite
-          จากองค์กรชั้นนำทั้งในและต่างประเทศ
-          ทำให้ผู้เข้าร่วมโปรแกรมได้รับความรู้ที่ลึกซึ้งทั้งทางทฤษฎีและประสบการณ์จริงที่สามารถนำไปประยุกต์ใช้ได้ทันที
-        </h4>
-      </div>
-      <div class="px-4">
-        <CarouselSpecialStaff :customClass="'text-a-gold-F0C571'" client:idle />
       </div>
     </div>
   </div>

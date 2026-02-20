@@ -16,6 +16,7 @@
           clickable: true,
         }"
         :navigation="true"
+        :thumbs="{ swiper: thumbsSwiper }"
         :lazy="true"
         :modules="modules"
         class="mySwiper drop-shadow"
@@ -44,7 +45,7 @@ import "swiper/css";
 
 import 'swiper/css/navigation';
 import "swiper/css/pagination";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination, Navigation, FreeMode, Thumbs } from "swiper/modules";
 
 export default {
   name:"SwiperEtc",
@@ -58,13 +59,21 @@ export default {
   },
   setup(props) {
     const sliderList = ref(null);
+    const thumbsSwiper = ref(null);
     const initialData = () => {
       sliderList.value = props.items
     };
     initialData();
+
+    const setThumbsSwiper = (swiper) => {
+        thumbsSwiper.value = swiper;
+    };
+
     return {
+      thumbsSwiper,
+      setThumbsSwiper,
       sliderList,
-      modules: [Autoplay, Pagination, Navigation],
+      modules: [Autoplay, Pagination, Navigation, FreeMode, Thumbs],
     };
   },
 };

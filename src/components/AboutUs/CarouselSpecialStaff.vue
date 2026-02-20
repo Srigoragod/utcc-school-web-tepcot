@@ -11,7 +11,6 @@
         >
           <div class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur  mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900  border-2 border-a-gold-F0C571">
             <!-- Image -->
-             <!-- aspect-square object-cover object-[50%_20%] rounded-full h-60 w-60 mx-auto transition duration-300 group-hover:scale-[1.05] border-2 border-a-gold-F0C571 -->
             <img
               :src="lecturer?.thumbnail"
               :alt="lecturer?.title"
@@ -28,7 +27,7 @@
                  <h4 class=" text-24 text-center  font-light mt-auto">{{ lecturer?.career }}</h4>
                  <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center"> {{ lecturer?.major }}</h5>
               </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -37,32 +36,27 @@
         v-for="(lecturer, index) in itemsList"
         :key="index"
         @click="clickShow(lecturer)"
-        class="group bg-black backdrop-blur rounded-lg text-center  hover:bg-black/20 bg-blue-950/100 transition relative"
+        class="group relative"
       >
-        <div class="group relative overflow-hidden">
-          <!-- Image -->
-          <img
-            :src="lecturer?.thumbnail"
-            :alt="lecturer?.title"
-            class="aspect-square w-full object-cover rounded-t-lg object-[50%_20%] transition duration-300 group-hover:scale-[1.02]"
-            loading="lazy"
-          />
-
-          <!-- Name Speaker -->
-          <div class="" >
-            <div class="p-4 text-left h-full w-full bg-gradient-to-t from-black/90 via-black/10 to-transparent rounded-b-lg">
-              <h3 class="font-semibold line-clamp-2 text-a-gold-F0C571">
-                {{ lecturer?.title }}
-              </h3>
-              <h4 class="font-light text-20">{{ lecturer?.career }}</h4>
-              <h5
-                class="text-white/70 mt-2 font-medium line-clamp-2 text-20"
-              >
-                {{ lecturer?.major }}
-              </h5>
-            </div>
+       <div class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur  mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900  border-2 border-a-gold-F0C571">
+            <!-- Image -->
+            <img
+              :src="lecturer?.thumbnail"
+              :alt="lecturer?.title"
+              class="aspect-square object-[50%_20%] rounded-full h-60 w-60  transition duration-300 group-hover:scale-[1.05]"
+              loading="lazy"
+            />
           </div>
-        </div>
+          <!-- Overlay Name Speaker -->
+          <div class="py-4 h-36 text-white mt-auto" :class="[customClass]" >
+              <div class="absolute -bottom-4 p-4 text-left w-full z-10">
+                <h3 class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571">
+                  {{ lecturer?.title }}
+                </h3>
+                 <h4 class=" text-20 text-center  font-light mt-auto">{{ lecturer?.career }}</h4>
+                 <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center"> {{ lecturer?.major }}</h5>
+              </div>
+          </div>
       </div>
     </div>
 
