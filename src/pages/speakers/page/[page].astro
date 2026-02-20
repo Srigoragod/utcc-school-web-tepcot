@@ -1,0 +1,35 @@
+---
+import SpeakerListPage from "../../../components/Speaker/SpeakerListPage.astro";
+import { SPEAKER_PER_PAGE } from "../../../consts";
+
+const { page } = Astro.params;
+const currentPage = Number(page);
+
+// ✅ generate static paths
+export async function getStaticPaths() {
+  const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
+  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+  const allSpeakers = await data.json();
+
+  const perPage = SPEAKER_PER_PAGE;
+  const totalPages = Math.ceil(allSpeakers.length / perPage);
+
+  return Array.from({ length: totalPages }).map((_, i) => ({
+    params: { page: String(i + 1) },
+    props: { allSpeakers },
+  }));
+}
+
+const allSpeakers = Astro.props.allSpeakers;
+
+if (currentPage < 1 || currentPage > Math.ceil(allSpeakers.length / SPEAKER_PER_PAGE)) {
+  throw new Error("Page not found");
+}
+---
+
+<SpeakerListPage
+  allSpeakers={allSpeakers}
+  currentPage={currentPage}
+  perPage={SPEAKER_PER_PAGE}
+  baseUrl="/speakers"
+/>

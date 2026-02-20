@@ -1,0 +1,41 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import AlumniSwiper from "./AlumniSwiper.vue";
+const { class: className, ...props } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div
+  id="alumni"
+  class:list={[className]}
+  {...props}
+  class="py-40 bg-gradient-to-br from-[#000080] to-[#1c1057] text-white/90"
+>
+  <div class="px-4 sm:px-16">
+    <div class="container mx-auto">
+      <div class="text-44 md:text-66 font-semibold mb-0 text-a-gold-F0C571">
+        เสียงจาก Alumni ผู้ประสบความสำเร็จ
+      </div>
+      <div class="text-24 md:text-30 max-w-4xl opacity-90 font-light">
+        <p>
+          ฟังประสบการณ์จริงจากผู้บริหารที่ผ่านการเรียนโปรแกรม TEPCoT
+          และนำความรู้ไปประยุกต์ใช้ในองค์กรได้อย่างมีประสิทธิภาพ
+          ความสำเร็จของพวกเขาคือเครื่องยืนยันคุณภาพของโปรแกรม
+        </p>
+      </div>
+    </div>
+    <div class="">
+      <div class="sm:w-30 pt-0 md:pt-4"></div>
+      <div class="alumni-section pt-16">
+        <AlumniSwiper client:visible />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style scoped>
+  .alumni-section {
+    position: relative;
+  }
+</style>

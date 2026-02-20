@@ -1,0 +1,17 @@
+---
+import SpeakerListPage from "../../components/Speaker/SpeakerListPage.astro";
+import { SPEAKER_PER_PAGE } from "../../consts";
+
+const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
+const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+const allSpeaker = await data.json();
+
+const currentPage = 1;
+---
+
+<SpeakerListPage
+  allSpeaker={allSpeaker}
+  currentPage={currentPage}
+  perPage={SPEAKER_PER_PAGE}
+  baseUrl="/speaker"
+/>

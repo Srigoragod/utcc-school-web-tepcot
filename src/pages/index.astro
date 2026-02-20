@@ -66,11 +66,17 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
   keywords={keywords}
   slogan={slogan}
 >
-  <HeroLayout title={title} description={description} />
+  <HeroLayout
+    title={title}
+    description={description}
+  />
   <!-- <div class="container mx-auto my-8">
       <DownloadBanner lang={lang} client:idle />
     </div> -->
-  <section id="about-us" class="bg-white py-8 md:py-16">
+  <section
+    id="about-us"
+    class="bg-white py-8 md:py-16"
+  >
     <div class="max-w-5xl mx-auto px-4 md:px-0 text-center">
       <h1
         class="leading-none font-bold topic-h2 text-center text-a-blue-030e62 text-44 md:text-64"
@@ -83,10 +89,19 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
         Top Executive Program in Commerce and Trade
       </h2>
     </div>
-    <PartnerSection client:idle lang={lang} />
+    <PartnerSection
+      client:idle
+      lang={lang}
+    />
   </section>
-  <section id="overview" class="max-w-7xl mx-auto">
-    <OverViewSection client:idle lang={lang} />
+  <section
+    id="overview"
+    class="max-w-7xl mx-auto"
+  >
+    <OverViewSection
+      client:idle
+      lang={lang}
+    />
   </section>
   <!-- <section id="target-audience">
     <TargetAudience client:idle lang={lang} />
@@ -97,12 +112,18 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
   <!-- <HorizontalSnapSections cclient:idle /> -->
   <!-- <FullPageSnap client:idle /> -->
   <!-- <AboutUs client:idle lang={lang} button={t("aboutUs.button")} /> -->
-  <section id="course" class="bg-[#FAFAFF] skeleton">
+  <section
+    id="course"
+    class="bg-[#FAFAFF] skeleton"
+  >
     <div class="">
       <Course client:idle />
     </div>
   </section>
-  <section id="speakers" class="skeleton">
+  <section
+    id="speakers"
+    class="skeleton"
+  >
     <Speakers client:idle />
   </section>
   <!-- <section id="experience-hero" class="">
@@ -117,7 +138,10 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
       </div>
   </section> -->
   <!-- <SwiperPromo client:idle /> -->
-  <FaqsFetchAPI client:idle lang={lang} />
+  <FaqsFetchAPI
+    client:idle
+    lang={lang}
+  />
   <AlumniSection className="py-24" />
   <ArticleSection />
   <BlogSection />

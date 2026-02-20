@@ -17,3 +17,7 @@ export const BLOG_PER_WIDGET = 5;
 export const HOMEPAGE_ALUMNI_LIMIT = 6;
 export const ALUMNI_PER_PAGE = 12;
 export const ALUMNI_PER_WIDGET = 5;
+
+export const HOMEPAGE_SPEAKER_LIMIT = 5;
+export const SPEAKER_PER_PAGE = 12;
+export const SPEAKER_PER_WIDGET = 5;

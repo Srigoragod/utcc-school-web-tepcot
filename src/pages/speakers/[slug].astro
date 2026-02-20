@@ -1,0 +1,128 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MainBanner from "../../components/Banner/MainBanner.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { Icon } from "astro-icon/components";
+import ButtonShare from "../../components/Button/ButtonShare.vue";
+import { getCoverImage } from "../../scripts/getCoverImage";
+import { cleanText } from "../../scripts/cleanText";
+import PrevNext from "../../components/Blogs/PrevNext.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
+const { slug } = Astro.params;
+const reqUrl = `?per_page=100&_embed&acf_format=standard`;
+// const res = await fetch(uri + `${reqUrl}&slug=${slug}`, { mode: "cors" });
+// const [post] = await res.json();
+const res = await fetch(uri + `${reqUrl}`, { mode: "cors" });
+const allSpeakers = await res.json();
+
+const currentIndex = allSpeakers.findIndex((a) => a.slug === slug);
+if (currentIndex === -1) {
+  throw new Error("Speaker not found");
+}
+
+const [post] = currentIndex !== -1 ? [allSpeakers[currentIndex]] : [null];
+const cleanTitle = cleanText(post.title.rendered);
+const cleanExcerpt = cleanText(post.acf.company);
+// ดึงรูปขนาด Medium (ถ้ามี) หรือถอยไปใช้ source_url
+const cleanImageUrl =
+  post.acf?.image ||
+  post._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.medium
+    ?.source_url ||
+  post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+const cleanKeywords =
+  post.acf?.keywords ||
+  `${cleanTitle}, ${cleanExcerpt}, ${post.acf?.gen?.name}`;
+
+// The getStaticPaths() is required for static Astro sites.
+// If using SSR, you will not need this function.
+export async function getStaticPaths() {
+  const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
+  const data = await fetch(uri + "?acf_format=standard&per_page=100");
+  const posts = await data.json();
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post, posts },
+  }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { posts } = Astro.props;
+const homeSlug = `/`;
+const speakerSlug = `/speakers`;
+const site = Astro.site;
+const urlOtherSpeaker = `${site}speakers/${post.slug}`;
+---
+
+<script
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
+></script>
+
+<Layout
+  title={`${cleanTitle} | ${t("name")} ${t("university")}`}
+  description={`${cleanExcerpt}`}
+  lang={lang}
+  isMenu={true}
+  keywords={`${cleanKeywords}, ${t("name")}, ${t("university")}`}
+  image={getCoverImage(post.featured_media)}
+>
+  <MainBanner
+    description="วิทยากร TEPCoT"
+    title={cleanTitle}
+  />
+  <div class="text-a-black-1F2937">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: "หน้าหลัก", href: homeSlug },
+            { label: "วิทยากร TEPCoT", href: speakerSlug },
+            { label: cleanTitle },
+          ]}
+        />
+        <div class="max-w-5xl mx-auto">
+          {
+            post && (
+              <section class="py-4">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                  <div class="md:w-1/5">
+                    <img
+                      src={cleanImageUrl}
+                      alt={cleanTitle}
+                      class="w-1/2 md:w-3/4 lg:w-full h-auto object-cover  mx-auto ring-4 ring-offset-2 ring-a-gold-F0C571 rounded-full"
+                    />
+                  </div>
+                  <div class="md:w-4/5 flex flex-col gap-4">
+                    <h1 class="text-24 md:text-36 font-bold">{cleanTitle}</h1>
+                    <div class=" text-slate-700 text-20 md:text-24">
+                      {post.acf.company}
+                    </div>
+                    <div class="flex items-center gap-4 text-gray-500">
+                      <div class="indent-8 text-justify">{post.acf?.text}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <PrevNext
+                    items={allSpeakers}
+                    currentSlug={slug}
+                    basePath={`${speakerSlug}`}
+                  />
+                  <ButtonShare
+                    client:idle
+                    url={urlOtherSpeaker}
+                    isBlog={true}
+                  />
+                </div>
+              </section>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
