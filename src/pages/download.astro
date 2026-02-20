@@ -1,0 +1,212 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Layout from "../layouts/Layout.astro";
+
+// components
+import MainBanner from "../components/Banner/MainBanner.astro";
+
+import Faqs from "../components/Faq/FaqFetchAPI.vue";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
+const homeSlug = `/`;
+---
+
+<Layout
+  title={`ดาวน์โหลดเอกสาร | ${t("name")} ${t("university")}`}
+  description={`รวมเอกสารดาวน์โหลดสำหรับหลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ TEPCoT มหาวิทยาลัยหอการค้าไทย`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={"ดาวน์โหลดเอกสาร TEPCoT"} description={t("name")} />
+
+  <div class="container mx-auto px-4 md:px-0">
+    <Breadcrumbs
+      items={[
+        { label: "หน้าหลัก", href: homeSlug },
+        { label: "ดาวน์โหลดเอกสาร" },
+      ]}
+    />
+  </div>
+
+  <div class="pt-16 w-full" id="history">
+    <!-- This Content  -->
+    <section class="min-h-[calc(100vh-32px)] container mx-auto">
+      <h2 class="text-30 md:text-44 font-bold mb-4">
+        ดาวน์โหลดเอกสาร TEPCoT
+      </h2>
+      <div class="">
+        <p class="text-20 md:text-24  text-gray-600">
+          กำลังอยู่ในระหว่างการจัดทำเอกสารดาวน์โหลด
+          กรุณาติดต่อทีมงานเพื่อขอข้อมูลเพิ่มเติม
+        </p>
+      </div>
+    </section>
+
+    <!-- <OverViewSection client:visible lang={lang} /> -->
+    <Faqs client:load lang={lang} />
+    <!-- <AlumniSection client:load lang={lang} /> -->
+  </div>
+</Layout>
+<style scoped>
+  @import "../styles/global.css";
+  .menu li a {
+    color: var(--primary);
+    padding: 4px 12px;
+    align-items: center;
+    border-radius: 22px;
+    /* border: 1px solid var(--blue-light3); */
+    margin: 0 0.25rem;
+  }
+  /* .menu li a:hover {
+ background-color: var(--blue-light3);
+} */
+  .slides {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .slides::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  .tab {
+    color: var(--accent-dark);
+    font-size: 2.25rem;
+  }
+  .tabs-lifted > .tab {
+    min-width: 240px;
+    height: 80px;
+  }
+  .tabs-lifted > .tab:is(input:checked) {
+    background-color: var(--accent-dark);
+    border-bottom-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: white;
+  }
+  .tab-content {
+    border-color: transparent;
+    border-width: 0;
+  }
+  .tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),
+  .tabs-lifted > .tab:is(input:checked) {
+    border-width: 0;
+  }
+
+  ol.decimal {
+    list-style: decimal;
+  }
+  .btn:hover,
+  .btn-active {
+    color: #ffffff !important;
+  }
+  @media only screen and (max-width: 767px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+</style>

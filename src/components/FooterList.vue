@@ -39,7 +39,7 @@
       { title: 'คณะและวิทยาลัย', items: facultyList },
       { title: 'มหาวิทยาลัย', items: mainLinks }
       ]" :key="idx" class="mb-2">
-      <div class="collapse collapse-arrow  rounded  border-b border-black/50 bg-transparent">
+      <div class="collapse collapse-arrow  rounded  border-b border-white/50 bg-transparent">
         <input type="checkbox" :id="'collapse-' + idx" class="peer" />
         <div class="collapse-title font-medium text-30 cursor-pointer text-left px-0">
         {{ section.title }}

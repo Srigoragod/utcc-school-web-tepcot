@@ -24,9 +24,13 @@ const homeSlug = `/`;
 const courSection = `/tepcot-executive-education`;
 const faqSection = `/#faq`;
 const aboutSection = `/aboutus`;
-const partnerSection = "/#partners";
+const speakers = "/speakers";
 const alumniSection = "/#alumni";
 const newsSection = `/#news`;
+const blogSection = `/#blogs`;
+const downloadFile = `/download`;
+const calendar = `/calendar`;
+
 const version = import.meta.env.PUBLIC_APP_VERSION;
 
 const currentYear = new Date().getFullYear();
@@ -93,10 +97,13 @@ const shortYearBE = yearBE.toString().slice(-2);
               >{t("nav.about")}</HeaderLink
             >
             <HeaderLink href={courSection}>{t("nav.course")}</HeaderLink>
-            <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
-            <HeaderLink href={partnerSection}>{t("nav.partner")}</HeaderLink>
+            <HeaderLink href={speakers}>วิทยากร</HeaderLink>
             <HeaderLink href={alumniSection}>{t("nav.alumni")}</HeaderLink>
             <HeaderLink href={newsSection}>{t("nav.news")}</HeaderLink>
+            <HeaderLink href={blogSection}>{t("nav.blog")}</HeaderLink>
+            <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
+            <HeaderLink href={calendar}>ปฏิทินการศึกษา</HeaderLink>
+            <HeaderLink href={downloadFile}>ดาวน์โหลดเอกสาร</HeaderLink>
           </div>
         </div>
       </div>
@@ -108,7 +115,7 @@ const shortYearBE = yearBE.toString().slice(-2);
     <Image
       src={LogoWhite}
       alt="Logo TEPCOT by UTCC — Executive Learning & Leadership Network in Commerce and Tradeีร"
-      class={" w-[240px] block md:hidden"}
+      class={" w-[166px] block md:hidden pb-4"}
     />
     <div class="text-center md:text-left">
       Copyright &copy; {today.getFullYear()}
@@ -158,7 +165,8 @@ const shortYearBE = yearBE.toString().slice(-2);
   }
   .footer-body-top {
     color: #f7f7f7;
-    background-color: #131057;
+
+    background-color: #111152;
   }
   .contect-info {
     line-height: normal;

@@ -5,7 +5,7 @@ import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 import moment from "moment";
 import Widgets from "../../components/Blogs/widgets.astro";
 import { Icon } from "astro-icon/components";
-import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
+// import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
 // import CourseList from "../../components/course/CourseList.vue";
 import ButtonShare from "../../components/Button/ButtonShare.vue";
 import { getCoverImage } from "../../scripts/getCoverImage";
@@ -207,7 +207,7 @@ const urlNews = `${site}articles/${post.slug}`;
       </div>
     </div>
   </div>
-  <SwiperPromo client:load customClass={"bg-slate-50"} />
+  <!-- <SwiperPromo client:load customClass={"bg-slate-50"} /> -->
   <!-- <CourseList client:load customClass={"bg-slate-50"} lang={lang} /> -->
 
   <style lang="scss" scoped>

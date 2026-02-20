@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import MainBanner from "../../components/Banner/MainBanner.astro";
 import BlogCard from "./BlogCard.astro";
 import Pagination from "../Pagination.astro";
-import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
+// import SwiperPromo from "../../components/SlideShow/SwiperPromo.vue";
 import CourseList from "../../components/course/CourseList.vue";
 import UniqueType from "../../components/uniqueType.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
@@ -59,6 +59,6 @@ const blogSlug = `/blogs`;
       </div>
     </div>
   </div>
-  <SwiperPromo client:load customClass={"bg-slate-50"} />
+  <!-- <SwiperPromo client:load customClass={"bg-slate-50"} /> -->
   <CourseList client:load customClass={"bg-slate-50"} lang={lang} />
 </Layout>

@@ -17,10 +17,13 @@ const homeSlug = `/`;
 const courSection = `/tepcot-executive-education`;
 const faqSection = `/#faq`;
 const aboutSection = `/aboutus`;
-const partnerSection = "/speakers";
+const speakers = "/speakers";
 const alumniSection = "/alumni";
 const newsSection = `/#news`;
 const blogSection = `/#blogs`;
+const downloadFile = `/download`;
+const calendar = `/calendar`;
+
 ---
 
 <header>
@@ -67,11 +70,13 @@ const blogSection = `/#blogs`;
         <div class="internal- flex text-white font-light gap-2">
           <HeaderLink href={aboutSection}>{t("nav.about")}</HeaderLink>
           <HeaderLink href={courSection}>{t("nav.course")}</HeaderLink>
-          <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
-          <HeaderLink href={partnerSection}>วิทยากร</HeaderLink>
+          <HeaderLink href={speakers}>วิทยากร</HeaderLink>
           <HeaderLink href={alumniSection}>{t("nav.alumni")}</HeaderLink>
           <HeaderLink href={newsSection}>{t("nav.news")}</HeaderLink>
           <HeaderLink href={blogSection}>{t("nav.blog")}</HeaderLink>
+          <HeaderLink href={faqSection}>{t("nav.faq")}</HeaderLink>
+          <HeaderLink href={calendar}>ปฏิทินการศึกษา</HeaderLink>
+          <HeaderLink href={downloadFile}>ดาวน์โหลดเอกสาร</HeaderLink>
         </div>
       </div>
       <div class="navbar-end">

@@ -102,8 +102,8 @@ export const ui = {
     "site.keywords":
       "TEPCoT, หลักสูตรผู้บริหาร, การค้า, การพาณิชย์, Executive Education, Leadership, Business Management",
     "nav.about": "เกี่ยวกับเรา",
-    "nav.course": "หลักสูตร",
-    "nav.faq": "คำถามที่พบบ่อย",
+    "nav.course": "รายละเอียดหลักสูตร",
+    "nav.faq": "FAQ",
     "nav.partner": "พันธมิตร",
     "nav.alumni": "ศิษย์เก่า",
     "nav.staff": "บุคลากร",
