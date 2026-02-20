@@ -22,13 +22,13 @@ const speakerSlug = `/speaker`;
 ---
 
 <Layout
-  title={`วิทยากร TEPCoT (Alumni)| ${t("university")}`}
+  title={`วิทยากร หลักสูตรTEPCoT| ${t("university")}`}
   description={`${t("news.description")}`}
   lang={lang}
   isMenu={true}
 >
   <MainBanner
-    title={"วิทยากร TEPCoT (Alumni)"}
+    title={"วิทยากรผู้ถ่ายทอดประสบการณ์จริงจากองค์กรชั้นนำ"}
     description={"เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"}
   />
   <div class="bg-a-yellow-FFF4DF">
@@ -44,33 +44,21 @@ const speakerSlug = `/speaker`;
         <div class="pb-8">
           <div>
             <h3 class="text-30 md:text-44 font-bold mb-4">
-                
+              วิทยากรผู้ถ่ายทอดประสบการณ์จริงจากองค์กรชั้นนำ
             </h3>
-            <h4 class="text-20 md:text-24 max-w-4xl opacity-90 font-light mb-8">
-              ตลอดระยะเวลาของ TEPCoT
-              ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย
-              ต่อไปนี้คือส่วนหนึ่งของศิษย์เก่าที่กำลังขับเคลื่อนประเทศและองค์กรในหลากหลายมิติ
+            <h4 class="text-20 md:text-24 max-w-7xl opacity-90 font-light mb-8">
+              TEPCoT ภูมิใจนำเสนอผู้บริหารหลักสูตรและวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite จากองค์กรชั้นนำทั้งในและต่างประเทศ ทำให้ผู้เข้าร่วมโปรแกรมได้รับความรู้ที่ลึกซึ้งทั้งทางทฤษฎีและประสบการณ์จริงที่สามารถนำไปประยุกต์ใช้ได้ทันที
             </h4>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
-            <div class="col-span-4 lg:col-span-4 mb-0">
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-                {
-                  paginatedSpeaker.map((speaker) => (
-                    <SpeakerCard p={speaker} />
-                  ))
-                }
-              </div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                baseUrl={speakerSlug}
-              />
-            </div>
-            <div class="col-span-2 md:col-span-1 lg:col-span-1">
-              <!-- <UniqueType type="speaker" /> -->
-            </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+            {paginatedSpeaker.sort((a, b) => a.title.rendered.localeCompare(b.title.rendered)).map((speaker) => <SpeakerCard p={speaker} />)}
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl={speakerSlug}
+          />
+          
         </div>
       </div>
     </div>
