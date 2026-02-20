@@ -1,35 +1,48 @@
 ---
-import AlumniListPage from "../../../components/Alumni/AlumniListPage.astro";
+import AlumniListView from "../../../components/Alumni/AlumniListView.astro";
 import { ALUMNI_PER_PAGE } from "../../../consts";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 
-const { page } = Astro.params;
-const currentPage = Number(page);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-// ✅ generate static paths
-export async function getStaticPaths() {
-  const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
-  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
-  const allAlumni = await data.json();
+// ✅ ใช้ { paginate } ของ Astro ช่วยจัดการเรื่องหน้าให้
+export async function getStaticPaths({ paginate }) {
+  const alumniApi = import.meta.env.PUBLIC_API_WP_ALUMNI;
+  
+  // ดึงข้อมูลศิษย์เก่า "ทั้งหมด" มาทีเดียว
+  const alumniRes = await fetch(
+    `${alumniApi}?per_page=100&_embed&acf_format=standard`
+  );
+  const allAlumni = await alumniRes.json();
 
-  const perPage = ALUMNI_PER_PAGE;
-  const totalPages = Math.ceil(allAlumni.length / perPage);
-
-  return Array.from({ length: totalPages }).map((_, i) => ({
-    params: { page: String(i + 1) },
-    props: { allAlumni },
-  }));
+  // โยนให้ Astro จัดการตัดแบ่งหน้าให้เลย
+  return paginate(allAlumni, {
+    pageSize: ALUMNI_PER_PAGE,
+    props: { allAlumni }, // แนบข้อมูลทั้งหมดไปให้ Props ด้วย (เพื่อเอาไปใช้หาเพื่อน mutual)
+  });
 }
 
-const allAlumni = Astro.props.allAlumni;
+// Astro จะส่งก้อนข้อมูลชื่อ `page` มาให้แทน (มีบอกหมดว่าหน้าไหน, ข้อมูลมีอะไรบ้าง)
+const { page, allAlumni } = Astro.props as any;
 
-if (currentPage < 1 || currentPage > Math.ceil(allAlumni.length / ALUMNI_PER_PAGE)) {
-  throw new Error("Page not found");
-}
+// page.data คือข้อมูลที่ถูกตัดมาให้แล้ว (เช่น หน้า 2 ก็จะเป็นคนที่ 11-20)
+// page.currentPage คือเลขหน้าปัจจุบัน
+// page.lastPage คือจำนวนหน้าทั้งหมด
 ---
 
-<AlumniListPage
-  allAlumni={allAlumni}
-  currentPage={currentPage}
-  perPage={ALUMNI_PER_PAGE}
-  baseUrl="/alumni"
+<AlumniListView
+  pageTitle="ศิษย์เก่า TEPCoT (Alumni)"
+  pageDesc="เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT" 
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "ศิษย์เก่า", href: "/alumni" },
+    { label: `หน้า ${page.currentPage}` }, // เพิ่มให้รู้ว่าอยู่หน้าไหน
+  ]}
+  showIntroText={true} 
+  allAlumni={allAlumni} 
+  displayAlumni={page.data}  currentPage={page.currentPage}
+  totalPages={page.lastPage}
+  paginationBaseUrl="/alumni"
+  emptyMessage="ยังไม่มีข้อมูลศิษย์เก่า"
 />

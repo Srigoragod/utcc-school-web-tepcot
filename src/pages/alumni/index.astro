@@ -1,17 +1,30 @@
 ---
-import AlumniListPage from "../../components/Alumni/AlumniListPage.astro";
+import AlumniListView from "../../components/Alumni/AlumniListView.astro";
 import { ALUMNI_PER_PAGE } from "../../consts";
 
 const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
 const allAlumni = await data.json();
 
-const currentPage = 1;
+const { currentPage = 1, perPage = ALUMNI_PER_PAGE} = Astro.props; // หรือดึง API ตรงนี้
+
+const start = (currentPage - 1) * perPage;
+const paginatedAlumni = allAlumni.slice(start, start + perPage);
+const totalPages = Math.ceil(allAlumni.length / perPage);
 ---
 
-<AlumniListPage
+<AlumniListView
+  pageTitle="ศิษย์เก่า TEPCoT (Alumni)"
+  pageDesc="เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "ศิษย์เก่า" },
+    { label: "" },
+  ]}
+  showIntroText={true}
   allAlumni={allAlumni}
+  displayAlumni={paginatedAlumni}
   currentPage={currentPage}
-  perPage={ALUMNI_PER_PAGE}
-  baseUrl="/alumni"
+  totalPages={totalPages}
+  paginationBaseUrl="/alumni"
 />

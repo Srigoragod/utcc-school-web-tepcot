@@ -1,166 +1,66 @@
 ---
-import Layout from "../../../../../layouts/Layout.astro";
-import ArticleCard from "../../../../../components/Blogs/ArticleCard.astro";
-import Pagination from "../../../../../components/Pagination.astro";
-import { ARTICLE_PER_PAGE } from "../../../../../consts";
-import MainBanner from "../../../../../components/Banner/MainBanner.astro";
+import AlumniListView from "../../../../../components/Alumni/AlumniListView.astro";
+import { ALUMNI_PER_PAGE } from "../../../../../consts";
 import { getLangFromUrl, useTranslations } from "../../../../../i18n/utils";
-import UniqueType from "../../../../../components/uniqueType.astro";
-import Breadcrumbs from "../../../../../components/Breadcrumbs.astro";
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// ✅ สร้าง static path ล่วงหน้า
-export async function getStaticPaths() {
-  const newsApi = import.meta.env.PUBLIC_API_WP_NEWS;
-  const cateApi = import.meta.env.PUBLIC_API_WP_NEWS_TYPE;
+// ✅ ใช้ paginate ร่วมกับ flatMap เพื่อจัดการ URL ที่มีตัวแปร 2 ตัว ([generation] และ [page])
+export async function getStaticPaths({ paginate }) {
+  const alumniApi = import.meta.env.PUBLIC_API_WP_ALUMNI;
+  const cateApi = import.meta.env.PUBLIC_API_WP_ALUMNI_GENERATION;
 
-  // ดึงรายการ tag/ประเภทข่าวทั้งหมด
+  // 1. ดึงข้อมูล Categories (รุ่น) ทั้งหมด
   const cateRes = await fetch(`${cateApi}?per_page=100`);
   const categories = await cateRes.json();
 
-  // ดึงบทความทั้งหมด
-  const newsRes = await fetch(
-    `${newsApi}?per_page=100&_embed&acf_format=standard`
-  );
-  const news = await newsRes.json();
+  // 2. ดึงข้อมูลศิษย์เก่า "ทั้งหมด"
+  const alumniRes = await fetch(`${alumniApi}?per_page=100&_embed&acf_format=standard`);
+  const allAlumni = await alumniRes.json();
 
-  const perPage = ARTICLE_PER_PAGE;
-  let paths = [];
-
-  for (const cat of categories) {
-    const categorySlug = cat.slug;
-    const categoryName = cat.name;
-
-    // ✅ กรองเฉพาะ news ที่มี tag นี้ (post.acf.tag เป็น array)
-    const categoryNews = news.filter((b) => {
-      const tags = b.acf?.tag;
+  // 3. วนลูปทีละรุ่น และสร้างหน้า Pagination ของรุ่นนั้นๆ
+  return categories.flatMap((cat) => {
+    
+    // กรองเอาเฉพาะศิษย์เก่าที่อยู่ในรุ่น (cat) นี้
+    const alumniGens = allAlumni.filter((b) => {
+      const tags = b.acf?.gen;
       if (!tags) return false;
-      if (Array.isArray(tags))
-        return tags.some((tt) => tt?.slug === categorySlug);
-      return tags?.slug === categorySlug;
+      if (Array.isArray(tags)) return tags.some((tt) => tt?.slug === cat.slug);
+      return tags?.slug === cat.slug;
     });
 
-    const totalPages = Math.ceil(categoryNews.length / perPage);
-
-    // ✅ หน้าแรกไม่ต้องสร้างที่นี่ (อยู่ใน index.astro แล้ว)
-    for (let i = 2; i <= totalPages; i++) {
-      paths.push({
-        params: { tag: categorySlug, page: String(i) },
-        props: {
-          news,
-          tag: categorySlug,
-          tagName: categoryName,
-          page: i,
-        },
-      });
-    }
-  }
-
-  // เพิ่ม path สำหรับ 'others' เสมอ (แบ่งหน้า)
-  const othersNews = news.filter((b) => {
-    const tags = b.acf?.tag;
-    return !tags || (Array.isArray(tags) && tags.length === 0);
-  });
-  const othersTotalPages = Math.ceil(othersNews.length / perPage);
-  for (let i = 2; i <= othersTotalPages; i++) {
-    paths.push({
-      params: { tag: "others", page: String(i) },
-      props: {
-        news,
-        tag: "others",
-        tagName: "อื่นๆ",
-        page: i,
+    // ให้ Astro ตัดแบ่งหน้าเฉพาะคนในรุ่นนี้
+    return paginate(alumniGens, {
+      params: { generation: cat.slug }, // ส่ง params ไปให้ URL [generation]
+      pageSize: ALUMNI_PER_PAGE,
+      props: { 
+        genName: cat.name,
+        genSlug: cat.slug,
+        allAlumni: allAlumni // ส่งข้อมูลทุกคนไปเผื่อใช้หาเพื่อน (Mutual)
       },
     });
-  }
-
-  return paths;
-}
-
-const props = Astro.props as any;
-const news: any[] = props.news ?? [];
-const category: string = props.tag;
-const categoryName: string = props.tagName;
-const page = props.page;
-const perPage = ARTICLE_PER_PAGE;
-const currentPage = Number(page);
-
-// ✅ filter news by category/tag
-let categoryNews: any[] = [];
-if (category === 'others') {
-  // กรองโพสต์ที่ไม่มีหมวดหมู่ หรือไม่มี tag ในระบบ
-  categoryNews = news.filter((b) => {
-    // ต้องมี b.acf แต่ต้องไม่มี b.acf.tag (หรือมีแต่เป็น array ว่าง)
-    if (!b.acf) return false;
-    const tags = b.acf.tag;
-    return !tags || (Array.isArray(tags) && tags.length === 0);
-  });
-} else {
-  categoryNews = news.filter((b) => {
-    const tags = b.acf?.tag;
-    if (!tags) return false;
-    if (Array.isArray(tags)) return tags.some((tt) => tt?.slug === category);
-    return tags?.slug === category;
   });
 }
 
-// ✅ แบ่งหน้า
-const start = (currentPage - 1) * perPage;
-const end = start + perPage;
-const paginatedNews = categoryNews.slice(start, end);
-const totalPages = Math.ceil(categoryNews.length / perPage);
-const homeSlug = `/`;
-const newsSlug = `/articles`;
+// รับค่าที่ Astro จัดการตัดหน้ามาให้แล้ว (เติม as any กันขีดแดง)
+const { page, genName, genSlug, allAlumni } = Astro.props as any;
 ---
 
-<Layout
-  title={`${t("news.title")} | ${t("name")} ${t("university")}`}
-  description={`${t("news.description")}`}
-  lang={lang}
-  isMenu={true}
->
-  <MainBanner title={`${categoryName}`} description={`${t("news.title")}`} />
-  <div class="bg-a-yellow-FFF4DF">
-    <div class="px-4 sm:px-16">
-      <div class="container mx-auto">
-        <Breadcrumbs
-          items={[
-            { label: "หน้าหลัก", href: homeSlug },
-            { label: "ข่าวและกิจกรรม", href: newsSlug },
-            { label: categoryName },
-          ]}
-        />
-        <div class="article pb-8">
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
-            <div class="col-span-4 lg:col-span-4 mb-0">
-              {
-                paginatedNews.length >= 1 ? (
-                  <>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-                      {paginatedNews.map((news) => (
-                        <ArticleCard article={news} />
-                      ))}
-                    </div>
-                    <Pagination
-                      currentPage={currentPage}
-                      totalPages={totalPages}
-                      baseUrl={`/articles/tag/${category}`}
-                    />
-                  </>
-                ) : (
-                  <div class="text-center text-a-gray-696F6F py-16">
-                    <p>ยังไม่มีข่าวและกิจกรรมในหมวด {categoryName}</p>
-                  </div>
-                )
-              }
-            </div>
-            <div class="col-span-2 md:col-span-1">
-              <UniqueType type="news" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</Layout>
+<AlumniListView
+  pageTitle={genName}
+  pageDesc="รวมรายชื่อศิษย์เก่า" 
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "ศิษย์เก่า", href: "/alumni" },
+    { label: genName, href: `/alumni/generation/${genSlug}` },
+    { label: `หน้า ${page.currentPage}` },
+  ]}
+  showIntroText={false} 
+  allAlumni={allAlumni} 
+  displayAlumni={page.data}
+  currentPage={page.currentPage}
+  totalPages={page.lastPage}
+  paginationBaseUrl={`/alumni/generation/${genSlug}`} 
+  emptyMessage={`ยังไม่มีข้อมูลใน ${genName}`}
+/>
