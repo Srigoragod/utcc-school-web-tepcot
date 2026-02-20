@@ -58,11 +58,15 @@ const articleSlug = `/articles`;
                     </span>
                   </a>
                 </div>
-                {otherArticles
-                  .slice(0, HOMEPAGE_ARTICLE_LIMIT)
-                  .map((articles) => (
-                    <ArticleWidget article={articles} />
-                  ))}
+                {otherArticles.length >= 1 ? (
+                  otherArticles
+                    .slice(0, HOMEPAGE_ARTICLE_LIMIT)
+                    .map((articles) => <ArticleWidget article={articles} />)
+                ) : (
+                  <div class="hidden md:block text-center text-a-gray-696F6F p-4 mt-8">
+                    <p>ยังไม่มีข่าวและกิจกรรมอื่นๆ</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -2,9 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import MainBanner from "../../components/Banner/MainBanner.astro";
 import SpeakerCard from "./SpeakerCard.astro";
-// import UniqueType from "../../components/uniqueType.astro";
 
-import Pagination from "../Pagination.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
@@ -53,12 +51,6 @@ const speakerSlug = `/speaker`;
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {paginatedSpeaker.sort((a, b) => a.title.rendered.localeCompare(b.title.rendered)).map((speaker) => <SpeakerCard p={speaker} />)}
           </div>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            baseUrl={speakerSlug}
-          />
-          
         </div>
       </div>
     </div>

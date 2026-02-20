@@ -1,0 +1,9 @@
+---
+const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
+const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
+const allAlumni = await data.json();
+---
+
+<template>
+
+</template>
