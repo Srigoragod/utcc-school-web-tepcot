@@ -1,0 +1,331 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Layout from "../layouts/Layout.astro";
+
+// components
+// import WhyUsSection from "../components/WhyUs/WhyUsSection.vue";
+import MainBanner from "../components/Banner/MainBanner.astro";
+import TopicAboutUs from "../components/AboutUs/TopicAboutUs.astro";
+// import FacilitiesSection from "../components/Facilities/FacilitiesSection.vue";
+// import PartnerSection from "../components/Partner/PartnerSection.vue";
+import Faqs from "../components/Faq/FaqFetchAPI.vue";
+// import AboutUsDetail from "../components/AboutUs/AboutUsDetail.vue";
+// import AlumniSection from "../components/Alumni/AlumniSection.astro";
+// import OverViewSection from "../components/AboutUs/OverViewSection.vue";
+// import TargetAudience from "../components/AboutUs/TargetAudience.vue";
+
+import { Icon } from "astro-icon/components";
+
+const lang = getLangFromUrl(Astro.url);
+
+const t = useTranslations(lang);
+
+const aboutSlug = `/aboutus`;
+const staffSlug = `/staff`;
+
+const applySteps = {
+  title: "วิธีรับสมัครเรียน TEPCoT",
+  subtitle:
+    "ขั้นตอนกระชับ เหมาะกับผู้บริหาร—สมัครได้รวดเร็ว และสามารถนัดพูดคุยเพื่อประเมินความเหมาะสมก่อนสมัคร",
+  steps: [
+    {
+      no: "01",
+      title: "ส่งข้อมูลเบื้องต้น",
+      desc: "กรอกฟอร์มสมัคร/สนใจหลักสูตร พร้อมข้อมูลติดต่อและประสบการณ์โดยสังเขป",
+    },
+    {
+      no: "02",
+      title: "รับคำแนะนำจากทีมหลักสูตร",
+      desc: "ทีมงานติดต่อกลับเพื่อให้รายละเอียด กำหนดการ ค่าใช้จ่าย และตอบคำถามที่เกี่ยวข้อง",
+    },
+    {
+      no: "03",
+      title: "ยืนยันสิทธิ์และเอกสารประกอบ",
+      desc: "ส่งเอกสารตามที่แจ้ง (เช่น ประวัติย่อ/หนังสือรับรอง หากมี) เพื่อดำเนินการยืนยันสิทธิ์",
+    },
+    {
+      no: "04",
+      title: "ชำระค่าลงทะเบียน/ยืนยันการเข้าร่วม",
+      desc: "ชำระตามช่องทางที่กำหนด และรับเอกสารยืนยัน + ตารางเรียนฉบับเต็ม",
+    },
+  ],
+  ctas: [
+    { label: "สมัครเข้าร่วมหลักสูตร", href: "/apply" },
+    { label: "ขอ Brochure & ตารางเรียน", href: "/brochure" },
+  ],
+  reqs: [
+    {
+      label: "กลุ่มเป้าหมาย",
+      value: "ผู้บริหารระดับสูง/เจ้าของกิจการ/ผู้นำองค์กร",
+    },
+    {
+      label: "คุณสมบัติแนะนำ",
+      value: "มีประสบการณ์บริหารหรือบทบาทตัดสินใจในองค์กร",
+    },
+    {
+      label: "เอกสารที่มักใช้",
+      value: "ข้อมูลส่วนตัว + ประวัติย่อ (ถ้ามี) + ช่องทางติดต่อ",
+    },
+  ],
+};
+---
+
+<Layout
+  title={`รับสมัครผู้บริหารระดับสูง TEPCoT | ${t("name")} ${t("university")}`}
+  description={`สมัครเรียน TEPCoT หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ เรียนแบบ Action-based พร้อมเครือข่ายผู้บริหารระดับชาติ ขอ Brochure และสมัครได้ทันที`}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner title={"สมัครผู้บริหารระดับสูง TEPCoT"} description={t("name")} />
+
+  <div class="pt-16 w-full" id="history">
+    <!-- This Content  -->
+
+    <!-- Form Apply -->
+    <section id="apply-steps" class=" bg-slate-50 pb-16">
+      <div class="container mx-auto px-4 md:px-0">
+        <div class="max-w-5xl mx-auto text-center mb-12">
+          <h2 class="text-30 md:text-44 font-semibold text-a-blue-030e62">
+            {applySteps.title}
+          </h2>
+          <p class="text-20 md:text-30 text-a-blue-1c184/80 mt-4 font-light">
+            {applySteps.subtitle}
+          </p>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-4 md:px-0">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <div class="grid grid-cols-1 gap-8">
+              {
+                applySteps.steps.map((item) => (
+                  <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-full bg-a-blue-030e62 text-white flex items-center justify-center text-20 font-semibold">
+                      {item.no}
+                    </div>
+                    <div>
+                      <h3 class="text-24 md:text-30 font-semibold text-a-blue-030e62">
+                        {item.title}
+                      </h3>
+                      <p class="text-20 md:text-24 text-a-blue-1c1c84/80 mt-2">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div class="flex flex-col gap-6">
+            {
+              applySteps.ctas.map((cta) => (
+                <a
+                  href={cta.href}
+                  class="btn btn-primary btn-lg rounded-full text-white text-24"
+                >
+                  <span class="text-white">{cta.label}</span>
+                </a>
+              ))
+            }
+            <div class="mt-8">
+              <h4
+                class="text-24 md:text-30 text-a-blue-030e62 font-normal mb-4"
+              >
+                ข้อมูลเบื้องต้นที่ควรเตรียม
+              </h4>
+              <ul class="list-disc text-slate-600 ml-6">
+                {
+                  applySteps.reqs.map((req) => (
+                    <li class="mt-2">
+                      <span class="font-semibold text-a-blue-1c1c84">
+                        {req.label}:{" "}
+                      </span>
+                      <span class="text-20 md:text-24 text-a-blue-1c1c84/80">
+                        {req.value}
+                      </span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container mx-auto py-16 px-4 md:px-0">
+      <h2 class="text-30 md:text-44 font-semibold text-a-blue-030e62 mb-4 text-center">
+        กรอบฟอร์มสมัคร/สนใจหลักสูตร TEPCoT
+      </h2>
+      <div>
+        <iframe
+          src="https://appregis.utcc.ac.th/tepcot/"
+          width="100%"
+          height="850"
+          frameborder="0"></iframe>
+      </div>
+    </section>
+    <!-- <OverViewSection client:visible lang={lang} /> -->
+    <Faqs client:load lang={lang} />
+    <!-- <AlumniSection client:load lang={lang} /> -->
+  </div>
+</Layout>
+<style scoped>
+  @import "../styles/global.css";
+  .menu li a {
+    color: var(--primary);
+    padding: 4px 12px;
+    align-items: center;
+    border-radius: 22px;
+    /* border: 1px solid var(--blue-light3); */
+    margin: 0 0.25rem;
+  }
+  /* .menu li a:hover {
+ background-color: var(--blue-light3);
+} */
+  .slides {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+  .slides::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  .tab {
+    color: var(--accent-dark);
+    font-size: 2.25rem;
+  }
+  .tabs-lifted > .tab {
+    min-width: 240px;
+    height: 80px;
+  }
+  .tabs-lifted > .tab:is(input:checked) {
+    background-color: var(--accent-dark);
+    border-bottom-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    color: white;
+  }
+  .tab-content {
+    border-color: transparent;
+    border-width: 0;
+  }
+  .tabs-lifted > .tab.tab-active:not(.tab-disabled):not([disabled]),
+  .tabs-lifted > .tab:is(input:checked) {
+    border-width: 0;
+  }
+
+  ol.decimal {
+    list-style: decimal;
+  }
+  .btn:hover,
+  .btn-active {
+    color: #ffffff !important;
+  }
+  @media only screen and (max-width: 767px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .is-desktop {
+      display: none;
+    }
+    button {
+      font-size: 20px;
+    }
+    .btn {
+      height: 2rem;
+    }
+    .content {
+      padding: 0 1rem;
+      text-indent: 2rem;
+      font-size: 20px;
+      /* text-align: justify; */
+    }
+    .item {
+      padding: 2rem 0;
+    }
+    #vision,
+    #philosophy,
+    #mission-info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin: 2rem 0;
+    }
+    #vision div.item:nth-child(1) {
+      width: 100%;
+      height: 403px;
+    }
+    #vision .desc,
+    #philosophy .desc {
+      padding: 0 1rem;
+    }
+    #philosophy div.item:nth-child(2) {
+      order: 1;
+      width: 100%;
+      height: 403px;
+    }
+    #philosophy div.item:nth-child(1) {
+      order: 2;
+    }
+    #mission {
+      padding: 2.5rem 0;
+    }
+    #mission h1 {
+      font-size: 42px;
+    }
+    ol.decimal {
+      margin-top: 1rem;
+      font-size: 20px;
+    }
+  }
+</style>

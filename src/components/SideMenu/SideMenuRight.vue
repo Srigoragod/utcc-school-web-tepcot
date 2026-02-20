@@ -15,7 +15,7 @@
                     <li class="px-4 py-2  cursor-pointer"><a href="aboutus">เกี่ยวกับคณะ</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/staff">บุคลากร</a></li>
                     <!-- <li class="px-4 py-2  cursor-pointer"><a href="/research">ผลงานวิจัย</a></li> -->
-                    <li class="px-4 py-2  cursor-pointer"><a href="/#course">หลักสูตร</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/tepcot-executive-education">หลักสูตร</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/#faq">คำถามที่พบบ่อย</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/#partners">พันธมิตร</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/#alumni">ศิษย์เก่า</a></li>

@@ -12,6 +12,7 @@ import Faqs from "../components/Faq/FaqFetchAPI.vue";
 import AboutUsDetail from "../components/AboutUs/AboutUsDetail.vue";
 import AlumniSection from "../components/Alumni/AlumniSection.astro";
 // import OverViewSection from "../components/AboutUs/OverViewSection.vue";
+import TargetAudience from "../components/AboutUs/TargetAudience.vue";
 
 import { Icon } from "astro-icon/components";
 
@@ -53,13 +54,14 @@ const staffSlug = `/staff`;
         </a>
       </TopicAboutUs>
     </AboutUsDetail>
-
+    <section id="target-audience">
+      <TargetAudience client:idle lang={lang} />
+    </section>
     <!-- <OverViewSection client:visible lang={lang} /> -->
     <Faqs client:load lang={lang} />
     <AlumniSection client:load lang={lang} />
     <!-- <CourseList client:load lang={lang} class:list={'bg-a-yellow-CFECFF'} /> -->
     <!-- <FacilitiesSection slug={""} title={""} lang={lang} client:load /> -->
-
   </div>
 </Layout>
 <style scoped>

@@ -1,115 +1,58 @@
 <template>
-  <div class="is-desktop grid lg:grid-cols-2 items-center my-8">
+  
+  <div class="is-desktop grid lg:grid-cols-2 items-center bg-gradient-to-b md:bg-gradient-to-br from-[#000000] to-[#04105d]">
     <div>
-      <SwiperEtc :items="data.image" :customHeight="'900px'"></SwiperEtc>
+      <SwiperEtc :items="data.image" :customHeight="''"></SwiperEtc>
     </div>
 
-    <div class="div-info px-4 md:px-8 pt-8 relative bg-a-yellow-CFECFF h-[885px]">
-      <div>
-        <h4 :class="isSliceSubject  ? 'text-24' : 'text-24 md:text-30'" class="text-24 uppercas mb-4 text-a-blue-021430">{{ data.subjects.label }}</h4>
-        <div v-if="isSliceSubject" class="grid grid-cols-2 gap-4 text-20">
-          <ul v-for="(el,indexI) in subjectListCustom" :key="indexI">
-            <li
-              v-for="(item, indexII) in el"
-              :key="indexII"
-              v-html="item.text"
-            ></li>
-          </ul>
-        </div>
-        <div v-else>
-          <ul class="text-20 md:text-24">
-            <li
-              v-for="(item, index) in subjectList"
-              :key="index"
-              v-html="item.text"
-            ></li>
-          </ul>
-        </div>
-      </div>
-      <div class="mt-4">
-        <h4 :class="isSliceJopOpp  ? 'text-24' : 'text-24 md:text-30'" class="uppercas mb-4 text-a-blue-021430">{{ data.job_opp.label }}</h4>
-        <div v-if="isSliceJopOpp" class="grid grid-cols-2 gap-4 text-20">
-          <ul v-for="(el,indexI) in jobOppListCustom" :key="indexI">
-            <li
-              v-for="(item, indexII) in el"
-              :key="indexII"
-              v-html="item.text"
-            ></li>
-          </ul>
-        </div>
-        <div v-else>
-          <ul class="text-20 md:text-24">
-            <li
-              v-for="(item, index) in jobOppList"
-              :key="index"
-              v-html="item.text"
-            ></li>
-          </ul>
-        </div>
-      </div>
+    <div class="div-info px-4 md:px-8 p-10  relative bg-gradient-to-b md:bg-gradient-to-br from-[#000000] to-[#04105d] text-white h-[885px] pb-40 overflow-y-scroll">
+         <!-- <div class="text-44 font-semibold">{{ timetable.title }}</div>
+          <p class="text-20 font-light mt-4 mb-8">{{ timetable.note }}</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div v-for="(item, index) in timetable.items" :key="index" class="flex flex-col">
+              <div class="text-24 font-light">{{ item.label }}</div>
+              <div class="text-30 font-semibold text-a-gold-F0C571">{{ item.value }}</div>
+             </div>
+          </div> -->
 
-      <div v-if="items.pdf" class="absolute z-[9]">
-        <!-- <ButtonDownload :fileDownload="`${items.pdf}`" > -->
-          <a :href="`${items.pdf}`" target="_blank" v-if="items.pdf">
-          <button class="mt-8 w-[250px]">
-            <img
-              src="/image/btn-download.svg"
-              alt="ดาวน์โหลดเอกสารเพิ่มเติม"
-            />
-          </button>
-          </a>
-        <!-- </ButtonDownload> -->
-      </div>
-      <img
-        class="absolute z-[1] bottom-0 right-0 w-[66%]"
-        src="/image/CE-min.svg"
-        alt="ce"
-      />
+          <div class="mt-12">
+            <div class="text-44 font-semibold">{{ applySteps.title }}</div>
+            <p class="text-24 font-light mt-4 mb-8">{{ applySteps.subtitle }}</p>
+            <div class="space-y-6">
+              <div v-for="(step, index) in applySteps.steps" :key="index" class="flex items-start gap-4">
+                <div class="text-30 font-bold text-a-gold-F0C571">{{ step.no }}</div>
+                <div>
+                  <div class="text-24 font-semibold">{{ step.title }}</div>
+                  <p class="text-24 font-light mt-1">{{ step.desc }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-12 flex flex-col sm:flex-row gap-4">
+              <a v-for="(cta, index) in applySteps.ctas" :key="index" :href="cta.href" target="_blank" class="px-6 py-3 bg-a-gold-F0C571 text-white rounded hover:bg-a-gold-F0C571/80 transition text-center text-24">
+                {{ cta.label }}
+              </a>
+            </div>
+
+            <!-- <div class="mt-12">
+              <div class="text-44 font-semibold">คุณสมบัติผู้สมัคร</div>
+              <div class="grid grid-cols-2 gap-4 mt-6">
+                <div v-for="(req, index) in applySteps.reqs" :key="index" class="flex flex-col">
+                  <div class="text-24 font-light">{{ req.label }}</div>
+                  <div class="text-30 font-semibold text-a-gold-F0C571">{{ req.value }}</div>
+                </div>
+              </div>
+            </div> -->
+          </div>
     </div>
   </div>
 
   <div class="container-tablet is-mobile pt-16">
-    <div class="container pt-4 px-4 mx-auto md:h-[458.89px] bg-a-yellow-CFECFF ">
+    <div class="container pt-4 px-4 mx-auto md:h-[458.89px]bg-gradient-to-b md:bg-gradient-to-br from-[#000000] to-[#04105d] text-white ">
       <SwiperEtc :items="data.image" :customHeight="'459px'"></SwiperEtc>
     </div>
     <div class="content-tablet px-4 pb-32 bg-a-blue-030e62">
-      <div
-        class="bg-a-yellow-CFECFF site-icon container mx-auto w-full rounded-b-box"
-      >
-        <div class=""></div>
-        <div
-          class="div-info px-4 py-10 bg-a-yellow-CFECFF rounded-b-box relative"
-        >
-          <div>
-            <h4 class="text-24 md:text-30 uppercas text-a-blue-021430">{{ data.subjects.label }}</h4>
-            <ul class="text-20 md:text-24">
-              <li v-for="(item, index) in data.subjects.value" :key="index">
-                {{ item.text }}
-              </li>
-            </ul>
-          </div>
-          <div class="mt-10">
-            <h4 class="text-24 md:text-30 uppercas text-a-blue-021430">{{ data.job_opp.label }}</h4>
-            <ul class="text-20 md:text-24">
-              <li v-for="(item, index) in data.job_opp.value" :key="index">
-                {{ item.text }}
-              </li>
-            </ul>
-          </div>
-          <div class="flex justify-center" v-if="items.pdf">
-            <a :href="`${items.pdf}`" target="_blank" v-if="items.pdf">
-              <!-- <ButtonDownload :fileDownload="`${items.pdf}`" > -->
-              <button class="mt-8 w-[250px]">
-                <img
-                  src="/image/btn-download.svg"
-                  alt="ดาวน์โหลดเอกสารเพิ่มเติม"
-                />
-              </button>
-              <!-- </ButtonDownload> -->
-            </a>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </template>
@@ -118,25 +61,74 @@
 import { ref, defineComponent } from "vue";
 // components
 import SwiperEtc from "../../SlideShow/SwiperEtc.vue";
-import ButtonDownload from "../../Button/ButtonDownload.vue";
 
 export default defineComponent({
   name: "ImageJobOop",
   components: {
-    SwiperEtc,
-    ButtonDownload
+    SwiperEtc
   },
   props: {
     items: { type: Object, require: true },
   },
   setup(props, ctx) {
     const data = ref(null);
-    const subjectList = ref(props.items.subjects.value);
-    const subjectListCustom = ref([]);
-    const isSliceSubject = ref(false);
-    const jobOppList =ref(props.items.job_opp.value)
-    const jobOppListCustom = ref([]);
-    const isSliceJopOpp = ref(false);
+    const timetable = ref({
+    title: 'กำหนดการเรียน (ตัวอย่าง)',
+    note:
+      'กำหนดการอาจมีการปรับตามรุ่น/วิทยากร โปรดติดต่อทีมงานเพื่อรับตารางล่าสุด',
+    items: [
+      { label: 'ระยะเวลา', value: '6 เดือน (24 สัปดาห์)' },
+      { label: 'วันเรียน', value: 'พฤหัสบดี–เสาร์ (ตามรอบที่กำหนด)' },
+      { label: 'เวลาเรียน', value: '09:00–17:00 น.' },
+      { label: 'ความถี่', value: 'ประมาณ 2 ครั้ง/เดือน (รวม ~12 ครั้ง)' },
+      { label: 'ชั่วโมงเรียนรวม', value: 'ประมาณ 144 ชั่วโมง' },
+      { label: 'Company Visit', value: '2 ครั้ง ระหว่างหลักสูตร' },
+      { label: 'Capstone Presentation', value: 'สัปดาห์ท้ายของหลักสูตร' }
+    ]
+  });
+
+  const applySteps = ref({
+    title: 'วิธีรับสมัครเรียน TEPCoT',
+    subtitle:
+      'ขั้นตอนกระชับ เหมาะกับผู้บริหาร—สมัครได้รวดเร็ว และสามารถนัดพูดคุยเพื่อประเมินความเหมาะสมก่อนสมัคร',
+    steps: [
+      {
+        no: '01',
+        title: 'ส่งข้อมูลเบื้องต้น',
+        desc: 'กรอกฟอร์มสมัคร/สนใจหลักสูตร พร้อมข้อมูลติดต่อและประสบการณ์โดยสังเขป'
+      },
+      {
+        no: '02',
+        title: 'รับคำแนะนำจากทีมหลักสูตร',
+        desc: 'ทีมงานติดต่อกลับเพื่อให้รายละเอียด กำหนดการ ค่าใช้จ่าย และตอบคำถามที่เกี่ยวข้อง'
+      },
+      {
+        no: '03',
+        title: 'ยืนยันสิทธิ์และเอกสารประกอบ',
+        desc: 'ส่งเอกสารตามที่แจ้ง (เช่น ประวัติย่อ/หนังสือรับรอง หากมี) เพื่อดำเนินการยืนยันสิทธิ์'
+      },
+      {
+        no: '04',
+        title: 'ชำระค่าลงทะเบียน/ยืนยันการเข้าร่วม',
+        desc: 'ชำระตามช่องทางที่กำหนด และรับเอกสารยืนยัน + ตารางเรียนฉบับเต็ม'
+      }
+    ],
+    ctas: [
+      { label: 'สมัครเข้าร่วมหลักสูตร', href: '/apply' },
+      { label: 'ขอ Brochure & ตารางเรียน', href: '/brochure' }
+    ],
+    reqs: [
+      { label: 'กลุ่มเป้าหมาย', value: 'ผู้บริหารระดับสูง/เจ้าของกิจการ/ผู้นำองค์กร' },
+      { label: 'คุณสมบัติแนะนำ', value: 'มีประสบการณ์บริหารหรือบทบาทตัดสินใจในองค์กร' },
+      { label: 'เอกสารที่มักใช้', value: 'ข้อมูลส่วนตัว + ประวัติย่อ (ถ้ามี) + ช่องทางติดต่อ' }
+    ]
+  });
+    // const subjectList = ref(props.items.subjects.value);
+    // const subjectListCustom = ref([]);
+    // const isSliceSubject = ref(false);
+    // const jobOppList =ref(props.items.job_opp.value)
+    // const jobOppListCustom = ref([]);
+    // const isSliceJopOpp = ref(false);
     const clickPdf = (val) => {
       location = val;
       target = "_blank";
@@ -144,36 +136,31 @@ export default defineComponent({
     const initialData = () => {
       data.value = props.items;
 
-      if (subjectList.value && subjectList.value.length > 12) {
-        isSliceSubject.value = true;
-        subjectListCustom.value = dividedArray(subjectList.value);
-      }
+      // if (subjectList.value && subjectList.value.length > 12) {
+      //   isSliceSubject.value = true;
+      //   subjectListCustom.value = dividedArray(subjectList.value);
+      // }
 
-      if(jobOppList.value && jobOppList.value.length >12){
-        isSliceJopOpp.value = true;
-        jobOppListCustom.value = dividedArray(jobOppList.value);
-      }
+      // if(jobOppList.value && jobOppList.value.length >12){
+      //   isSliceJopOpp.value = true;
+      //   jobOppListCustom.value = dividedArray(jobOppList.value);
+      // }
 
     };
-    const dividedArray = (items) => {
-      items.sort((a, b) => a.text.localeCompare(b.text, "th"));
-      const setSize = 12;
-      const dividedArray = [];
-      for (let i = 0; i < items.length; i += setSize) {
-        dividedArray.push(items.slice(i, i + setSize));
-      }
-      return dividedArray;
-    };
+    // const dividedArray = (items) => {
+    //   items.sort((a, b) => a.text.localeCompare(b.text, "th"));
+    //   const setSize = 12;
+    //   const dividedArray = [];
+    //   for (let i = 0; i < items.length; i += setSize) {
+    //     dividedArray.push(items.slice(i, i + setSize));
+    //   }
+    //   return dividedArray;
+    // };
     initialData();
     return {
       data,
-      clickPdf,
-      subjectList,
-      isSliceSubject,
-      subjectListCustom,
-      jobOppList,
-      isSliceJopOpp,
-      jobOppListCustom
+      timetable,
+      applySteps,
     };
   },
 });
