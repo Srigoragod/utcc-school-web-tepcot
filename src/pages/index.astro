@@ -71,8 +71,11 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     description={description}
   />
   <div class="container mx-auto my-8">
-      <DownloadBanner lang={lang} client:idle />
-    </div>
+    <DownloadBanner
+      lang={lang}
+      client:idle
+    />
+  </div>
   <section
     id="about-us"
     class="bg-white py-8 md:py-16"
@@ -124,7 +127,7 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     id="speakers"
     class="skeleton"
   >
-    <Speakers client:idle />
+    <Speakers lang={lang} />
   </section>
   <!-- <section id="experience-hero" class="">
       <div class="md:max-w-7xl mx-auto px-4 md:px-8">

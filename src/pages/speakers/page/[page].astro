@@ -1,0 +1,41 @@
+---
+import SpeakerListView from "../../../components/Speaker/SpeakerListView.astro";
+import { SPEAKER_PER_PAGE } from "../../../consts";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export async function getStaticPaths({ paginate }) {
+  const speakerApi = import.meta.env.PUBLIC_API_WP_SPEAKER;
+  
+  const speakerRes = await fetch(
+    `${speakerApi}?per_page=100&_embed&acf_format=standard`
+  );
+  const allSpeakers = await speakerRes.json();
+
+  return paginate(allSpeakers, {
+    pageSize: SPEAKER_PER_PAGE,
+    props: { allSpeakers },
+  });
+}
+
+const { page, allSpeakers } = Astro.props as any;
+
+---
+
+<SpeakerListView
+  pageTitle="วิทยากร TEPCoT"
+  pageDesc="เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "วิทยากร" },
+    { label: "" },
+  ]}
+  showIntroText={true}
+  allSpeakers={allSpeakers}
+  displaySpeakers={page.data}
+  currentPage={page.currentPage}
+  totalPages={page.lastPage}
+  paginationBaseUrl="/speakers"
+/>

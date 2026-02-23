@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-special-staff" >
+  <div class="carousel-special-staff">
     <div class="is-desktop relative">
       <!-- Card Grid -->
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 h-full">
@@ -7,26 +7,37 @@
           v-for="(lecturer, index) in itemsList"
           :key="index"
           @click="clickShow(lecturer)"
-          class="group  text-center   hover:bg-a-blue-0b57d0/60 transition relative  h-full item-special"
+          class="group text-center hover:bg-a-blue-0b57d0/60 transition relative h-full item-special"
         >
-          <div class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur  mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900  border-2 border-a-gold-F0C571">
+          <div
+            class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900 border-2 border-a-gold-F0C571"
+          >
             <!-- Image -->
             <img
               :src="lecturer?.thumbnail"
               :alt="lecturer?.title"
-              class="aspect-square object-[50%_20%] rounded-full h-60 w-60  transition duration-300 group-hover:scale-[1.05]"
+              class="aspect-square object-[50%_20%] rounded-full h-60 w-60 transition duration-300 group-hover:scale-[1.05]"
               loading="lazy"
             />
           </div>
           <!-- Overlay Name Speaker -->
-          <div class="py-4 h-36 text-white" :class="[customClass]" >
-              <div class="absolute -bottom-4 p-4 text-left w-full z-10">
-                <h3 class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571">
-                  {{ lecturer?.title }}
-                </h3>
-                 <h4 class=" text-24 text-center  font-light mt-auto">{{ lecturer?.career }}</h4>
-                 <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center"> {{ lecturer?.major }}</h5>
-              </div>
+          <div
+            class="py-4 h-36 text-white"
+            :class="[customClass]"
+          >
+            <div class="absolute -bottom-4 p-4 text-left w-full z-10">
+              <h3
+                class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571"
+              >
+                {{ lecturer?.title }}
+              </h3>
+              <h4 class="text-24 text-center font-light mt-auto">
+                {{ lecturer?.career }}
+              </h4>
+              <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center">
+                {{ lecturer?.major }}
+              </h5>
+            </div>
           </div>
         </div>
       </div>
@@ -38,25 +49,36 @@
         @click="clickShow(lecturer)"
         class="group relative"
       >
-       <div class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur  mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900  border-2 border-a-gold-F0C571">
-            <!-- Image -->
-            <img
-              :src="lecturer?.thumbnail"
-              :alt="lecturer?.title"
-              class="aspect-square object-[50%_20%] rounded-full h-60 w-60  transition duration-300 group-hover:scale-[1.05]"
-              loading="lazy"
-            />
+        <div
+          class="group relative overflow-hidden rounded-full mx-auto h-60 w-60 backdrop-blur mt-12 shadow-2xl shadow-blue-500/30 bg-gradient-to-t from-blue-100 to-blue-900 border-2 border-a-gold-F0C571"
+        >
+          <!-- Image -->
+          <img
+            :src="lecturer?.thumbnail"
+            :alt="lecturer?.title"
+            class="aspect-square object-[50%_20%] rounded-full h-60 w-60 transition duration-300 group-hover:scale-[1.05]"
+            loading="lazy"
+          />
+        </div>
+        <!-- Overlay Name Speaker -->
+        <div
+          class="py-4 h-36 text-white mt-auto"
+          :class="[customClass]"
+        >
+          <div class="absolute -bottom-4 p-4 text-left w-full z-10">
+            <h3
+              class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571"
+            >
+              {{ lecturer?.title }}
+            </h3>
+            <h4 class="text-20 text-center font-light mt-auto">
+              {{ lecturer?.career }}
+            </h4>
+            <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center">
+              {{ lecturer?.major }}
+            </h5>
           </div>
-          <!-- Overlay Name Speaker -->
-          <div class="py-4 h-36 text-white mt-auto" :class="[customClass]" >
-              <div class="absolute -bottom-4 p-4 text-left w-full z-10">
-                <h3 class="text-30 font-semibold line-clamp-1 text-center text-a-gold-F0C571">
-                  {{ lecturer?.title }}
-                </h3>
-                 <h4 class=" text-20 text-center  font-light mt-auto">{{ lecturer?.career }}</h4>
-                 <h5 class="text-a-blue-18ffff mt-1 line-clamp-1 text-center"> {{ lecturer?.major }}</h5>
-              </div>
-          </div>
+        </div>
       </div>
     </div>
 
@@ -66,14 +88,18 @@
       @close="clikeClose"
       :isShow="showModal"
     >
-        <!-- Modal content -->
-        <div class="parent relative w-full rounded-2xl bg-white">
-            <ContentModalStaff :item="itemShow"></ContentModalStaff>
-            <div class=" justify-end px-4 hidden md:flex">
-                <button @click="clikeClose"
-                    class="btn btn-sm text-20 absolute bg-transparent border-a-gray-696F6F hover:bg-slate-200 font-light bottom-4 right-4">Close</button>
-            </div>
+      <!-- Modal content -->
+      <div class="parent relative w-full rounded-2xl bg-white">
+        <ContentModalStaff :item="itemShow"></ContentModalStaff>
+        <div class="justify-end px-4 hidden md:flex">
+          <button
+            @click="clikeClose"
+            class="btn btn-sm text-20 absolute bg-transparent border-a-gray-696F6F hover:bg-slate-200 font-light bottom-4 right-4"
+          >
+            Close
+          </button>
         </div>
+      </div>
     </ModalMaster>
   </div>
 </template>
@@ -92,7 +118,7 @@ export default {
   components: {
     ModalMaster,
     ArrowsPointingOutIcon,
-    ContentModalStaff
+    ContentModalStaff,
   },
   props: {
     lang: { type: String, default: "th" },
@@ -107,15 +133,16 @@ export default {
     const uri = import.meta.env.PUBLIC_API_WP_SPECIALGUEST;
     const t = useTranslations(props.lang);
 
-
     const clickShow = (item) => {
       // console.log(JSON.stringify(item, null, 4));
       itemShow.value = {
         image: item?.thumbnail ?? "",
-        gender:  "female",
+        gender: "female",
         position: "อาจารย์",
         name: item?.th?.title ?? "",
-        academic: item?.th?.career ? `${item.th.career}${item?.th?.major ? ` | อาจารย์พิเศษกลุ่มวิชา ${item.th.major}` : ''}`.trim() : '',
+        academic: item?.th?.career
+          ? `${item.th.career}${item?.th?.major ? ` | อาจารย์พิเศษกลุ่มวิชา ${item.th.major}` : ""}`.trim()
+          : "",
         education: [],
         specialist: [],
         description: item?.th?.description ?? "",
@@ -152,7 +179,7 @@ export default {
       clickShow,
       clikeClose,
       t,
-      customClass: props.customClass
+      customClass: props.customClass,
     };
   },
 };

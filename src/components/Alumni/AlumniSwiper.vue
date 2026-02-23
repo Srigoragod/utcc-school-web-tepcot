@@ -1,64 +1,130 @@
 <template>
   <div class="our-alumni">
     <div class="contents alumni-group">
-      <swiper :modules="[Virtual, Autoplay]" :autoplay="{ delay: 1500, disableOnInteraction: false, pauseOnMouseEnter: true}"
-        speed="3000" :loop="true" :lazy="true"
-        :breakpoints="{ 1280: { slidesPerView: 4, spaceBetween: 40 }, 1024: { slidesPerView: 3, spaceBetween: 40 }, 640: { slidesPerView: 2, spaceBetween: 60 }, 576: { slidesPerView: 1, spaceBetween: 30, } }"
-        class="alumniSwiper">
-        <swiper-slide  v-for="(item, index) in alumniList" :key="index" :virtualIndex="index" class="items-stretch cursor-pointer relative" @click="clickShow(item)">
+      <swiper
+        :modules="[Virtual, Autoplay]"
+        :autoplay="{
+          delay: 1500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }"
+        :speed="3000"
+        :loop="true"
+        :lazy="true"
+        :breakpoints="{
+          1280: { slidesPerView: 4, spaceBetween: 40 },
+          1024: { slidesPerView: 3, spaceBetween: 40 },
+          640: { slidesPerView: 2, spaceBetween: 60 },
+          576: { slidesPerView: 1, spaceBetween: 30 },
+        }"
+        class="alumniSwiper"
+      >
+        <swiper-slide
+          v-for="(item, index) in alumniList"
+          :key="index"
+          :virtualIndex="index"
+          class="items-stretch cursor-pointer relative"
+          @click="clickShow(item)"
+        >
           <div class="quote relative text-blue-950">
-            <span class="line-clamp-4 mobile:line-clamp-3 px-4 lg:pt-4 text-20 md:text-24 ">{{ item.text }}</span>
+            <span
+              class="line-clamp-4 mobile:line-clamp-3 px-4 lg:pt-4 text-20 md:text-24"
+              >{{ item.text }}</span
+            >
             <div class="quote-after absolute right-14 top-28"></div>
           </div>
-          <div class="flex ">
-            <img :src="item?.image" alt="" class="rounded-full " />
+          <div class="flex">
+            <img
+              :src="item?.image"
+              alt=""
+              class="rounded-full"
+            />
             <div class="grid grid-column">
-              <span class="font-light text-20 text-white/80 line-clamp-1">{{ item.generation }}</span>
-              <h4 class="text-24 text-1-line text-a-gold-F0C571">{{ item.name }}</h4>
-              <p class="font-light text-20 line-clamp-2 text-white/70 pr-8">{{ item.company }}</p>
+              <span class="font-light text-20 text-white/80 line-clamp-1">{{
+                item.generation
+              }}</span>
+              <h4 class="text-24 text-1-line text-a-gold-F0C571">
+                {{ item.name }}
+              </h4>
+              <p class="font-light text-20 line-clamp-2 text-white/70 pr-8">
+                {{ item.company }}
+              </p>
             </div>
           </div>
         </swiper-slide>
       </swiper>
-    <!-- Modal -->
-    <ModalMaster v-if="showModal" @close="clikeClose" :customClass="'content-center'"  :isShow="showModal" id="modal-master">
-      <div class="parent relative w-full h-full min-w-3xl max-w-4xl">
-        <div class="py-10 px-8 max-w-3xl min-h-64   overflow-y-auto hide-scroll relative">
-          <div class="profile">
-            <img class="w-[100px] mx-auto drop-shadow-md rounded-full ring-2 ring-a-gold-F0C571" :src="itemShow.image" />
-            <div class="text-center pt-2 text-slate-600">
-              {{ itemShow.generation }}
-              <h4 class="text-34 text-1-line  text-slate-800">{{ itemShow.name }}</h4>
-              <p class="text-24 text-2-line text-slate-600 px-4">
-                {{ `${itemShow.company} ` }}
-              </p>
-            </div>
-          </div>
-          <div class="relative quote-moda bg-a-blue-030e62 text-a-gold-F0C571  font-light indent-10  p-8 rounded-2xl">
-          <div class="text-20 md:text-24   min-h-32  overflow-y-auto hide-scroll relative content">
-            {{ itemShow.text }}
-          </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="flex justify-end p-4 bg-white rounded-2xl div-action">
-        <button @click="clikeClose"
-          class="btn btn-sm text-20 custom-btn  absolute text-a-black-1F2937 bg-white bottom-4 right-4">Close</button>
-      </div>
-    </ModalMaster>
-    <div class="mt-10 flex items-center gap-2 text-[14px] text-[#0B1F3A]/65 justify-center mx-auto">
-        <div class="avatar-group -space-x-3">
-            <div class="avatar" v-for="(m, i) in avatarList"  :key="i">
-              <div class="w-12 ring-primary ring-offset-base-100  rounded-full ring-2 ring-offset-2">
-                <img :src="m" />
+      <!-- Modal -->
+      <ModalMaster
+        v-if="showModal"
+        @close="clikeClose"
+        :customClass="'content-center'"
+        :isShow="showModal"
+        id="modal-master"
+      >
+        <div class="parent relative w-full h-full min-w-3xl max-w-4xl">
+          <div
+            class="py-10 px-8 max-w-3xl min-h-64 overflow-y-auto hide-scroll relative"
+          >
+            <div class="profile">
+              <img
+                class="w-[100px] mx-auto drop-shadow-md rounded-full ring-2 ring-a-gold-F0C571"
+                :src="itemShow.image"
+              />
+              <div class="text-center pt-2 text-slate-600">
+                {{ itemShow.generation }}
+                <h4 class="text-34 text-1-line text-slate-800">
+                  {{ itemShow.name }}
+                </h4>
+                <p class="text-24 text-2-line text-slate-600 px-4">
+                  {{ `${itemShow.company} ` }}
+                </p>
               </div>
             </div>
+            <div
+              class="relative quote-moda bg-a-blue-030e62 text-a-gold-F0C571 font-light indent-10 p-8 rounded-2xl"
+            >
+              <div
+                class="text-20 md:text-24 min-h-32 overflow-y-auto hide-scroll relative content"
+              >
+                {{ itemShow.text }}
+              </div>
+            </div>
+          </div>
         </div>
-        <a href="/alumni" class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1">
-          <span class="line-clamp-2 text-20  text-a-gold-F0C571/80 font-light flex items-center gap-1">
+        <div class="flex justify-end p-4 bg-white rounded-2xl div-action">
+          <button
+            @click="clikeClose"
+            class="btn btn-sm text-20 custom-btn absolute text-a-black-1F2937 bg-white bottom-4 right-4"
+          >
+            Close
+          </button>
+        </div>
+      </ModalMaster>
+      <div
+        class="mt-10 flex items-center gap-2 text-[14px] text-[#0B1F3A]/65 justify-center mx-auto"
+      >
+        <div class="avatar-group -space-x-3">
+          <div
+            class="avatar"
+            v-for="(m, i) in avatarList"
+            :key="i"
+          >
+            <div
+              class="w-12 ring-primary ring-offset-base-100 rounded-full ring-2 ring-offset-2"
+            >
+              <img :src="m" />
+            </div>
+          </div>
+        </div>
+        <a
+          href="/alumni"
+          class="line-clamp-2 text-20 md:text-24 text-a-gold-F0C571/80 font-light flex items-center gap-1"
+        >
+          <span
+            class="line-clamp-2 text-20 text-a-gold-F0C571/80 font-light flex items-center gap-1"
+          >
             ดูเพิ่มเติมเกี่ยวกับศิษย์เก่าของเรา
-            <ArrowRightIcon class=" text-a-gold-F0C571 w-6 h-6" />
+            <ArrowRightIcon class="text-a-gold-F0C571 w-6 h-6" />
           </span>
         </a>
       </div>
@@ -67,23 +133,21 @@
 </template>
 
 <script>
-
 import { ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { Virtual, Autoplay } from 'swiper/modules';
+import { Virtual, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/virtual";
 import "swiper/css/autoplay";
 import ModalMaster from "../Modal/Modal.vue";
-import { ArrowRightIcon } from '@heroicons/vue/24/solid'
-
+import { ArrowRightIcon } from "@heroicons/vue/24/solid";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
     ModalMaster,
-    ArrowRightIcon
+    ArrowRightIcon,
   },
   setup() {
     const showModal = ref(false);
@@ -93,35 +157,33 @@ export default {
     const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 
     const fetchData = () => {
-      fetch(`${uri}?acf_format=standard&_fields=id,slug,title,acf`, { mode: "cors" })
+      fetch(`${uri}?acf_format=standard&_fields=id,slug,title,acf`, {
+        mode: "cors",
+      })
         .then((response) => response.json())
         .then((data) => initialData(data))
-        .catch((error) =>
-          console.error("Error fetching Alumni data:", error)
-        );
+        .catch((error) => console.error("Error fetching Alumni data:", error));
     };
     fetchData();
-      const randomSort = () => {
+    const randomSort = () => {
       return Math.random() - 0.5;
-    }
+    };
     const initialData = (data) => {
-
       let listData = data.map((item) => ({
         name: item.title.rendered,
         company: item.acf.company,
         generation: item.acf.generation,
         image: item.acf.image,
-        text: item.acf.text
+        text: item.acf.text,
       }));
       alumniList.value = listData.sort(randomSort);
-      avatarList.value = listData.slice(0, 3).map(item => item.image);
+      avatarList.value = listData.slice(0, 3).map((item) => item.image);
     };
-    const clickShow  = (item) => {
-      itemShow.value = item
+    const clickShow = (item) => {
+      itemShow.value = item;
       showModal.value = true;
       // document.body.style.overflow = 'hidden';
-
-    }
+    };
 
     const clikeClose = () => {
       showModal.value = false;
@@ -135,7 +197,7 @@ export default {
       showModal,
       itemShow,
       clickShow,
-      clikeClose
+      clikeClose,
     };
   },
 };
@@ -163,7 +225,7 @@ export default {
 }
 
 .alumniSwiper .swiper-slide .quote {
-  padding: 40px 20px  0 20px;
+  padding: 40px 20px 0 20px;
   background-image: url(/icon/review-blog.svg);
   background-repeat: no-repeat;
   background-size: contain;
@@ -173,7 +235,7 @@ export default {
 }
 
 .quote-after::before {
-  content: '\201C';
+  content: "\201C";
   position: absolute;
   line-height: 1;
   font-size: 6rem;
@@ -182,7 +244,7 @@ export default {
 }
 
 .quote::before {
-  content: '\201C';
+  content: "\201C";
   position: absolute;
   top: 0rem;
   left: -1.25rem;
@@ -192,7 +254,7 @@ export default {
 }
 
 .quote-modal::before {
-  content: '\201C';
+  content: "\201C";
   position: absolute;
   top: -0.25rem;
   left: 1rem;
@@ -222,7 +284,7 @@ export default {
     padding: 40px 10px 0 10px;
     height: 99%;
   }
- .quote::before {
+  .quote::before {
     left: -0rem !important;
   }
 
@@ -239,6 +301,5 @@ export default {
   .quote::before {
     left: 1rem;
   }
-
 }
 </style>

@@ -202,7 +202,6 @@
 
 <script>
 import { ref, defineComponent } from "vue";
-import { CurrencyDollarIcon,ClockIcon,AcademicCapIcon } from "@heroicons/vue/24/solid";
 // components
 import Eyebrow from "../../AboutUs/Eyebrow.vue";
 import SkeletonAnimated from "../components/SkeletonAnimated.vue";;

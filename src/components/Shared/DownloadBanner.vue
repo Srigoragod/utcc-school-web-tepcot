@@ -80,7 +80,8 @@ export default {
       props.lang === "en"
         ? "https://example.com/download-en"
         : "https://example.com/download-th";
-    const bgImage = "/image/download-banner-bg.jpg";
+    const bgImage = "/image/blue-bg-tepcot.png";
+    const highlight = props.lang === "en" ? "" : "";
 
     return {
       title,
@@ -88,6 +89,7 @@ export default {
       buttonLabel,
       href,
       bgImage,
+      highlight
     };
   },
 };

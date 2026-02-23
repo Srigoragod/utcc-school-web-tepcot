@@ -1,0 +1,84 @@
+---
+// ไฟล์: src/components/Alumni/AlumniListView.astro
+import Layout from "../../layouts/Layout.astro";
+import MainBanner from "../Banner/MainBanner.astro";
+import SpeakerCard from "./SpeakerCard.astro";
+import Pagination from "../Pagination.astro";
+import Breadcrumbs from "../Breadcrumbs.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// รับค่า Props ที่จะเปลี่ยนไปตามแต่ละหน้า
+const {
+  pageTitle,
+  pageDesc,
+  breadcrumbsItems,
+  showIntroText = false, // หน้า gen จะไม่โชว์ข้อความนี้
+  allSpeakers = [], // ไว้หาเพื่อน
+  displaySpeakers = [], // ข้อมูลที่จะเอามาโชว์ (ตัดแบ่งหน้ามาให้แล้ว)
+  currentPage,
+  totalPages,
+  paginationBaseUrl,
+  emptyMessage = "ยังไม่มีข้อมูล",
+} = Astro.props;
+---
+
+<Layout
+  title={`${pageTitle} | ${t("university")}`}
+  description={pageDesc}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner
+    title={pageTitle}
+    description={pageDesc}
+  />
+  <div class="">
+    <div class="px-4 sm:px-16">
+      <div class="container mx-auto">
+        <Breadcrumbs items={breadcrumbsItems} />
+
+        <div class="pb-8">
+          {
+            showIntroText && (
+              <div>
+                <h3 class="text-30 md:text-44 font-bold mb-4">
+                  วิทยากรผู้ถ่ายทอดประสบการณ์จริงจากองค์กรชั้นนำ
+                </h3>
+                <h4 class="text-20 md:text-24 max-w-7xl opacity-90 font-light mb-8">
+                  TEPCoT
+                  ภูมิใจนำเสนอผู้บริหารหลักสูตรและวิทยากรระดับแนวหน้าที่มีประสบการณ์จริงในการบริหารองค์กรชั้นนำ
+                  ผสมผสานระหว่างนักวิชาการผู้ทรงคุณวุฒิและผู้บริหารระดับ C-Suite
+                  จากองค์กรชั้นนำทั้งในและต่างประเทศ
+                  ทำให้ผู้เข้าร่วมโปรแกรมได้รับความรู้ที่ลึกซึ้งทั้งทางทฤษฎีและประสบการณ์จริงที่สามารถนำไปประยุกต์ใช้ได้ทันที
+                </h4>
+              </div>
+            )
+          }
+          {
+            displaySpeakers.length >= 1 ? (
+              <>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+                  {displaySpeakers.map((speaker) => (
+                    <SpeakerCard p={speaker} />
+                  ))}
+                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  baseUrl={paginationBaseUrl}
+                />
+              </>
+            ) : (
+              <div class="text-center text-a-gray-696F6F py-16">
+                <p>{emptyMessage}</p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

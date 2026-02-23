@@ -6,7 +6,7 @@ const bgImage = await getImage({ src: NoImage });
 
 const imageUrl =
   p._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes?.medium
-    ?.source_url || p._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+    ?.source_url || p._embedded?.["wp:featuredmedia"]?.[0]?.source_url || bgImage.src;
 ---
 
 <article
@@ -47,13 +47,13 @@ const imageUrl =
 
     <!-- Content -->
     <div class="mt-6 mx-auto">
-      <h2 class="text-24 md:text-30 text-center -mb-1 text-slate-500 line-clamp-1">
+      <h2
+        class="text-24 md:text-30 text-center -mb-1 text-slate-500 line-clamp-1"
+      >
         {p.title.rendered}
       </h2>
 
-      <h3
-        class="text-normal font-semibold line-clamp-2 text-center"
-      >
+      <h3 class="text-normal font-semibold line-clamp-2 text-center">
         {p.acf.career}
       </h3>
 
@@ -66,18 +66,18 @@ const imageUrl =
 
     <!-- CTA: ดันลงล่าง + ให้ปุ่มเท่ากันทุกการ์ด -->
     <!-- <div class="mt-auto pt-4">
-      <a
-        href={`/speakers/${p.slug}`}
-        class="text-sm text-slate-500 line-clamp-1"
-      >
-        <button
-          class="btn btn-sm btn-outline btn-primary w-full text-20"
-          @click="emit('connect', p)"
-        >
-          View Profile
-        </button>
-      </a>
-    </div> -->
+  <a
+  href={`/speakers/${p.slug}`}
+  class="text-sm text-slate-500 line-clamp-1"
+  >
+  <button
+  class="btn btn-sm btn-outline btn-primary w-full text-20"
+  @click="emit('connect', p)"
+  >
+  View Profile
+  </button>
+  </a>
+  </div> -->
   </div>
 </article>
 

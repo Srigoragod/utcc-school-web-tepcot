@@ -79,7 +79,7 @@ export default {
 
 .bg-cover::before {
   content: "";
-  background-image: url(/image/UBS.svg);
+  /* background-image: url(/image/UBS.svg); */
   position: absolute;
   z-index: 99;
 }
