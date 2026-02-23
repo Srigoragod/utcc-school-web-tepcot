@@ -40,7 +40,7 @@
     </div>
 
     <!-- / content -->
-  <div class="px-4 py-10 text-a-gray-696F6F font-light hidden">
+  <div class="px-4 py-10 text-a-gray-696F6F font-light ">
     <div class="grid grid-cols-1 md:grid-cols-3  gap-8 py-10">
       <div class="item  gap-4 col-span-2 hidden">
         <h4 class="text-20 md:text-24 text-a-blue-030e62 font-normal"> รูปแบบการเรียนการสอน </h4>

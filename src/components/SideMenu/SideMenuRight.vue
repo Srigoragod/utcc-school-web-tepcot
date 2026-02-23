@@ -12,14 +12,14 @@
             <div>
                 <ul class="flex-1">
                     <li class="px-4 py-2  cursor-pointer"><a href="/">หน้าแรก</a></li>
-                    <li class="px-4 py-2  cursor-pointer"><a href="aboutus">เกี่ยวกับคณะ</a></li>
-                    <li class="px-4 py-2  cursor-pointer"><a href="/staff">บุคลากร</a></li>
-                    <!-- <li class="px-4 py-2  cursor-pointer"><a href="/research">ผลงานวิจัย</a></li> -->
-                    <li class="px-4 py-2  cursor-pointer"><a href="/tepcot-executive-education">หลักสูตร</a></li>
-                    <li class="px-4 py-2  cursor-pointer"><a href="/#faq">คำถามที่พบบ่อย</a></li>
-                    <li class="px-4 py-2  cursor-pointer"><a href="/#partners">พันธมิตร</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="aboutus">เกี่ยวกับเรา</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/tepcot-executive-education">รายละเอียดหลักสูตร</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/speakers">วิทยากร</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/#alumni">ศิษย์เก่า</a></li>
                     <li class="px-4 py-2  cursor-pointer"><a href="/#news">ข่าวสารและกิจกรรม</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/#faq">FAQ</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/calendar">ปฎิทินการศึกษา</a></li>
+                    <li class="px-4 py-2  cursor-pointer"><a href="/#download">ดาวน์โหลดเอกสาร</a></li>
                     <li class="px-4 py-4">
                         <slot></slot>
                     </li>

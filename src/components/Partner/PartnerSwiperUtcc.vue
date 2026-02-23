@@ -8,13 +8,7 @@
         </div>
       </div>
     </div>
-    <div class="partner-group is-mobile">
-      <div class="partner-list">
-        <div v-for="(item, index) in partnerList" :key="index" class="partner-list-item transition-all rounded-md md:rounded-lg">
-          <img :src="item.image" :alt="item.title" loading="lazy"  />
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -71,20 +65,20 @@ export default {
   position: relative;
 }
 
-.partner-group {
+/* .partner-group {
   animation: slideSide 60s linear infinite;
-}
+} */
 
 .partner-list {
   display: flex;
-  padding: 15px 0;
+  padding: 0px 0;
 }
 
 .partner-list .partner-list-item {
   display: block;
-  height: 120px;
+  height: 150px;
   width: auto;
-  min-width: 250px;
+  min-width: 100px;
   margin: 0 15px;
 }
 
@@ -96,9 +90,9 @@ export default {
 }
 
 @media (max-width: 1023px) {
-  .partner-group {
+  /* .partner-group {
     animation: none;
-  }
+  } */
 
 
   .partner-list {

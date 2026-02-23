@@ -1,17 +1,30 @@
 ---
-import SpeakerListPage from "../../components/Speaker/SpeakerListPage.astro";
+import SpeakerListView from "../../components/Speaker/SpeakerListView.astro";
 import { SPEAKER_PER_PAGE } from "../../consts";
 
 const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
 const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
-const allSpeaker = await data.json();
+const allSpeakers = await data.json();
 
-const currentPage = 1;
+const { currentPage = 1, perPage = SPEAKER_PER_PAGE} = Astro.props; // หรือดึง API ตรงนี้
+
+const start = (currentPage - 1) * perPage;
+const paginatedSpeakers = allSpeakers.slice(start, start + perPage);
+const totalPages = Math.ceil(allSpeakers.length / perPage);
 ---
 
-<SpeakerListPage
-  allSpeaker={allSpeaker}
+<SpeakerListView
+  pageTitle="วิทยากร TEPCoT"
+  pageDesc="เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "วิทยากร" },
+    { label: "" },
+  ]}
+  showIntroText={true}
+  allSpeakers={allSpeakers}
+  displaySpeakers={paginatedSpeakers}
   currentPage={currentPage}
-  perPage={SPEAKER_PER_PAGE}
-  baseUrl="/speaker"
+  totalPages={totalPages}
+  paginationBaseUrl="/speakers"
 />

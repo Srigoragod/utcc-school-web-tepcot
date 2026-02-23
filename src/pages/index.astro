@@ -12,7 +12,7 @@ import ArticleSection from "../components/Blogs/ArticleSection.astro";
 import BlogSection from "../components/Blogs/BlogSection.astro";
 import Course from "../components/course/index.vue";
 import OverViewSection from "../components/AboutUs/OverViewSection.vue";
-// import DownloadBanner from "../components/Shared/DownloadBanner.vue";
+import DownloadBanner from "../components/Shared/DownloadBanner.vue";
 // import TargetAudience from "../components/AboutUs/TargetAudience.vue";
 // import ThumbsGallery from "../components/SlideShow/ThumbsGallery.vue";
 import Speakers from "../components/course/Speakers.astro";
@@ -20,7 +20,7 @@ import PartnerSwiperUtcc from "../components/Partner/PartnerSwiperUtcc.vue";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const title = "TEPCoT หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์";
+const title = " TEPCoT หลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์";
 const description = "Top Executive Program in Commerce and Trade";
 const keywords =
   "TEPCoT, หลักสูตรผู้บริหาร, การค้า, การพาณิชย์, Executive Education, Leadership, Business Management";
@@ -70,9 +70,12 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     title={title}
     description={description}
   />
-  <!-- <div class="container mx-auto my-8">
-      <DownloadBanner lang={lang} client:idle />
-    </div> -->
+  <div class="container mx-auto my-8">
+    <DownloadBanner
+      lang={lang}
+      client:idle
+    />
+  </div>
   <section
     id="about-us"
     class="bg-white py-8 md:py-16"
@@ -124,7 +127,7 @@ const slogan = "พัฒนาผู้นำยุคใหม่ สู่ค
     id="speakers"
     class="skeleton"
   >
-    <Speakers client:idle />
+    <Speakers lang={lang} />
   </section>
   <!-- <section id="experience-hero" class="">
       <div class="md:max-w-7xl mx-auto px-4 md:px-8">

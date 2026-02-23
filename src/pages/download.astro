@@ -3,65 +3,51 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import Layout from "../layouts/Layout.astro";
 
 // components
-// import WhyUsSection from "../components/WhyUs/WhyUsSection.vue";
 import MainBanner from "../components/Banner/MainBanner.astro";
-import TopicAboutUs from "../components/AboutUs/TopicAboutUs.astro";
-// import FacilitiesSection from "../components/Facilities/FacilitiesSection.vue";
-// import PartnerSection from "../components/Partner/PartnerSection.vue";
-import Faqs from "../components/Faq/FaqFetchAPI.vue";
-import AboutUsDetail from "../components/AboutUs/AboutUsDetail.vue";
-import AlumniSection from "../components/Alumni/AlumniSection.astro";
-// import OverViewSection from "../components/AboutUs/OverViewSection.vue";
-import TargetAudience from "../components/AboutUs/TargetAudience.vue";
 
-import { Icon } from "astro-icon/components";
+import Faqs from "../components/Faq/FaqFetchAPI.vue";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 
 const lang = getLangFromUrl(Astro.url);
 
 const t = useTranslations(lang);
-
-const aboutSlug = `/aboutus`;
-const staffSlug = `/staff`;
+const homeSlug = `/`;
 ---
 
 <Layout
-  title={`เกี่ยวกับเรา | ${t("name")} ${t("university")}`}
-  description={`${t("aboutUs.description")}`}
+  title={`ดาวน์โหลดเอกสาร | ${t("name")} ${t("university")}`}
+  description={`รวมเอกสารดาวน์โหลดสำหรับหลักสูตรผู้บริหารระดับสูงด้านการค้าและการพาณิชย์ TEPCoT มหาวิทยาลัยหอการค้าไทย`}
   lang={lang}
   isMenu={true}
 >
-  <MainBanner title={"เกี่ยวกับเรา"} description={t("name")} />
+  <MainBanner title={"ดาวน์โหลดเอกสาร TEPCoT"} description={t("name")} />
 
-  <div class="pt-16 w-full" id="history">
+  <div class="container mx-auto px-4 md:px-0">
+    <Breadcrumbs
+      items={[
+        { label: "หน้าหลัก", href: homeSlug },
+        { label: "ดาวน์โหลดเอกสาร" },
+      ]}
+    />
+  </div>
+
+  <div class="w-full" id="download-file">
     <!-- This Content  -->
-    <AboutUsDetail client:visible lang={lang}>
-      <TopicAboutUs title={"About TEPCoT"} desc={t("name")}>
-        <a href={aboutSlug}>
-          <button
-            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 btn-active px-4 text-center md:text-left mr-2"
-          >
-            <Icon name="check-circle" class="hidden md:block" />
-            {t("aboutUs.history")}</button
-          >
-        </a>
-        <a href={staffSlug}>
-          <button
-            class="btn btn-sm btn-outline btn-primary rounded-full font-normal capitalize hover:text-white text-20 md:text-24 text-center md:text-left"
-          >
-            <Icon name="check-circle" class="hidden md:block" />
-            {t("nav.staff")}</button
-          >
-        </a>
-      </TopicAboutUs>
-    </AboutUsDetail>
-    <section id="target-audience">
-      <TargetAudience client:idle lang={lang} />
+    <section class="min-h-[calc(100vh-32px)] container mx-auto">
+      <h2 class="text-30 md:text-44 font-bold mb-4">
+        ดาวน์โหลดเอกสาร TEPCoT
+      </h2>
+      <div class="">
+        <p class="text-20 md:text-24  text-gray-600">
+          กำลังอยู่ในระหว่างการจัดทำเอกสารดาวน์โหลด
+          กรุณาติดต่อทีมงานเพื่อขอข้อมูลเพิ่มเติม
+        </p>
+      </div>
     </section>
+
     <!-- <OverViewSection client:visible lang={lang} /> -->
     <Faqs client:load lang={lang} />
-    <AlumniSection lang={lang} />
-    <!-- <CourseList client:load lang={lang} class:list={'bg-a-yellow-CFECFF'} /> -->
-    <!-- <FacilitiesSection slug={""} title={""} lang={lang} client:load /> -->
+    <!-- <AlumniSection client:load lang={lang} /> -->
   </div>
 </Layout>
 <style scoped>

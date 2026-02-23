@@ -13,7 +13,6 @@
             <h3 class=" text-gradient-blue text-36 sm:text-44 font-bold">
               {{ title }}
             </h3>
-
             <div class="mt-6 space-y-5 text-slate-700 text-20 md:text-24 font-light" v-html="description"></div>
           </div>
           <div>

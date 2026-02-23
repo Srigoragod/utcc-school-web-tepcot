@@ -1,35 +1,41 @@
 ---
-import SpeakerListPage from "../../../components/Speaker/SpeakerListPage.astro";
+import SpeakerListView from "../../../components/Speaker/SpeakerListView.astro";
 import { SPEAKER_PER_PAGE } from "../../../consts";
+import { getLangFromUrl, useTranslations } from "../../../i18n/utils";
 
-const { page } = Astro.params;
-const currentPage = Number(page);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-// ✅ generate static paths
-export async function getStaticPaths() {
-  const uri = import.meta.env.PUBLIC_API_WP_SPEAKER;
-  const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
-  const allSpeakers = await data.json();
+export async function getStaticPaths({ paginate }) {
+  const speakerApi = import.meta.env.PUBLIC_API_WP_SPEAKER;
+  
+  const speakerRes = await fetch(
+    `${speakerApi}?per_page=100&_embed&acf_format=standard`
+  );
+  const allSpeakers = await speakerRes.json();
 
-  const perPage = SPEAKER_PER_PAGE;
-  const totalPages = Math.ceil(allSpeakers.length / perPage);
-
-  return Array.from({ length: totalPages }).map((_, i) => ({
-    params: { page: String(i + 1) },
+  return paginate(allSpeakers, {
+    pageSize: SPEAKER_PER_PAGE,
     props: { allSpeakers },
-  }));
+  });
 }
 
-const allSpeakers = Astro.props.allSpeakers;
+const { page, allSpeakers } = Astro.props as any;
 
-if (currentPage < 1 || currentPage > Math.ceil(allSpeakers.length / SPEAKER_PER_PAGE)) {
-  throw new Error("Page not found");
-}
 ---
 
-<SpeakerListPage
+<SpeakerListView
+  pageTitle="วิทยากร TEPCoT"
+  pageDesc="เสียงสะท้อนความประทับใจจากผู้บริหารที่ร่วมเป็นส่วนหนึ่งของหลักสูตร TEPCoT"
+  breadcrumbsItems={[
+    { label: "หน้าหลัก", href: "/" },
+    { label: "วิทยากร" },
+    { label: "" },
+  ]}
+  showIntroText={true}
   allSpeakers={allSpeakers}
-  currentPage={currentPage}
-  perPage={SPEAKER_PER_PAGE}
-  baseUrl="/speakers"
+  displaySpeakers={page.data}
+  currentPage={page.currentPage}
+  totalPages={page.lastPage}
+  paginationBaseUrl="/speakers"
 />
