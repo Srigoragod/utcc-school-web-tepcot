@@ -43,6 +43,7 @@ const alumniGens = generation.filter((b) => {
 
 const totalPages = Math.ceil(alumniGens.length / ALUMNI_PER_PAGE);
 const paginatedAlumni = alumniGens.slice(0, ALUMNI_PER_PAGE);
+
 ---
 
 <AlumniListView
@@ -60,4 +61,5 @@ const paginatedAlumni = alumniGens.slice(0, ALUMNI_PER_PAGE);
   totalPages={totalPages}
   paginationBaseUrl={`/alumni/generation/${genSlug}`}
   emptyMessage={`ยังไม่มีข้อมูลใน ${genName}`}
+  generate={genSlug}
 />

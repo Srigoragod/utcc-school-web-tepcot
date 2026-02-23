@@ -1,9 +1,58 @@
 ---
-const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
-const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
-const allAlumni = await data.json();
+import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
+const uri = import.meta.env.PUBLIC_API_WP_DOWNLOAD;
+const { generate } = Astro.props;
+
+let currentGenDownload: any = null;
+
+if (generate) {
+  try {
+    const data = await fetch(uri);
+    const allDownload = await data.json();
+
+    if (Array.isArray(allDownload)) {
+      currentGenDownload = allDownload.find(
+        (item) => item?.gen?.slug === generate,
+      );
+    }
+  } catch (error) {
+    console.error("ดึงข้อมูล Banner ล้มเหลว:", error);
+  }
+}
 ---
 
-<template>
+{
+  currentGenDownload && (
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4 mb-8 bg-slate-200 p-4 rounded-2xl">
+      <div class="col-span-2 lg:col-span-1 text-center lg:text-left">
+        <h2 class="text-24 md:text-30 font-bold">
+          {currentGenDownload.gen.description || "ไม่ระบุ"}
+        </h2>
+        {currentGenDownload?.file && (
+          <div class="lg:mt-4">
+            <a
+              href={currentGenDownload.file}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 bg-[#0B1F3A] hover:bg-[#003366] text-white hover:text-white px-4 py-2 rounded-lg font-medium transition-colors w-fit"
+            >
+              <ArrowDownTrayIcon class="w-5 h-5" />
+              รายชื่อ {currentGenDownload.gen.description}
+            </a>
+          </div>
+        )}
+      </div>
 
-</template>
+      <div class="col-span-2 lg:col-span-3">
+        {currentGenDownload.image && (
+          <img
+            src={currentGenDownload.image}
+            alt={currentGenDownload.title || "รูปรุ่น"}
+            class="w-full h-auto object-cover rounded-2xl shadow-md"
+          />
+        )}
+      </div>
+    </div>
+  )
+}

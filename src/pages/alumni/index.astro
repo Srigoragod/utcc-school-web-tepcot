@@ -6,7 +6,7 @@ const uri = import.meta.env.PUBLIC_API_WP_ALUMNI;
 const data = await fetch(uri + "?per_page=100&_embed&acf_format=standard");
 const allAlumni = await data.json();
 
-const { currentPage = 1, perPage = ALUMNI_PER_PAGE} = Astro.props; // หรือดึง API ตรงนี้
+const { currentPage = 1, perPage = ALUMNI_PER_PAGE, genSlug = null } = Astro.props; // หรือดึง API ตรงนี้
 
 const start = (currentPage - 1) * perPage;
 const paginatedAlumni = allAlumni.slice(start, start + perPage);
@@ -27,4 +27,5 @@ const totalPages = Math.ceil(allAlumni.length / perPage);
   currentPage={currentPage}
   totalPages={totalPages}
   paginationBaseUrl="/alumni"
+  generate={genSlug}
 />

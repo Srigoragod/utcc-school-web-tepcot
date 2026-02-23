@@ -80,11 +80,52 @@ const bgImage = await getImage({ src: NoImage });
             </div>
             {mutualAvatars && mutualAvatars.length > 0 && (
               <span class="text-base text-[#0B1F3A]/65 line-clamp-2">
-                {mutualAvatars.length === 1
-                  ? `ร่วมรุ่นกับ ${mutualAvatars[0].name}`
-                  : mutualAvatars.length === 2
-                    ? `ร่วมรุ่นกับ ${mutualAvatars[0].name} และ ${mutualAvatars[1].name}`
-                    : `ร่วมรุ่นกับ ${mutualAvatars[0].name}, ${mutualAvatars[1].name} และเพื่อนร่วมรุ่นอีก ${mutualAvatars.length - 2} คน`}
+                {mutualAvatars.length === 1 ? (
+                  <>
+                    ร่วมรุ่นกับ{" "}
+                    <a
+                      href={`/alumni/${mutualAvatars[0].slug}`}
+                      class="font-medium hover:text-[#0B1F3A] hover:underline transition-colors"
+                    >
+                      {mutualAvatars[0].name}
+                    </a>
+                  </>
+                ) : mutualAvatars.length === 2 ? (
+                  <>
+                    ร่วมรุ่นกับ{" "}
+                    <a
+                      href={`/alumni/${mutualAvatars[0].slug}`}
+                      class="font-medium hover:text-[#0B1F3A] hover:underline transition-colors"
+                    >
+                      {mutualAvatars[0].name}
+                    </a>{" "}
+                    และ{" "}
+                    <a
+                      href={`/alumni/${mutualAvatars[1].slug}`}
+                      class="font-medium hover:text-[#0B1F3A] hover:underline transition-colors"
+                    >
+                      {mutualAvatars[1].name}
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    ร่วมรุ่นกับ{" "}
+                    <a
+                      href={`/alumni/${mutualAvatars[0].slug}`}
+                      class="font-medium hover:text-[#0B1F3A] hover:underline transition-colors"
+                    >
+                      {mutualAvatars[0].name}
+                    </a>
+                    ,{" "}
+                    <a
+                      href={`/alumni/${mutualAvatars[1].slug}`}
+                      class="font-medium hover:text-[#0B1F3A] hover:underline transition-colors"
+                    >
+                      {mutualAvatars[1].name}
+                    </a>{" "}
+                    และเพื่อนร่วมรุ่นอีก {mutualAvatars.length - 2} คน
+                  </>
+                )}
               </span>
             )}
           </div>

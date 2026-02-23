@@ -6,6 +6,7 @@ import UniqueType from "../uniqueType.astro";
 import Pagination from "../Pagination.astro";
 import Breadcrumbs from "../Breadcrumbs.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import AlumniGenerationBanner from "./AlumniGenerationBanner.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -20,59 +21,91 @@ const {
   currentPage,
   totalPages,
   paginationBaseUrl,
-  emptyMessage = "ยังไม่มีข้อมูล"
+  emptyMessage = "ยังไม่มีข้อมูล",
+  generate,
 } = Astro.props;
 
 const getMutualAvatars = (generationKey, currentSlug) => {
   if (!generationKey || !allAlumni.length) return [];
   return allAlumni
-    .filter((item) => item.acf?.key === generationKey && item.slug !== currentSlug)
+    .filter(
+      (item) => item.acf?.key === generationKey && item.slug !== currentSlug,
+    )
     .map((item) => ({
-      image: item.acf?.image || item._embedded?.["wp:featuredmedia"]?.[0]?.source_url,
+      image:
+        item.acf?.image ||
+        item._embedded?.["wp:featuredmedia"]?.[0]?.source_url,
       name: item.title?.rendered || item.name,
       slug: item.slug,
     }));
 };
+
 ---
 
-<Layout title={`${pageTitle} | ${t("university")}`} description={pageDesc} lang={lang} isMenu={true}>
-  <MainBanner title={pageTitle} description={pageDesc} />
+<Layout
+  title={`${pageTitle} | ${t("university")}`}
+  description={pageDesc}
+  lang={lang}
+  isMenu={true}
+>
+  <MainBanner
+    title={pageTitle}
+    description={pageDesc}
+  />
   <div class="">
     <div class="px-4 sm:px-16">
       <div class="container mx-auto">
         <Breadcrumbs items={breadcrumbsItems} />
-        
+
         <div class="pb-8">
-          {showIntroText && (
-            <div>
-              <h3 class="text-30 md:text-44 font-bold mb-4">เครือข่ายศิษย์เก่า</h3>
-              <h4 class="text-20 md:text-24 max-w-4xl opacity-90 font-light mb-8">
-                ตลอดระยะเวลาของ TEPCoT ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย...
-              </h4>
-            </div>
-          )}
+          {
+            showIntroText && (
+              <div>
+                <h3 class="text-30 md:text-44 font-bold mb-4">
+                  เครือข่ายศิษย์เก่า
+                </h3>
+                <h4 class="text-20 md:text-24 max-w-4xl opacity-90 font-light mb-8">
+                  ตลอดระยะเวลาของ TEPCoT
+                  ได้สร้างเครือข่ายผู้บริหารระดับสูงที่มีบทบาทสำคัญต่อเศรษฐกิจและสังคมไทย...
+                </h4>
+              </div>
+            )
+          }
 
-          <div class="grid grid-cols-2 md:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-0 md:gap-4 lg:gap-8">
             <div class="col-span-4 lg:col-span-4 mb-0">
-              
-              {displayAlumni.length >= 1 ? (
-                <>
-                  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
-                    {displayAlumni.map((alumni) => {
-                      const mutualFriends = getMutualAvatars(alumni.acf?.key, alumni.slug);
-                      return <AlumniCard p={alumni} mutualAvatars={mutualFriends} />;
-                    })}
+              {generate && <AlumniGenerationBanner generate={generate} />}
+              {
+                displayAlumni.length >= 1 ? (
+                  <>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+                      {displayAlumni.map((alumni) => {
+                        const mutualFriends = getMutualAvatars(
+                          alumni.acf?.key,
+                          alumni.slug,
+                        );
+                        return (
+                          <AlumniCard
+                            p={alumni}
+                            mutualAvatars={mutualFriends}
+                          />
+                        );
+                      })}
+                    </div>
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      baseUrl={paginationBaseUrl}
+                    />
+                  </>
+                ) : (
+                  <div class="text-center text-a-gray-696F6F py-16">
+                    <p>{emptyMessage}</p>
                   </div>
-                  <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={paginationBaseUrl} />
-                </>
-              ) : (
-                <div class="text-center text-a-gray-696F6F py-16">
-                  <p>{emptyMessage}</p>
-                </div>
-              )}
-
+                )
+              }
             </div>
-            <div class="col-span-2 md:col-span-1 lg:col-span-1">
+            <div class="col-span-1 lg:col-span-1">
               <UniqueType type="alumni" />
             </div>
           </div>

@@ -24,7 +24,7 @@ export async function getStaticPaths({ paginate }) {
 }
 
 // Astro จะส่งก้อนข้อมูลชื่อ `page` มาให้แทน (มีบอกหมดว่าหน้าไหน, ข้อมูลมีอะไรบ้าง)
-const { page, allAlumni } = Astro.props as any;
+const { page, allAlumni, genSlug = null } = Astro.props as any;
 
 // page.data คือข้อมูลที่ถูกตัดมาให้แล้ว (เช่น หน้า 2 ก็จะเป็นคนที่ 11-20)
 // page.currentPage คือเลขหน้าปัจจุบัน
@@ -45,4 +45,5 @@ const { page, allAlumni } = Astro.props as any;
   totalPages={page.lastPage}
   paginationBaseUrl="/alumni"
   emptyMessage="ยังไม่มีข้อมูลศิษย์เก่า"
+  generate={genSlug}
 />
